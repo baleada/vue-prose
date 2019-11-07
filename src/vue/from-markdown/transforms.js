@@ -30,12 +30,28 @@ export function render (preRendered) {
 export function postRender (rendered) {
   const { attributes: { title }, stats: { mtime }, markup } = rendered
 
+  // TODO: Remove heading and mtime once Vue supports fragments, then wrap markup in a fragment
   return `\
 <template lang="html">\
 <section class="contents">\
-<ProseHeading :level="1">${title}</ProseHeading>\
-<ProseUpdatedAt timestamp="${mtime}" />\
-${markup}\
+  <ProseHeading :level="1">${title}</ProseHeading>\
+  <ProseMTime mtime="${mtime}" />\
+  ${markup}\
 </section>\
-</template>`
+</template>\n\
+\n\
+<script>\n\
+import { inject } from '@vue/composition-api'\n\
+import { proseArticle } from '@baleada/prose/vue/symbols'\n\
+\n\
+export default {\n\
+  setup () {\n\
+    const setTitle = inject(proseArticle.setTitle),\n\
+          setMTime = inject(proseArticle.setMTime)\n\
+\n\
+    setTitle(${title})\n\
+    setMTime(${mtime})\n\
+  }\n\
+}\n\
+</script>`
 }
