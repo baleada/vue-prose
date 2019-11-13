@@ -4,7 +4,7 @@
   "description": "Components that enhance prose for the Baleada toolkit",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "node scripts/prepare.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,24 @@
   "bugs": {
     "url": "https://gitlab.com/baleada/prose/issues"
   },
-  "homepage": "https://gitlab.com/baleada/prose#readme"
+  "homepage": "https://gitlab.com/baleada/prose#readme",
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "fast-async": "^6.3.8",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-vue": "^5.1.2",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@baleada/composition": "0.0.0",
+    "@baleada/icons": "^0.3.1",
+    "front-matter": "^3.0.2",
+    "markdown-it": "^10.0.0"
+  }
 }

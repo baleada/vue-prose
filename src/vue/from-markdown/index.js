@@ -1,7 +1,11 @@
-import webpackTransform from './webpack.js'
-import rollupTransform from './rollup.js'
+import plugins from './plugins'
+import rollup from './rollup.js'
+import transforms from './transforms.js'
+import webpack from './webpack.js'
 
 export {
+  plugins,
+  rollup,
+  transforms,
   webpack,
-  rollup
 }

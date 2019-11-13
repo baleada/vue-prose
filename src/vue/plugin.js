@@ -1,8 +1,8 @@
-import components from './components'
+import * as components from './components/index.js'
 import { setRuntimeVM } from './util/runtime'
 
 const defaultOptions = {
-  only: Object.keys(components)
+  only: Object.keys(components),
   except: [],
 }
 
@@ -11,7 +11,7 @@ export default function install (Vue, options = {}) {
     ...defaultOptions,
     ...options
   }
-  
+
   installComponents(Vue, options)
   installRuntime(Vue)
 }
