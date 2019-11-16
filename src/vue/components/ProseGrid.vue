@@ -39,7 +39,7 @@
 
 <script>
 import { reactive, ref, computed, onMounted, provide } from '@vue/composition-api'
-import { useGrid } from '../utilkeyboardAccessibility'
+import { useProseGrid } from '../composition/keyboardAccessibility'
 
 import { useSymbol } from '../composition'
 

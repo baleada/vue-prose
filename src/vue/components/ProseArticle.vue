@@ -12,7 +12,7 @@ import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
-import { scrollToHeading } from '../util'
+import scrollToHeading from '../util/scrollToHeading'
 
 export default {
   name: 'ProseArticle',

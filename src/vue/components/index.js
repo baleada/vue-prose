@@ -9,7 +9,6 @@ import ProseHeading from './ProseHeading.vue'
 import ProseNav from './ProseNav.vue'
 import ProseRow from './ProseRow.vue'
 import ProseRowgroup from './ProseRowgroup.vue'
-import ProseTable from './ProseTable.vue'
 import ProseTableOfContents from './ProseTableOfContents.vue'
 import ProseThreeColumnLayout from './ProseThreeColumnLayout.vue'
 import ProseUpdatedAt from './ProseUpdatedAt.vue'
@@ -26,7 +25,6 @@ export {
   ProseNav,
   ProseRow,
   ProseRowgroup,
-  ProseTable,
   ProseTableOfContents,
   ProseThreeColumnLayout,
   ProseUpdatedAt,

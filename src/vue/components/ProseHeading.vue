@@ -34,7 +34,7 @@ import { ref, computed, onMounted, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
-import { simpleSlugify } from '../util'
+import simpleSlugify from '../util/simpleSlugify'
 
 import { EvaLink } from '@baleada/icons/vue'
 
