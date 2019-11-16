@@ -24,38 +24,3 @@ export default {
   },
 }
 </script>
-
-<style lang="postcss" media="screen">
-  .prose-table-of-contents {
-    @apply flex flex-col;
-
-    * + a {
-      @apply mt-2;
-    }
-
-    .h1 {
-      @apply ml-0 font-500;
-    }
-    .h2 {
-      @apply ml-2;
-    }
-    .h3 {
-      @apply ml-5;
-    }
-    .h4 {
-      @apply ml-7;
-    }
-    .h5 {
-      @apply ml-9;
-    }
-    .h6 {
-      @apply ml-10;
-    }
-
-    .dark & {
-      h2 {
-        @apply bg-gray-900;
-      }
-    }
-  }
-</style>

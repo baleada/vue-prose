@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <section
     class="relative prose-codeblock swiper-no-swiping transition"
   >
@@ -18,7 +18,7 @@
 
 <script>
 import { ref, computed } from '@vue/composition-api'
-import useCopiable from '~/assets/js/composition/useCopiable'
+import useCopiable from '@baleada/composition'
 
 import { EvaCopy } from '@baleada/icons/vue'
 

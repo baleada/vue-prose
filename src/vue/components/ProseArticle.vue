@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <article
     ref="prose"
     class="prose-article"
@@ -10,15 +10,15 @@
 <script>
 import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 
-import useSymbol from '~/assets/js/useSymbol'
+import { useSymbol } from '../composition'
 
-import scrollToHeading from '~/assets/js/scrollToHeading'
+import { scrollToHeading } from '../util'
 
 export default {
   name: 'ProseArticle',
   setup() {
     /* Track route */
-    const fullPath = inject(useSymbol('proseLayout', 'fullPath'))
+    const fullPath = inject(useSymbol('layout', 'fullPath'))
 
     /* Scroll to heading */
     const prose = ref(null)

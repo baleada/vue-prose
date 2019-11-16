@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <main
     class="relative z-10 lg:flex transition"
     :class="[
@@ -199,9 +199,9 @@
 <script>
 import { ref, computed, watch, provide } from '@vue/composition-api'
 
-// import useListenable from '~/assets/js/baleada/composition/useListenable'
-import useRouter from '~/assets/js/useRouter'
-import useSymbol from '~/assets/js/useSymbol'
+import useListenable from '@baleada/composition'
+
+import { useSymbol, useRouter } from '../composition'
 
 import { EvaMenu } from '@baleada/icons/vue'
 import { EvaClose } from '@baleada/icons/vue'
@@ -308,7 +308,7 @@ export default {
           }
     // onMounted(() => document.addEventListener('keydown', darkThemeShortcutListener))
     // onBeforeUnmount(() => document.removeEventListener('keydown', darkThemeShortcutListener))
-    provide(useSymbol('proseLayout', 'isDarkTheme'), isDarkTheme)
+    provide(useSymbol('layout', 'isDarkTheme'), isDarkTheme)
 
     /* Minimalist theme */
     const isMinimalistTheme = ref(false),
@@ -322,17 +322,17 @@ export default {
           }
     // onMounted(() => document.addEventListener('keydown', minimalistThemeShortcutListener))
     // onBeforeUnmount(() => document.removeEventListener('keydown', minimalistThemeShortcutListener))
-    provide(useSymbol('proseLayout', 'isMinimalistTheme'), isMinimalistTheme)
+    provide(useSymbol('layout', 'isMinimalistTheme'), isMinimalistTheme)
 
     /* Provide stuff for ProseArticle */
     const { route } = useRouter(),
           fullPath = computed(() => route.value.fullPath)
-    provide(useSymbol('proseLayout', 'fullPath'), fullPath)
+    provide(useSymbol('layout', 'fullPath'), fullPath)
 
     /* Provide stuff for ProseHeading */
     const headings = ref([]),
           addHeading = (heading) => headings.value.push(heading)
-    provide(useSymbol('proseLayout', 'addHeading'), addHeading)
+    provide(useSymbol('layout', 'addHeading'), addHeading)
 
 
     return {

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <transition>
     <div
       v-show="matchesFilterQuery"
@@ -13,14 +13,14 @@
 <script>
 import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 
-import useSymbol from '~/assets/js/useSymbol'
+import { useSymbol } from '../composition'
 
 export default {
   setup () {
     const prose = ref(null),
           text = ref(''),
-          filterQuery = inject(useSymbol('proseGrid', 'filterQuery')),
-          filterQueryIsCaseSensitive = inject(useSymbol('proseGrid', 'filterQueryIsCaseSensitive'))
+          filterQuery = inject(useSymbol('grid', 'filterQuery')),
+          filterQueryIsCaseSensitive = inject(useSymbol('grid', 'filterQueryIsCaseSensitive'))
           matchesFilterQuery = computed(() => {
             return filterQueryIsCaseSensitive
               ? filterQuery === '' || text.includes(filterQuery)

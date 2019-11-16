@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <section class="prose-table prose-table-striped w-full sm:w-auto sm:min-w-2 swiper-no-swiping transition">
     <div v-if="isTypeToFilterable">
       <input
@@ -37,7 +37,7 @@
 
 <script>
 import { ref, computed } from '@vue/composition-api'
-import { useGrid } from '~/assets/js/keyboardAccessibility'
+import { useGrid } from '../util/keyboardAccessibility'
 
 export default {
   name: 'ProseTable',

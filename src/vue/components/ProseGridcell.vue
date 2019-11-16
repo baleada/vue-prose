@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div ref="prose" role="gridcell">
     <slot />
   </div>
@@ -7,14 +7,14 @@
 <script>
 import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 
-import useSymbol from '~/assets/js/useSymbol'
+import { useSymbol } from '../composition'
 
 export default {
   setup() {
     const prose = ref(null),
           row = ref(null),
           column = ref(null),
-          focused = inject(useSymbol('proseGrid', 'focused')),
+          focused = inject(useSymbol('grid', 'focused')),
           isFocused = computed(() => row === focused.row && column === focused.column)
 
     watch(isFocused, () => {

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <aside class="prose-aside transition" :class="[`aside-${type}`]">
     <div>
       <div v-if="type === 'info'" class="aside-icon">

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <section class="prose-table prose-table-striped w-full sm:w-auto sm:min-w-2 swiper-no-swiping transition">
     <div v-if="canFilterByQuery">
       <input
@@ -39,9 +39,9 @@
 
 <script>
 import { reactive, ref, computed, onMounted, provide } from '@vue/composition-api'
-import { useGrid } from '~/assets/js/keyboardAccessibility'
+import { useGrid } from '../utilkeyboardAccessibility'
 
-import useSymbol from '~/assets/js/useSymbol'
+import { useSymbol } from '../composition'
 
 export default {
   name: 'ProseTable',
@@ -78,8 +78,8 @@ export default {
 
 
 
-    provide(useSymbol('proseGrid', 'filterQuery'), filterQuery)
-    provide(useSymbol('proseGrid', 'filterQueryIsCaseSensitive'), filterQueryIsCaseSensitiveRef)
+    provide(useSymbol('grid', 'filterQuery'), filterQuery)
+    provide(useSymbol('grid', 'filterQueryIsCaseSensitive'), filterQueryIsCaseSensitiveRef)
 
     // TODO: Create dedicated components for each row and cell, and use provide/inject to filter, with enter/leave transitions included
 

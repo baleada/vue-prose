@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <nav class="prose-nav">
     <section v-for="(directory, index) in directories" :key="directory.name" :class="[index === 0 ? '' : 'mt-8']">
       <component :is="`h${directory.level + 1}`">{{ directory.name.toUpperCase() }}</component>

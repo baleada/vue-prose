@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <component
     class="prose-heading relative transition cursor-pointer"
     :is="`h${level}`"
@@ -32,9 +32,9 @@
 <script>
 import { ref, computed, onMounted, inject } from '@vue/composition-api'
 
-import useSymbol from '~/assets/js/useSymbol'
+import { useSymbol } from '../composition'
 
-import simpleSlugify from '~/assets/js/simpleSlugify'
+import { simpleSlugify } from '../util'
 
 import { EvaLink } from '@baleada/icons/vue'
 
@@ -56,7 +56,7 @@ export default {
           buttonIsShown = ref(false),
           handleMouseover = () => (buttonIsShown.value = true),
           handleMouseleave = () => (buttonIsShown.value = false),
-          addHeading = inject(useSymbol('proseLayout', 'addHeading'))
+          addHeading = inject(useSymbol('layout', 'addHeading'))
 
     onMounted(() => {
       addHeading({ level: props.level, slug: slug.value, text: text.value })

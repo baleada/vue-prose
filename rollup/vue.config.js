@@ -1,11 +1,13 @@
 import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
+import resolve from 'rollup-plugin-node-resolve';
 
 export default {
   external: [
     '@vue/composition-api',
+    '@baleada/icons/vue',
+    '@baleada/composition',
     'vue',
-    'fs',
   ],
   input: [
     'src/vue/index.js',
@@ -19,6 +21,7 @@ export default {
     vue(),
     babel({
       exclude: 'node_modules/**'
-    })
+    }),
+    resolve(),
   ]
 }

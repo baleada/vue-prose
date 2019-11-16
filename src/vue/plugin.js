@@ -1,4 +1,4 @@
-import * as components from './components/index.js'
+import * as components from './components'
 import { setRuntimeVM } from './util/runtime'
 
 const defaultOptions = {

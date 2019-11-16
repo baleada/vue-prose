@@ -3,9 +3,8 @@ const fs = require('fs')
 module.exports = function(framework) {
   const components = getFiles(framework, 'components'),
         composition = getFiles(framework, 'composition'),
-        fromMarkdowns = getFiles(framework, 'from-markdown'),
         utils = getFiles(framework, 'util'),
-        all = components.concat(composition).concat(fromMarkdowns).concat(utils),
+        all = components.concat(composition).concat(utils),
         imported = all.reduce((imported, fnxn) => `${imported}import ${fnxn.name} from '${fnxn.path}'\n`, ''),
         exported = all.reduce((exported, fnxn) => `${exported}  ${fnxn.name},\n`, 'export {\n') + '}'
 
