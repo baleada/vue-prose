@@ -222,6 +222,12 @@ export default {
     EvaLayout,
     EvaSquare,
   },
+  props: {
+    manifest: {
+      type: Array,
+      required: true,
+    }
+  },
   setup(props, context) {
     /* Manage nav state */
     const navIsOpen = ref(false),
@@ -331,9 +337,11 @@ export default {
 
     /* Provide stuff for ProseHeading */
     const headings = ref([]),
-          addHeading = (heading) => headings.value.push(heading)
+          addHeading = heading => headings.value.push(heading)
     provide(useSymbol('layout', 'addHeading'), addHeading)
 
+    /* Provide stuff for ProseNav */
+    provide(useSymbol('layout', 'manifest'), props.manifest)
 
     return {
       toggleNav,

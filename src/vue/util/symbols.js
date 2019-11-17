@@ -4,6 +4,7 @@ const symbols = {
     isMinimalistTheme: Symbol('isMinimalistTheme'),
     fullPath: Symbol('fullPath'),
     addHeading: Symbol('addHeading'),
+    manifest: Symbol('manifest'),
   },
   article: {
     setTitle: Symbol('setTitle'),

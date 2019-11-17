@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import allDirectories from '~/static/json/manifest.json'
+import { useSymbol } from '../util/useSymbol'
 
 export default {
   setup() {
-    const frameworks = ['Vue', 'React', 'Svelte', 'agnostic'],
-          directories = allDirectories.filter(dir => dir.pages.length > 0)
+    const manifest = inject(useSymbol('layout', 'manifest')),
+          directories = manifest.filter(dir => dir.pages.length > 0)
 
-    // TODO: filter based on framework, with enter/leave transitions
+    // TODO: filter based on metadata, with enter/leave transitions
 
     return {
       directories,
