@@ -2,8 +2,8 @@ import * as components from './components'
 import { setRuntimeVM } from './util/runtime'
 
 const defaultOptions = {
-  only: Object.keys(components),
-  except: [],
+  components,
+  dynamic: true,
 }
 
 export default function install (Vue, options = {}) {
@@ -17,19 +17,14 @@ export default function install (Vue, options = {}) {
 }
 
 function installComponents (Vue, options) {
-  const { except, only } = { options },
-        lowercaseExcept = except.map(name => name.toLowerCase()),
-        lowercaseOnly = only.map(name => name.toLowerCase()),
-        componentNames = Object.keys(components),
-        toUserFriendly = name => name.replace(/^Prose/, '').toLowerCase(),
-        shouldInstallNames = componentNames.filter(name => {
-          const userFriendlyName = toUserFriendly(name)
-          return lowerCaseOnly.includes(userFriendlyName) && !lowerCaseExcept.includes(userFriendlyName)
-        }),
-        shouldInstall = shouldInstallNames.map(name => ({ name, component: components[name] }))
+  const { components, dynamic } = { options }
 
-  shouldInstall.forEach(({ name, component }) => {
-    Vue.component(name, (resolve, reject) => resolve(component))
+  components.forEach(component => {
+    const callback = dynamic
+      ? component
+      : (resolve, reject) => resolve(component)
+
+    Vue.component(name, callback)
   })
 }
 

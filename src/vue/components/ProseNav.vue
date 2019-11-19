@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { useSymbol } from '../util/useSymbol'
+import { useSymbol } from '../composition'
 
 export default {
   setup() {

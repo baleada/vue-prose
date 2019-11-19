@@ -1,16 +1,16 @@
 <template>
-  <aside class="prose-aside transition" :class="[`aside-${type}`]">
+  <aside class="prose-aside transition" :class="[`prose-aside-${type}`]">
     <div>
-      <div v-if="type === 'info'" class="aside-icon">
+      <div v-if="type === 'info'" class="prose-aside-icon">
         <EvaInfo :class="'fill-current'"/>
       </div>
-      <div v-if="type === 'warning'" class="aside-icon">
+      <div v-if="type === 'warning'" class="prose-aside-icon">
         <EvaAlertTriangle :class="'fill-current'"/>
       </div>
-      <div v-if="type === 'danger'" class="aside-icon">
+      <div v-if="type === 'danger'" class="prose-aside-icon">
         <EvaFlash :class="'fill-current'"/>
       </div>
-      <div v-if="type === 'success'" class="aside-icon">
+      <div v-if="type === 'success'" class="prose-aside-icon">
         <EvaAward :class="'fill-current'"/>
       </div>
     </div>

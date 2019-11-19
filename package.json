@@ -1,5 +1,5 @@
 {
-  "name": "prose",
+  "name": "@baleada/prose",
   "version": "0.0.0",
   "description": "Components that enhance prose for the Baleada toolkit",
   "main": "index.js",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://gitlab.com/baleada/prose/issues"
   },
-  "homepage": "https://gitlab.com/baleada/prose#readme",
+  "homepage": "https://baleada.netlify.com",
   "sideEffects": false,
   "devDependencies": {
     "@babel/cli": "^7.7.0",

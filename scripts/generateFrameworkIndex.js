@@ -2,7 +2,8 @@ const fs = require('fs')
 
 module.exports = function(framework) {
   const components = getFiles(framework, 'components'),
-        all = components,
+        composition = getFiles(framework, 'composition'),
+        all = [...components, ...composition],
         imported = all.reduce((imported, fnxn) => `${imported}import ${fnxn.name} from '${fnxn.path}'\n`, ''),
         exported = all.reduce((exported, fnxn) => `${exported}  ${fnxn.name},\n`, 'export {\n') + '}'
 

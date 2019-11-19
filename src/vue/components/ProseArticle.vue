@@ -29,6 +29,15 @@ export default {
       scrollToHeading(fullPath.value, { container: prose.value })
     }, { lazy: true })
 
+    /* Collect frontMatter and stats from loaders */
+    const stats = ref({}),
+          setStats = newStats => stats.value = newStats
+    provide(useSymbol('article', 'setStats'), setStats)
+
+    const frontMatter = ref({}),
+          setFrontMatter = newFrontMatter => frontMatter.value = newFrontMatter
+    provide(useSymbol('article', 'setFrontMatter'), setFrontMatter)
+
     return {
       prose,
     }

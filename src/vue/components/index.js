@@ -6,11 +6,12 @@ import ProseColumnheader from './ProseColumnheader.vue'
 import ProseGrid from './ProseGrid.vue'
 import ProseGridcell from './ProseGridcell.vue'
 import ProseHeading from './ProseHeading.vue'
+import ProseLayoutThreeColumn from './ProseLayoutThreeColumn.vue'
 import ProseNav from './ProseNav.vue'
 import ProseRow from './ProseRow.vue'
 import ProseRowgroup from './ProseRowgroup.vue'
+import ProseSection from './ProseSection.vue'
 import ProseTableOfContents from './ProseTableOfContents.vue'
-import ProseThreeColumnLayout from './ProseThreeColumnLayout.vue'
 import ProseUpdatedAt from './ProseUpdatedAt.vue'
 
 export {
@@ -22,10 +23,11 @@ export {
   ProseGrid,
   ProseGridcell,
   ProseHeading,
+  ProseLayoutThreeColumn,
   ProseNav,
   ProseRow,
   ProseRowgroup,
+  ProseSection,
   ProseTableOfContents,
-  ProseThreeColumnLayout,
   ProseUpdatedAt,
 }

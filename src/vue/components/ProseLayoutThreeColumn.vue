@@ -212,7 +212,7 @@ import { EvaLayout } from '@baleada/icons/vue'
 import { EvaSquare } from '@baleada/icons/vue'
 
 export default {
-  name: 'ProseThreeColumnLayout',
+  name: 'ProseLayoutThreeColumn',
   components: {
     EvaMenu,
     EvaClose,
