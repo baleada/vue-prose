@@ -18,7 +18,7 @@
 
 <script>
 import { ref, computed } from '@vue/composition-api'
-import useCopiable from '@baleada/composition'
+import { useCopiable } from '@baleada/composition'
 
 import { EvaCopy } from '@baleada/icons/vue'
 
