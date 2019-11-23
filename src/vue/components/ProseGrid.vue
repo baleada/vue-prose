@@ -42,7 +42,7 @@ import { useGridKeyboardAccesibility } from '../composition'
 import { useSymbol } from '../composition'
 
 export default {
-  name: 'ProseTable',
+  name: 'ProseGrid',
   props: {
     hasMaxHeight: {
       type: Boolean,
@@ -75,8 +75,8 @@ export default {
               .rowgroups
               .push({
                 ref,
-                coordinates: { rowgroup: index }
-                rows: []
+                coordinates: { rowgroup: index },
+                rows: [],
               })
           },
           addRow = (rowgroupIndex, index, ref, setIsFiltered) => {
@@ -87,7 +87,7 @@ export default {
                 ref,
                 isFiltered: false,
                 setIsFiltered,
-                coordinates: { rowgroup: rowgroupIndex, row: index }
+                coordinates: { rowgroup: rowgroupIndex, row: index },
                 text: ref.value.textContent,
                 gridcells: []
               })
@@ -99,7 +99,7 @@ export default {
               .gridcells
               .push({
                 ref,
-                coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index }
+                coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index },
               })
           }
 
@@ -122,11 +122,11 @@ export default {
       watch(filterQuery, () => {
         grid.rowgroups[1].rows.forEach(({ text, setIsFiltered }, index) => {
           const matchesFilterQuery = filterQueryIsCaseSensitive.value
-            ? text.includes(filterQuery.value),
+            ? text.includes(filterQuery.value)
             : text.toLowerCase().includes(filterQuery.value.toLowerCase())
 
           grid.rowgroups[1].rows[index].isFiltered = setIsFiltered(!matchesFilterQuery)
-        }))
+        })
       })
     }
 

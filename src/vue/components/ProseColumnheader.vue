@@ -6,5 +6,6 @@
 
 <script>
 export default {
+  name: 'ProseColumnheader',
 }
 </script>

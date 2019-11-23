@@ -11,11 +11,12 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
+import { ref, onMounted, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
 export default {
+  name: 'ProseRow',
   props: {
     index: {
       type: Number,

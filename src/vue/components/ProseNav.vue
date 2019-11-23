@@ -7,7 +7,6 @@
         :key="page.href"
       >
         <nuxt-link
-          v-show="frameworks.includes(page.framework)"
           :to="page.href"
         >
           {{ page.title }}
@@ -18,9 +17,12 @@
 </template>
 
 <script>
+import { inject } from '@vue/composition-api'
+
 import { useSymbol } from '../composition'
 
 export default {
+  name: 'ProseNav',
   setup() {
     const manifest = inject(useSymbol('layout', 'manifest')),
           directories = manifest.filter(dir => dir.pages.length > 0)
@@ -29,7 +31,6 @@ export default {
 
     return {
       directories,
-      frameworks
     }
   },
 }

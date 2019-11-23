@@ -199,7 +199,7 @@
 <script>
 import { ref, computed, watch, provide } from '@vue/composition-api'
 
-import useListenable from '@baleada/composition'
+import { useListenable } from '@baleada/composition/vue'
 
 import { useSymbol, useRouter } from '../composition'
 

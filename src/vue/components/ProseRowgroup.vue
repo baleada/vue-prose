@@ -10,6 +10,7 @@ import { provide } from '@vue/composition-api'
 import { useSymbol } from '../composition'
 
 export default {
+  name: 'ProseRowgroup',
   props: {
     index: {
       type: Number,

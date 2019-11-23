@@ -6,7 +6,7 @@ export default {
   external: [
     '@vue/composition-api',
     '@baleada/icons/vue',
-    '@baleada/composition',
+    '@baleada/composition/vue',
     'vue',
   ],
   input: [

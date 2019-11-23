@@ -1,9 +1,12 @@
 <template>
-  <slot />
+  <section class="contents">
+    <slot />
+  </section>
 </template>
 
 <script>
 export default {
+  name: 'ProseList',
   props: {
     isOrdered: {
       type: Boolean,

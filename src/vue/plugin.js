@@ -2,7 +2,7 @@ import * as components from './components'
 import { setRuntimeVM } from './util/runtime'
 
 const defaultOptions = {
-  components,
+  components: Object.keys(components).map(component => components[component]),
   dynamic: true,
 }
 
@@ -17,12 +17,13 @@ export default function install (Vue, options = {}) {
 }
 
 function installComponents (Vue, options) {
-  const { components, dynamic } = { options }
+  const { components, dynamic } = options
 
   components.forEach(component => {
-    const callback = dynamic
-      ? component
-      : (resolve, reject) => resolve(component)
+    const name = component.name,
+          callback = dynamic
+            ? (resolve, reject) => resolve(component)
+            : component
 
     Vue.component(name, callback)
   })

@@ -6,14 +6,14 @@
 
 <script>
 export default {
-  name: 'ProseUpdatedAt',
+  name: 'ProseStats',
   props: {
-    timestamp: {
-      type: String,
+    stats: {
+      type: Object,
       required: true,
     }
   },
-  setup ({ timestamp }) {
+  setup ({ stats }) {
     const months = [
             'January',
             'February',
@@ -28,7 +28,7 @@ export default {
             'November',
             'December',
           ],
-          date = new Date(timestamp),
+          date = new Date(stats.mtime),
           intl = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 
     return {

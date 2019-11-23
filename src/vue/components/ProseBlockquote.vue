@@ -1,9 +1,12 @@
 <template>
-
+  <section class="contents prose-blockquote">
+    <slot />
+  </section>
 </template>
 
 <script>
 export default {
+  name: 'ProseBlockquote',
   props: {
     isTweetable: {
       type: Boolean,

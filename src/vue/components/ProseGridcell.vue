@@ -10,6 +10,7 @@ import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 import { useSymbol } from '../composition'
 
 export default {
+  name: 'ProseGridcell',
   props: {
     index: {
       type: Number,
