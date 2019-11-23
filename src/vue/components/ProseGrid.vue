@@ -9,7 +9,7 @@
         :value="filterQuery"
         @input="handleFilterQuery"
       />
-      <div class="mt-2 flex items-center">
+      <div class="mt-2 flex items-center" v-if="canChangeFilterQueryIsCaseSensitive">
         <input
           class="filter-query-is-case-sensitive-checkbox"
           type="checkbox"
@@ -30,9 +30,7 @@
       :aria-label="ariaLabel"
       @keydown="handleKeydown"
     >
-      <div role="grid">
-        <slot />
-      </div>
+      <slot />
     </div>
   </section>
 </template>
@@ -58,37 +56,106 @@ export default {
       type: Boolean,
       default: false,
     },
+    canChangeFilterQueryIsCaseSensitive: {
+      type: Boolean,
+      default: false,
+    },
     ariaLabel: {
       type: String,
       required: true,
     }
   },
   setup(props) {
-    const prose = ref(null),
-          filterQueryIsCaseSensitiveRef = ref(props.filterQueryIsCaseSensitive),
-          filterQuery = ref('')
+    const prose = ref(null)
 
-    function handleCaseSensitiveChange () {
-      filterQueryIsCaseSensitiveRef.value = !filterQueryIsCaseSensitiveRef.value
+    /* JSONify grid */
+    const grid = reactive({ rowgroups: [] }),
+          addRowgroup = (index, ref) => {
+            grid
+              .rowgroups
+              .push({
+                ref,
+                coordinates: { rowgroup: index }
+                rows: []
+              })
+          },
+          addRow = (rowgroupIndex, index, ref, setIsFiltered) => {
+            grid
+              .rowgroups[rowgroupIndex]
+              .rows
+              .push({
+                ref,
+                isFiltered: false,
+                setIsFiltered,
+                coordinates: { rowgroup: rowgroupIndex, row: index }
+                text: ref.value.textContent,
+                gridcells: []
+              })
+          },
+          addGridcell = (rowgroupIndex, rowIndex, ref) => {
+            grid
+              .rowgroups[rowgroupIndex]
+              .rows[rowIndex]
+              .gridcells
+              .push({
+                ref,
+                coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index }
+              })
+          }
+
+    provide(useSymbol('grid', 'grid'), grid)
+    provide(useSymbol('grid', 'addRowgroup'), addRowgroup)
+    provide(useSymbol('grid', 'addRow'), addRow)
+    provide(useSymbol('grid', 'addGridcell'), addGridcell)
+
+    /* Filtering */
+    const filterQueryIsCaseSensitiveRef = ref(props.filterQueryIsCaseSensitive),
+          filterQuery = ref(''),
+          handleCaseSensitiveChange = () => (filterQueryIsCaseSensitiveRef.value = !filterQueryIsCaseSensitiveRef.value),
+          handleFilterQuery = (evt) => (filterQuery.value = evt.target.value),
+          filteredRows = computed(() => ([
+            grid.rowgroups[0].rows[0], // Header is never filtered out
+            ...grid.rowgroups[1].rows.filter(({ isFiltered }) => !isFiltered)
+          ]))
+
+    if (props.canFilterByQuery) {
+      watch(filterQuery, () => {
+        grid.rowgroups[1].rows.forEach(({ text, setIsFiltered }, index) => {
+          const matchesFilterQuery = filterQueryIsCaseSensitive.value
+            ? text.includes(filterQuery.value),
+            : text.toLowerCase().includes(filterQuery.value.toLowerCase())
+
+          grid.rowgroups[1].rows[index].isFiltered = setIsFiltered(!matchesFilterQuery)
+        }))
+      })
     }
-
-    function handleFilterQuery (evt) {
-      filterQuery.value = evt.target.value
-    }
-
-
 
     provide(useSymbol('grid', 'filterQuery'), filterQuery)
     provide(useSymbol('grid', 'filterQueryIsCaseSensitive'), filterQueryIsCaseSensitiveRef)
 
-    // TODO: Create dedicated components for each row and cell, and use provide/inject to filter, with enter/leave transitions included
 
-    const handleKeydown = useProseGrid(() => prose.value)
+    /* Focusing */
+    const focusableGridcells = computed(() => filteredRows.reduce((focusableGridcells, { gridcells }) => [ ...filteredGrid, ...gridcells ], [])),
+          focused = reactive({ rowgroup: 0, row: 0, gridcell: 0 }),
+          rows = computed(() => {
+            const indices = new Set(focusableGridcells.map(({ coordinates: { rowgroup, row } }) => rowgroup + row))
+            return Array.from(indices)
+          }),
+          currentRowIndex = computed(() => rows.value.findIndex(row => row === focused.row)),
+          columns = computed(() => {
+            const indices = new Set(focusableGridcells.map(({ coordinates: { gridcell } }) => gridcell))
+            return Array.from(indices)
+          }),
+          currentColumnIndex = computed(() => columns.value.findIndex(column => column === focused.gridcell))
 
-    const focusedCell = reactive({
-      row: 0,
-      column: 0,
+    const handleKeydown = useGridKeyboardAccesibility({
+      focused: () => focused,
+      rows: () => rows.value,
+      columns: () => columns.value,
+      grid: () => prose.value,
     })
+
+    watch(focused, () => grid.rowgroups[focus.rowgroup].rows[focused.row].gridcells[focused.gridcell].ref.value.focus())
 
     return {
       prose,

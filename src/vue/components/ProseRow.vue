@@ -1,7 +1,7 @@
 <template>
   <transition>
     <div
-      v-show="matchesFilterQuery"
+      v-show="!isFiltered"
       ref="prose"
       role="row"
     >
@@ -16,24 +16,32 @@ import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 import { useSymbol } from '../composition'
 
 export default {
-  setup () {
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    }
+  },
+  setup (props) {
+    provide(useSymbol('row', 'index'), props.index)
+
     const prose = ref(null),
-          text = ref(''),
-          filterQuery = inject(useSymbol('grid', 'filterQuery')),
-          filterQueryIsCaseSensitive = inject(useSymbol('grid', 'filterQueryIsCaseSensitive'))
-          matchesFilterQuery = computed(() => {
-            return filterQueryIsCaseSensitive
-              ? filterQuery === '' || text.includes(filterQuery)
-              : filterQuery === '' || text.toLowerCase().includes(filterQuery.toLowerCase())
-          }),
+          isFiltered = ref(false),
+          setIsFiltered = newIsFiltered => {
+            isFiltered.value = newIsFiltered
+            return isFiltered.value
+          }
+
+    const addRow = inject(useSymbol('grid', 'addRow')),
+          rowgroupIndex = inject(useSymbol('rowgroup', 'index'))
 
     onMounted(() => {
-      text.value = prose.value.textContent
+      addRow(rowgroupIndex, props.index, prose, setIsFiltered)
     })
 
     return {
       prose,
-      matchesFilterQuery
+      isFiltered
     }
   }
 }

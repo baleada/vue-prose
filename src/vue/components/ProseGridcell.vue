@@ -10,10 +10,17 @@ import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 import { useSymbol } from '../composition'
 
 export default {
-  setup() {
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    }
+  },
+  setup(props) {
     const prose = ref(null),
-          row = ref(null),
-          column = ref(null),
+          rowgroupIndex = inject(useSymbol('rowgroup', 'index')),
+          rowIndex = inject(useSymbol('row', 'index')),
+          column = props.index,
           focused = inject(useSymbol('grid', 'focused')),
           isFocused = computed(() => row === focused.row && column === focused.column)
 
@@ -22,10 +29,6 @@ export default {
         prose.value.focus()
       }
     })
-
-    function setRow() {
-      row.value = rows.findIndex(row => parent.isSameNode(row))
-    }
 
     onMounted(() => {
       const cells = Array.from(prose.value.parent.children)

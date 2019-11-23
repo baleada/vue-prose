@@ -23,6 +23,7 @@
       ref="prose"
       :id="slug"
       :href="`#${slug}`"
+      class="contents"
     >
       <slot />
     </a>

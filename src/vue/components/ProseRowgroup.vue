@@ -5,6 +5,19 @@
 </template>
 
 <script>
+import { provide } from '@vue/composition-api'
+
+import { useSymbol } from '../composition'
+
 export default {
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    }
+  },
+  setup(props) {
+    provide(useSymbol('rowgroup', 'index'), props.index)
+  },
 }
 </script>
