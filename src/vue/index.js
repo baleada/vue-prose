@@ -10,6 +10,8 @@ import ProseGridcell from './components/ProseGridcell.vue'
 import ProseHeading from './components/ProseHeading.vue'
 import ProseLayoutThreeColumn from './components/ProseLayoutThreeColumn.vue'
 import ProseList from './components/ProseList.vue'
+import ProseListContents from './components/ProseListContents.vue'
+import ProseListItem from './components/ProseListItem.vue'
 import ProseNav from './components/ProseNav.vue'
 import ProseRow from './components/ProseRow.vue'
 import ProseRowgroup from './components/ProseRowgroup.vue'
@@ -33,6 +35,8 @@ export {
   ProseHeading,
   ProseLayoutThreeColumn,
   ProseList,
+  ProseListContents,
+  ProseListItem,
   ProseNav,
   ProseRow,
   ProseRowgroup,

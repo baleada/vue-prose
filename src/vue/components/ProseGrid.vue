@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { reactive, ref, computed, onMounted, provide } from '@vue/composition-api'
+import { reactive, ref, watch, computed, onMounted, provide } from '@vue/composition-api'
 import { useGridKeyboardAccesibility } from '../composition'
 
 import { useSymbol } from '../composition'
@@ -68,42 +68,38 @@ export default {
   setup(props) {
     const prose = ref(null)
 
-    /* JSONify grid */
-    const grid = reactive({ rowgroups: [] }),
+    /* Model grid */
+    const rowgroups = ref([]),
           addRowgroup = (index, ref) => {
-            grid
-              .rowgroups
-              .push({
-                ref,
-                coordinates: { rowgroup: index },
-                rows: [],
-              })
+            console.log('addRowgroup')
+            console.log({ index, ref })
+            rowgroups.value.push({
+              ref,
+              coordinates: { rowgroup: index },
+            })
           },
+          rows = ref([]),
           addRow = (rowgroupIndex, index, ref, setIsFiltered) => {
-            grid
-              .rowgroups[rowgroupIndex]
-              .rows
-              .push({
-                ref,
-                isFiltered: false,
-                setIsFiltered,
-                coordinates: { rowgroup: rowgroupIndex, row: index },
-                text: ref.value.textContent,
-                gridcells: []
-              })
+            console.log('addRow')
+            console.log({ rowgroupIndex, index, ref, setIsFiltered })
+            rows.value.push({
+              ref,
+              isFiltered: false,
+              setIsFiltered,
+              coordinates: { rowgroup: rowgroupIndex, row: index },
+              text: ref.value.textContent,
+            })
           },
-          addGridcell = (rowgroupIndex, rowIndex, ref) => {
-            grid
-              .rowgroups[rowgroupIndex]
-              .rows[rowIndex]
-              .gridcells
-              .push({
-                ref,
-                coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index },
-              })
+          gridcells = ref([]),
+          addGridcell = (rowgroupIndex, rowIndex, index, ref) => {
+            console.log('addGridcell')
+            console.log({ rowgroupIndex, rowIndex, ref })
+            gridcells.value.push({
+              ref,
+              coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index },
+            })
           }
 
-    provide(useSymbol('grid', 'grid'), grid)
     provide(useSymbol('grid', 'addRowgroup'), addRowgroup)
     provide(useSymbol('grid', 'addRow'), addRow)
     provide(useSymbol('grid', 'addGridcell'), addGridcell)
@@ -113,49 +109,60 @@ export default {
           filterQuery = ref(''),
           handleCaseSensitiveChange = () => (filterQueryIsCaseSensitiveRef.value = !filterQueryIsCaseSensitiveRef.value),
           handleFilterQuery = (evt) => (filterQuery.value = evt.target.value),
-          filteredRows = computed(() => ([
-            grid.rowgroups[0].rows[0], // Header is never filtered out
-            ...grid.rowgroups[1].rows.filter(({ isFiltered }) => !isFiltered)
-          ]))
+          filteredRows = computed(() => rows.value.filter(({ isFiltered }) => !isFiltered))
 
     if (props.canFilterByQuery) {
       watch(filterQuery, () => {
-        grid.rowgroups[1].rows.forEach(({ text, setIsFiltered }, index) => {
-          const matchesFilterQuery = filterQueryIsCaseSensitive.value
-            ? text.includes(filterQuery.value)
-            : text.toLowerCase().includes(filterQuery.value.toLowerCase())
+        // Header is never filtered out
+        rows.value
+          .filter(({ coordinates: { rowgroup } }) => rowgroup === 1)
+          .forEach(row => {
+            const { text, setIsFiltered } = row,
+                  matchesFilterQuery = filterQueryIsCaseSensitive.value
+                    ? text.includes(filterQuery.value)
+                    : text.toLowerCase().includes(filterQuery.value.toLowerCase())
 
-          grid.rowgroups[1].rows[index].isFiltered = setIsFiltered(!matchesFilterQuery)
-        })
-      })
+            row.isFiltered = setIsFiltered(!matchesFilterQuery)
+          })
+      }, { lazy: true })
     }
-
-    provide(useSymbol('grid', 'filterQuery'), filterQuery)
-    provide(useSymbol('grid', 'filterQueryIsCaseSensitive'), filterQueryIsCaseSensitiveRef)
 
 
     /* Focusing */
-    const focusableGridcells = computed(() => filteredRows.reduce((focusableGridcells, { gridcells }) => [ ...filteredGrid, ...gridcells ], [])),
+    const focusableGridcells = computed(() => {
+            const filteredRowIndices = filteredRows.value.map(({ coordinates: { row } }) => row)
+            return gridcells.value.filter(({ coordinates: { row } }) => filteredRowIndices.includes(row))
+          }),
           focused = reactive({ rowgroup: 0, row: 0, gridcell: 0 }),
-          rows = computed(() => {
+          focusableRows = computed(() => {
             const indices = new Set(focusableGridcells.map(({ coordinates: { rowgroup, row } }) => rowgroup + row))
-            return Array.from(indices)
+            return Array.from(indices).sort()
           }),
-          currentRowIndex = computed(() => rows.value.findIndex(row => row === focused.row)),
-          columns = computed(() => {
+          currentRowIndex = computed(() => focusableRows.value.findIndex(row => row === focused.row)),
+          focusableColumns = computed(() => {
             const indices = new Set(focusableGridcells.map(({ coordinates: { gridcell } }) => gridcell))
-            return Array.from(indices)
+            return Array.from(indices).sort()
           }),
-          currentColumnIndex = computed(() => columns.value.findIndex(column => column === focused.gridcell))
+          currentColumnIndex = computed(() => focusableColumns.value.findIndex(column => column === focused.gridcell))
 
     const handleKeydown = useGridKeyboardAccesibility({
       focused: () => focused,
-      rows: () => rows.value,
-      columns: () => columns.value,
+      rows: () => focusableRows.value,
+      columns: () => focusableColumns.value,
       grid: () => prose.value,
     })
 
-    watch(focused, () => grid.rowgroups[focus.rowgroup].rows[focused.row].gridcells[focused.gridcell].ref.value.focus())
+    watch(
+      [() => focused.rowgroup, () => focused.row, () => focused.gridcell],
+      () => {
+        gridcells.value
+          .find(({ coordinates: { rowgroup, row, gridcell } }) => {
+            return rowgroup === focused.rowgroup && row === focused.row && gridcell === focused.gridcell
+          })
+          .ref.value.focus()
+      },
+      { lazy: true }
+    )
 
     return {
       prose,

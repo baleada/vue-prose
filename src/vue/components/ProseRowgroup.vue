@@ -1,11 +1,11 @@
 <template>
-  <div role="rowgroup">
+  <div ref="prose" role="rowgroup">
     <slot />
   </div>
 </template>
 
 <script>
-import { provide } from '@vue/composition-api'
+import { ref, onMounted, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
@@ -19,6 +19,15 @@ export default {
   },
   setup(props) {
     provide(useSymbol('rowgroup', 'index'), props.index)
+
+    const prose = ref(null),
+          addRowgroup = inject(useSymbol('grid', 'addRowgroup'))
+
+    onMounted(() => addRowgroup(props.index, prose))
+
+    return {
+      prose
+    }
   },
 }
 </script>
