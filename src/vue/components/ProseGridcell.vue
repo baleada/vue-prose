@@ -1,5 +1,5 @@
 <template>
-  <div ref="prose" role="gridcell">
+  <div ref="prose" role="gridcell" tabindex="-1" @click="handleClick">
     <slot />
   </div>
 </template>
@@ -27,8 +27,14 @@ export default {
       addGridcell(rowgroupIndex, rowIndex, props.index, prose)
     })
 
+    const setFocused = inject(useSymbol('grid', 'setFocused'))
+    function handleClick () {
+      setFocused(rowgroupIndex, rowIndex, props.index)
+    }
+
     return {
-      prose
+      prose,
+      handleClick,
     }
   },
 }

@@ -16,8 +16,7 @@ const symbols = {
     addGridcell: Symbol('addGridcell'),
     filterQuery: Symbol('filterQuery'),
     filterQueryIsCaseSensitive: Symbol('filterQueryIsCaseSensitive'),
-    focusedCell: Symbol('focusedCell'),
-    setFiltered: Symbol('setIsFiltered'),
+    setFocused: Symbol('setFocused'),
   },
   rowgroup: {
     index: Symbol('index'),

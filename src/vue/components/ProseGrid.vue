@@ -29,6 +29,8 @@
       tabindex="0"
       :aria-label="ariaLabel"
       @keydown="handleKeydown"
+      @focus="handleFocus"
+      @blur="handleBlur"
     >
       <slot />
     </div>
@@ -71,8 +73,6 @@ export default {
     /* Model grid */
     const rowgroups = ref([]),
           addRowgroup = (index, ref) => {
-            console.log('addRowgroup')
-            console.log({ index, ref })
             rowgroups.value.push({
               ref,
               coordinates: { rowgroup: index },
@@ -80,8 +80,6 @@ export default {
           },
           rows = ref([]),
           addRow = (rowgroupIndex, index, ref, setIsFiltered) => {
-            console.log('addRow')
-            console.log({ rowgroupIndex, index, ref, setIsFiltered })
             rows.value.push({
               ref,
               isFiltered: false,
@@ -92,8 +90,6 @@ export default {
           },
           gridcells = ref([]),
           addGridcell = (rowgroupIndex, rowIndex, index, ref) => {
-            console.log('addGridcell')
-            console.log({ rowgroupIndex, rowIndex, ref })
             gridcells.value.push({
               ref,
               coordinates: { rowgroup: rowgroupIndex, row: rowIndex, gridcell: index },
@@ -118,7 +114,7 @@ export default {
           .filter(({ coordinates: { rowgroup } }) => rowgroup === 1)
           .forEach(row => {
             const { text, setIsFiltered } = row,
-                  matchesFilterQuery = filterQueryIsCaseSensitive.value
+                  matchesFilterQuery = filterQueryIsCaseSensitiveRef.value
                     ? text.includes(filterQuery.value)
                     : text.toLowerCase().includes(filterQuery.value.toLowerCase())
 
@@ -129,27 +125,48 @@ export default {
 
 
     /* Focusing */
-    const focusableGridcells = computed(() => {
-            const filteredRowIndices = filteredRows.value.map(({ coordinates: { row } }) => row)
-            return gridcells.value.filter(({ coordinates: { row } }) => filteredRowIndices.includes(row))
+    const filteredRowCoordinates = computed(() => filteredRows.value.map(({ coordinates }) => coordinates)),
+          focusableGridcells = computed(() => {
+            return gridcells.value
+              .filter(({ coordinates: { row, rowgroup } }) => {
+                return filteredRowCoordinates.value.some(({ row: filteredRow, rowgroup: filteredRowgroup }) => {
+                  return row === filteredRow && rowgroup === filteredRowgroup
+                })
+              })
           }),
-          focused = reactive({ rowgroup: 0, row: 0, gridcell: 0 }),
+          focused = reactive({ rowgroup: undefined, row: undefined, gridcell: undefined }),
           focusableRows = computed(() => {
-            const indices = new Set(focusableGridcells.map(({ coordinates: { rowgroup, row } }) => rowgroup + row))
+            const indices = new Set(focusableGridcells.value.map(({ coordinates: { rowgroup, row } }) => rowgroup + row))
             return Array.from(indices).sort()
           }),
-          currentRowIndex = computed(() => focusableRows.value.findIndex(row => row === focused.row)),
+          currentRowIndex = computed(() => focusableRows.value.findIndex(row => row === focused.row + focused.rowgroup)),
           focusableColumns = computed(() => {
-            const indices = new Set(focusableGridcells.map(({ coordinates: { gridcell } }) => gridcell))
+            const indices = new Set(focusableGridcells.value.map(({ coordinates: { gridcell } }) => gridcell))
             return Array.from(indices).sort()
           }),
           currentColumnIndex = computed(() => focusableColumns.value.findIndex(column => column === focused.gridcell))
 
+    function setFocused (rowgroup, row, gridcell) {
+      focused.rowgroup = rowgroup
+      focused.row = row
+      focused.gridcell = gridcell
+    }
+
+    provide(useSymbol('grid', 'setFocused'), setFocused)
+
+    const gridIsFocused = ref(false),
+          toggleGridIsFocused = () => gridIsFocused.value = !gridIsFocused.value,
+          handleFocus = () => gridIsFocused.value = true,
+          handleBlur = () => gridIsFocused.value = false
+
+    watch(gridIsFocused, () => console.log({ gridIsFocused: gridIsFocused.value }))
     const handleKeydown = useGridKeyboardAccesibility({
       focused: () => focused,
       rows: () => focusableRows.value,
       columns: () => focusableColumns.value,
-      grid: () => prose.value,
+      gridIsFocused: () => gridIsFocused.value,
+      currentRowIndex: () => currentRowIndex.value,
+      currentColumnIndex: () => currentColumnIndex.value,
     })
 
     watch(
@@ -171,6 +188,8 @@ export default {
       filterQueryIsCaseSensitiveRef,
       handleCaseSensitiveChange,
       handleKeydown,
+      handleFocus,
+      handleBlur,
     }
   },
 }

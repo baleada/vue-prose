@@ -1,29 +1,38 @@
 import { computed, watch } from '@vue/composition-api'
 
+/*
+ * This is some wacky stuff that transfers focus to the correct component in a ProseGrid, respecting the fact that cells can't be focused if their rows or columns have been filtered out by the ProseGrid filter query feature.
+ */
 export default function(getters) {
-  const { focused, focusableColumns, focusableRows, grid } = getters
+  const { focused, columns, rows, gridIsFocused, currentRowIndex, currentColumnIndex } = getters
 
   const handlers = {
     arrowright: evt => {
       // → Moves focus one cell to the right. If focus is on the right-most cell in the row, focus does not move.
       const lastColumnIsFocused = focused().gridcell === columns()[columns().length - 1]
       if (!lastColumnIsFocused) {
-        focused().gridcell = columns()[currentColumnIndex + 1]
+        focused().gridcell = columns()[currentColumnIndex() + 1]
       }
     },
     arrowleft: evt => {
       // ← Moves focus one cell to the left. If focus is on the left-most cell in the row, focus does not move.
       const firstColumnIsFocused = focused().gridcell === columns()[0]
       if (!firstColumnIsFocused) {
-        focused().gridcell = columns()[currentColumnIndex - 1]
+        focused().gridcell = columns()[currentColumnIndex() - 1]
       }
     },
     arrowdown: evt => {
       // ↓ Moves focus one cell down. If focus is on the bottom cell in the column, focus does not move.
-      const lastRowIsFocused = focused().row + focused().rowgroup === rows()[rows().length - 1]
-      if (!lastRowIsFocused) {
+      const headerRowIsFocused = focused().rowgroup === 0
+
+      if (headerRowIsFocused) {
         focused().rowgroup = 1
-        focused().row = rows()[currentRowIndex + 1] - 1
+        focused().row = rows()[1] - 1
+      } else {
+        const lastRowIsFocused = focused().row + focused().rowgroup === rows()[rows().length - 1]
+        if (!lastRowIsFocused) {
+          focused().row = rows()[currentRowIndex() + 1] - 1
+        }
       }
     },
     arrowup: evt => {
@@ -37,7 +46,7 @@ export default function(getters) {
           focused().row = 0
         } else {
           focused().rowgroup = 1
-          focused().row = rows()[currentRowIndex - 1] - 1
+          focused().row = rows()[currentRowIndex() - 1] - 1
         }
       }
     },
@@ -82,10 +91,12 @@ export default function(getters) {
   function handler (evt) {
     const key = evt.key.toLowerCase()
 
-    if (grid().isSameNode(document.activeElement)) {
+    if (gridIsFocused()) {
       if (handlers.hasOwnProperty(key)) {
         evt.preventDefault()
-        grid().querySelector('[role="columnheader"]').focus()
+        focused().rowgroup = 0
+        focused().row = 0
+        focused().gridcell = 0
       }
     } else if (evt.ctrlKey || evt.metaKey) {
       if (handlers.hasOwnProperty(`meta+${key}`)) {
