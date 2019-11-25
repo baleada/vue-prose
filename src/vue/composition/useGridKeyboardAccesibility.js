@@ -4,7 +4,7 @@ import { computed, watch } from '@vue/composition-api'
  * This is some wacky stuff that transfers focus to the correct component in a ProseGrid, respecting the fact that cells can't be focused if their rows or columns have been filtered out by the ProseGrid filter query feature.
  */
 export default function(getters) {
-  const { focused, columns, rows, gridIsFocused, currentRowIndex, currentColumnIndex } = getters
+  const { focused, columns, rows, grid, currentRowIndex, currentColumnIndex } = getters
 
   const handlers = {
     arrowright: evt => {
@@ -37,10 +37,10 @@ export default function(getters) {
     },
     arrowup: evt => {
       // ↑ Moves focus one cell up. If focus is on the top cell in the column, focus does not move.
-      const headerRowIsFocused = focused().rowgroup === 0,
-            firstRowIsFocused = headerRowIsFocused ? false : focused().row + focused().rowgroup === rows()[1]
+      const headerRowIsFocused = focused().rowgroup === 0
 
       if (!headerRowIsFocused) {
+        const firstRowIsFocused = focused().row + focused().rowgroup === rows()[1]
         if (firstRowIsFocused) {
           focused().rowgroup = 0
           focused().row = 0
@@ -90,8 +90,8 @@ export default function(getters) {
 
   function handler (evt) {
     const key = evt.key.toLowerCase()
-
-    if (gridIsFocused()) {
+    
+    if (grid().isSameNode(evt.target)) {
       if (handlers.hasOwnProperty(key)) {
         evt.preventDefault()
         focused().rowgroup = 0

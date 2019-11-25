@@ -30,7 +30,6 @@
       :aria-label="ariaLabel"
       @keydown="handleKeydown"
       @focus="handleFocus"
-      @blur="handleBlur"
     >
       <slot />
     </div>
@@ -154,29 +153,32 @@ export default {
 
     provide(useSymbol('grid', 'setFocused'), setFocused)
 
-    const gridIsFocused = ref(false),
-          toggleGridIsFocused = () => gridIsFocused.value = !gridIsFocused.value,
-          handleFocus = () => gridIsFocused.value = true,
-          handleBlur = () => gridIsFocused.value = false
-
-    watch(gridIsFocused, () => console.log({ gridIsFocused: gridIsFocused.value }))
     const handleKeydown = useGridKeyboardAccesibility({
       focused: () => focused,
       rows: () => focusableRows.value,
       columns: () => focusableColumns.value,
-      gridIsFocused: () => gridIsFocused.value,
+      grid: () => prose.value,
       currentRowIndex: () => currentRowIndex.value,
       currentColumnIndex: () => currentColumnIndex.value,
     })
 
+    const handleFocus = () => {
+      focused.rowgroup = undefined
+      focused.row = undefined
+      focused.gridcell = undefined
+    }
+
     watch(
       [() => focused.rowgroup, () => focused.row, () => focused.gridcell],
       () => {
-        gridcells.value
+        const focusedGridcell = gridcells.value
           .find(({ coordinates: { rowgroup, row, gridcell } }) => {
             return rowgroup === focused.rowgroup && row === focused.row && gridcell === focused.gridcell
           })
-          .ref.value.focus()
+
+        if (focusedGridcell) {
+          focusedGridcell.ref.value.focus()
+        }
       },
       { lazy: true }
     )
@@ -189,7 +191,6 @@ export default {
       handleCaseSensitiveChange,
       handleKeydown,
       handleFocus,
-      handleBlur,
     }
   },
 }
