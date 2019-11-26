@@ -1,5 +1,5 @@
 <template>
-  <section class="prose-table prose-table-striped w-full sm:w-auto sm:min-w-2 swiper-no-swiping transition">
+  <section ref="prose" class="prose-grid prose-grid-striped w-full sm:w-auto sm:min-w-2 swiper-no-swiping transition">
     <div v-if="canFilterByQuery">
       <input
         class="filter-query-input inp w-full"
@@ -9,21 +9,19 @@
         :value="filterQuery"
         @input="handleFilterQuery"
       />
-      <div class="mt-2 flex items-center" v-if="canChangeFilterQueryIsCaseSensitive">
+      <div class="mt-2 flex items-center" v-if="canChangeFilterIsCaseSensitive">
         <input
-          class="filter-query-is-case-sensitive-checkbox"
+          class="filter-is-case-sensitive-checkbox"
           type="checkbox"
-          :checked="filterQueryIsCaseSensitiveRef"
+          :checked="filterIsCaseSensitiveRef"
           @change="handleCaseSensitiveChange"
         />
-        <label class="filter-query-is-case-sensitive-label flex-1 ml-2">Filter is case sensitive</label>
+        <label class="filter-is-case-sensitive-label flex-1 ml-2">Filter is case sensitive</label>
       </div>
     </div>
     <div
-      ref="prose"
       class="contents scrollable p-2px"
       :class="[
-        hasMaxHeight ? 'with-max-h' : '',
         canFilterByQuery ? 'mt-4' : '',
       ]"
       tabindex="0"
@@ -37,7 +35,7 @@
 </template>
 
 <script>
-import { reactive, ref, watch, computed, onMounted, provide } from '@vue/composition-api'
+import { reactive, ref, watch, computed, provide } from '@vue/composition-api'
 import { useGridKeyboardAccesibility } from '../composition'
 
 import { useSymbol } from '../composition'
@@ -45,19 +43,15 @@ import { useSymbol } from '../composition'
 export default {
   name: 'ProseGrid',
   props: {
-    hasMaxHeight: {
-      type: Boolean,
-      default: false,
-    },
     canFilterByQuery: {
       type: Boolean,
       default: false,
     },
-    filterQueryIsCaseSensitive: {
+    filterIsCaseSensitive: {
       type: Boolean,
       default: false,
     },
-    canChangeFilterQueryIsCaseSensitive: {
+    canChangeFilterIsCaseSensitive: {
       type: Boolean,
       default: false,
     },
@@ -100,26 +94,30 @@ export default {
     provide(useSymbol('grid', 'addGridcell'), addGridcell)
 
     /* Filtering */
-    const filterQueryIsCaseSensitiveRef = ref(props.filterQueryIsCaseSensitive),
+    const filterIsCaseSensitiveRef = ref(props.filterIsCaseSensitive),
           filterQuery = ref(''),
-          handleCaseSensitiveChange = () => (filterQueryIsCaseSensitiveRef.value = !filterQueryIsCaseSensitiveRef.value),
+          handleCaseSensitiveChange = () => (filterIsCaseSensitiveRef.value = !filterIsCaseSensitiveRef.value),
           handleFilterQuery = (evt) => (filterQuery.value = evt.target.value),
-          filteredRows = computed(() => rows.value.filter(({ isFiltered }) => !isFiltered))
+          filteredRows = computed(() => rows.value.filter(({ isFiltered }) => !isFiltered)),
+          setFilteredState = (query, isCaseSensitive) => {
+            rows.value
+              .filter(({ coordinates: { rowgroup } }) => rowgroup === 1)
+              .forEach(row => {
+                const { text, setIsFiltered } = row,
+                      matchesFilterQuery = isCaseSensitive
+                        ? text.includes(query)
+                        : text.toLowerCase().includes(query.toLowerCase())
+
+                row.isFiltered = setIsFiltered(!matchesFilterQuery)
+              })
+          }
 
     if (props.canFilterByQuery) {
-      watch(filterQuery, () => {
-        // Header is never filtered out
-        rows.value
-          .filter(({ coordinates: { rowgroup } }) => rowgroup === 1)
-          .forEach(row => {
-            const { text, setIsFiltered } = row,
-                  matchesFilterQuery = filterQueryIsCaseSensitiveRef.value
-                    ? text.includes(filterQuery.value)
-                    : text.toLowerCase().includes(filterQuery.value.toLowerCase())
-
-            row.isFiltered = setIsFiltered(!matchesFilterQuery)
-          })
-      }, { lazy: true })
+      watch(
+        [filterQuery, filterIsCaseSensitiveRef],
+        () => setFilteredState(filterQuery.value, filterIsCaseSensitiveRef.value),
+        { lazy: true }
+      )
     }
 
 
@@ -187,7 +185,7 @@ export default {
       prose,
       filterQuery,
       handleFilterQuery,
-      filterQueryIsCaseSensitiveRef,
+      filterIsCaseSensitiveRef,
       handleCaseSensitiveChange,
       handleKeydown,
       handleFocus,

@@ -14,9 +14,10 @@ const symbols = {
     addRowgroup: Symbol('addRowgroup'),
     addRow: Symbol('addRow'),
     addGridcell: Symbol('addGridcell'),
-    filterQuery: Symbol('filterQuery'),
-    filterQueryIsCaseSensitive: Symbol('filterQueryIsCaseSensitive'),
     setFocused: Symbol('setFocused'),
+  },
+  list: {
+    addRow: Symbol('addRow'),
   },
   rowgroup: {
     index: Symbol('index'),
