@@ -33,9 +33,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-vue": "^5.1.2",
     "vue-loader": "^15.7.2",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {},
   "peerDependencies": {

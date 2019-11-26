@@ -94,6 +94,3 @@ svelte
 !src/vue
 !src/react
 !src/svelte
-!src/util/vue
-!src/util/react
-!src/util/svelte
