@@ -6,7 +6,6 @@
     ]"
   >
     <section
-      :style="{ display: 'none' }"
       class="relative h-screen w-screen lg:w-17 flex-none px-7 py-3 overflow-y-scroll scrolling-touch transition"
       :class="[
         isDarkTheme ? 'bg-gray-900' : 'bg-gray-200'
@@ -150,7 +149,7 @@
         isDarkTheme ? 'bg-gray-800' : 'bg-white'
       ]"
     >
-      <header :style="{ display: 'none' }" class="flex items-center z-40 absolute left-0 top-0 pt-6 px-7 sm:px-9 lg:pl-11 w-full">
+      <header class="flex items-center z-40 absolute left-0 top-0 pt-6 px-7 sm:px-9 lg:pl-11 w-full">
         <button
           type="button"
           name="Show navigation"
@@ -183,7 +182,6 @@
       <nuxt key="content" />
     </section>
     <section
-      :style="{ display: 'none' }"
       class="relative h-screen w-screen lg:w-17 flex-none px-7 py-3 overflow-y-scroll scrolling-touch transition"
       :class="[
         isDarkTheme ? 'bg-gray-900' : 'bg-gray-200'
@@ -191,7 +189,7 @@
       ref="tableOfContents"
     >
       <!-- <ProseAd class="mt-auto"/> -->
-      <ProseTableOfContents class="prose-nav" :headings="headings" />
+      <ProseTableOfContents class="baleada-prose-nav" :headings="headings" />
     </section>
   </main>
 </template>

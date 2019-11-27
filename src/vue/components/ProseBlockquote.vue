@@ -1,6 +1,8 @@
 <template>
-  <section class="contents prose-blockquote">
-    <slot />
+  <section class="baleada-prose-blockquote">
+    <section class="contents">
+      <slot />
+    </section>
   </section>
 </template>
 

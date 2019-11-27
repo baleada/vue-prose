@@ -1,5 +1,9 @@
 <template>
-  <div ref="prose" role="rowgroup">
+  <div
+    ref="prose"
+    class="baleada-prose-rowgroup"
+    role="rowgroup"
+  >
     <slot />
   </div>
 </template>

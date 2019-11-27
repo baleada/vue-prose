@@ -1,7 +1,10 @@
 <template>
-<div class="mt-3 mb-7 text-1 italic text-gray-800">
-  Updated on {{ intl }}
-</div>
+  <section class="baleada-prose-stats">
+    <section class="contents">
+      <slot v-bind="{ stats }"/>
+      Updated on {{ intl }}
+    </section>
+  </section>
 </template>
 
 <script>

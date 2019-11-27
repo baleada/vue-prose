@@ -1,16 +1,21 @@
 <template>
-  <nav class="prose-nav">
-    <section v-for="(directory, index) in directories" :key="directory.name" :class="[index === 0 ? '' : 'mt-8']">
+  <nav class="baleada-prose-nav">
+    <section
+      v-for="(directory, index) in directories"
+      :key="directory.name"
+    >
       <component :is="`h${directory.level + 1}`">{{ directory.name.toUpperCase() }}</component>
       <transition
+        name="baleada-prose-nav"
         v-for="page in directory.pages"
         :key="page.href"
       >
-        <nuxt-link
+        <!-- TODO: review coupling with nuxt -->
+        <NuxtLink
           :to="page.href"
         >
           {{ page.title }}
-        </nuxt-link>
+        </NuxtLink>
       </transition>
     </section>
   </nav>

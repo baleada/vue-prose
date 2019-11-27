@@ -1,18 +1,18 @@
 <template>
   <section
-    class="relative prose-codeblock swiper-no-swiping transition"
+    ref="prose"
+    class="baleada-prose-codeblock"
   >
     <!-- Copy button -->
     <button
       name="copy-code"
-      class="absolute right-0 top-0 mt-2 mr-2 h-5 w-5 text-gray-600 btn-grows transition"
       @click="handleCopyButtonClick"
     >
       <EvaCopy :class="'icon'" />
     </button>
-    <div class="contents" ref="prose">
+    <section class="contents">
       <slot />
-    </div>
+    </section>
   </section>
 </template>
 

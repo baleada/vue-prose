@@ -1,9 +1,19 @@
 <template>
   <article
     ref="prose"
-    class="prose-article"
+    class="baleada-prose-article"
   >
-    <slot />
+    <section class="contents">
+      <slot
+        name="before"
+        v-bind="{ stats, frontMatter, fullPath }"
+      />
+      <slot />
+      <slot
+        name="after"
+        v-bind="{ stats, frontMatter, fullPath }"
+      />
+    </section>
   </article>
 </template>
 
@@ -40,6 +50,9 @@ export default {
 
     return {
       prose,
+      stats,
+      frontMatter,
+      fullPath
     }
   },
 }

@@ -1,36 +1,39 @@
 <template>
-  <section ref="prose" class="prose-grid prose-grid-striped w-full sm:w-auto sm:min-w-2 swiper-no-swiping transition">
-    <div v-if="canFilterByQuery">
-      <input
-        class="filter-query-input inp w-full"
-        placeholder="Type to filter..."
-        name="Type to filter"
-        type="text"
-        :value="filterQuery"
-        @input="handleFilterQuery"
-      />
-      <div class="mt-2 flex items-center" v-if="canChangeFilterIsCaseSensitive">
-        <input
-          class="filter-is-case-sensitive-checkbox"
-          type="checkbox"
-          :checked="filterIsCaseSensitiveRef"
-          @change="handleCaseSensitiveChange"
-        />
-        <label class="filter-is-case-sensitive-label flex-1 ml-2">Filter is case sensitive</label>
-      </div>
-    </div>
-    <div
-      class="contents scrollable p-2px"
-      :class="[
-        canFilterByQuery ? 'mt-4' : '',
-      ]"
+  <section
+    ref="prose"
+    class="baleada-prose-grid"
+    :class="[
+      isStriped ? 'baleada-prose-grid-striped' : '',
+      hasMaxHeight ? 'baleada-prose-grid-max-height' : '',
+      canFilterByQuery ? 'baleada-prose-grid-filter-by-query' : '',
+    ]"
+  >
+    <input
+      v-if="canFilterByQuery"
+      placeholder="Type to filter..."
+      name="Type to filter"
+      type="text"
+      :value="filterQuery"
+      @input="handleFilterQuery"
+    />
+    <input
+      v-if="canFilterByQuery && canChangeFilterIsCaseSensitive"
+      type="checkbox"
+      :checked="filterIsCaseSensitiveRef"
+      @change="handleCaseSensitiveChange"
+    />
+    <label v-if="canFilterByQuery && canChangeFilterIsCaseSensitive">
+      Filter is case sensitive
+    </label>
+    <section
+      class="contents"
       tabindex="0"
       :aria-label="ariaLabel"
       @keydown="handleKeydown"
       @focus="handleFocus"
     >
       <slot />
-    </div>
+    </section>
   </section>
 </template>
 

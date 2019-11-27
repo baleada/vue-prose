@@ -1,9 +1,9 @@
 <template>
-  <transition>
+  <transition name="baleada-prose-row">
     <div
-      v-show="!isFiltered"
       ref="prose"
-      role="row"
+      v-show="!isFiltered"
+      class="baleada-prose-row"
     >
       <slot />
     </div>

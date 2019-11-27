@@ -1,5 +1,9 @@
 <template>
-  <component ref="prose" :is="isOrdered ? 'ol' : 'ul'">
+  <component
+    ref="prose"
+    :is="isOrdered ? 'ol' : 'ul'"
+    class="baleada-prose-list-contents"
+  >
     <slot />
   </component>
 </template>

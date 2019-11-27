@@ -1,6 +1,8 @@
 <template>
-  <section class="prose-section">
-    <slot />
+  <section class="baleada-prose-section">
+    <section class="contents">
+      <slot />
+    </section>
   </section>
 </template>
 

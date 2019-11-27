@@ -1,5 +1,9 @@
 <template>
-  <div ref="prose" role="grid">
+  <div
+    ref="prose"
+    class="baleada-prose-grid-contents"
+    role="grid"
+  >
     <slot />
   </div>
 </template>

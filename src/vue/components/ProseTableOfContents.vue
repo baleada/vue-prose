@@ -1,10 +1,10 @@
 <template functional>
-  <section class="prose-table-of-contents">
+  <section class="baleada-prose-table-of-contents">
     <h2>ON THIS PAGE</h2>
     <NuxtLink
       v-for="(heading, index) in props.headings"
       :key="index"
-      :class="`h${heading.level} transition`"
+      :class="`baleada-prose-table-of-contents-h${heading.level}`"
       :to="`#${heading.slug}`"
     >
       {{ heading.text }}

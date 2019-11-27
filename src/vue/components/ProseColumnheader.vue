@@ -1,5 +1,11 @@
 <template>
-  <div ref="prose" role="columnheader" tabindex="-1" @click="handleClick">
+  <div
+    ref="prose"
+    class="baleada-prose-columnheader"
+    role="columnheader"
+    tabindex="-1"
+    @click="handleClick"
+  >
     <slot />
   </div>
 </template>

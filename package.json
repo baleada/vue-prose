@@ -38,6 +38,6 @@
   "dependencies": {},
   "peerDependencies": {
     "@baleada/composition": "^0.0.0",
-    "@baleada/icons": "^0.3.1"
+    "@baleada/icons": "^0.0.0"
   }
 }

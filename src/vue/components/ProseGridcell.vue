@@ -1,5 +1,11 @@
 <template>
-  <div ref="prose" role="gridcell" tabindex="-1" @click="handleClick">
+  <div
+    ref="prose"
+    class="baleada-prose-gridcell"
+    role="gridcell"
+    tabindex="-1"
+    @click="handleClick"
+  >
     <slot />
   </div>
 </template>

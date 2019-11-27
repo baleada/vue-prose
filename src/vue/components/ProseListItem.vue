@@ -1,8 +1,9 @@
 <template>
-  <transition>
+  <transition name="baleada-prose-list-item">
     <li
-      v-show="!isFiltered"
       ref="prose"
+      v-show="!isFiltered"
+      class="baleada-prose-list-item"
     >
       <slot />
     </li>
