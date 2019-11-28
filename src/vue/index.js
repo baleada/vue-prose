@@ -8,7 +8,7 @@ import ProseGrid from './components/ProseGrid.vue'
 import ProseGridContents from './components/ProseGridContents.vue'
 import ProseGridcell from './components/ProseGridcell.vue'
 import ProseHeading from './components/ProseHeading.vue'
-import ProseLayoutThreeColumn from './components/ProseLayoutThreeColumn.vue'
+import ProseLayout from './components/ProseLayout.vue'
 import ProseList from './components/ProseList.vue'
 import ProseListContents from './components/ProseListContents.vue'
 import ProseListItem from './components/ProseListItem.vue'
@@ -33,7 +33,7 @@ export {
   ProseGridContents,
   ProseGridcell,
   ProseHeading,
-  ProseLayoutThreeColumn,
+  ProseLayout,
   ProseList,
   ProseListContents,
   ProseListItem,

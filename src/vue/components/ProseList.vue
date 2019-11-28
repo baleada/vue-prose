@@ -16,13 +16,14 @@
       @input="handleFilterQuery"
     />
     <input
-      v-if="canFilterByQuery && canChangeFilterIsCaseSensitive"
+      v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
+      name="Change filter case sensitivity"
       type="checkbox"
       :checked="filterIsCaseSensitiveRef"
       @change="handleCaseSensitiveChange"
     />
-    <label v-if="canFilterByQuery && canChangeFilterIsCaseSensitive">
-      Filter is case sensitive
+    <label v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
+      {{ messages.list.changeFilterCaseSensitivityLabel }}
     </label>
     <section class="contents">
       <slot />
@@ -46,13 +47,16 @@ export default {
       type: Boolean,
       default: false,
     },
-    canChangeFilterIsCaseSensitive: {
+    canChangeFilterCaseSensitivity: {
       type: Boolean,
       default: false,
     },
   },
   setup(props) {
     const prose = ref(null)
+
+    /* Get messages */
+    const messages = inject(useSymbol('layout', 'messages'))
 
     /* Model list */
     const rows = ref([]),
@@ -100,6 +104,7 @@ export default {
       handleFilterQuery,
       filterIsCaseSensitiveRef,
       handleCaseSensitiveChange,
+      messages
     }
   },
 }

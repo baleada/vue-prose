@@ -1,10 +1,8 @@
 const symbols = {
   layout: {
-    isDarkTheme: Symbol('isDarkTheme'),
-    isMinimalistTheme: Symbol('isMinimalistTheme'),
+    messages: Symbol('messages'),
     fullPath: Symbol('fullPath'),
     addHeading: Symbol('addHeading'),
-    manifest: Symbol('manifest'),
   },
   article: {
     setFrontMatter: Symbol('setFrontMatter'),

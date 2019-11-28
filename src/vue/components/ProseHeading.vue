@@ -9,7 +9,7 @@
       @click="handleClick"
     >
       <EvaLink />
-    </a>
+    </button>
     <a
       :id="slug"
       :href="`#${slug}`"
@@ -38,7 +38,7 @@ export default {
   },
   props: {
     level: {
-      type: [Number, String],
+      type: Number,
       required: true,
     }
   },

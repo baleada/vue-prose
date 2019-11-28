@@ -5,12 +5,15 @@
   >
     <!-- Copy button -->
     <button
-      name="copy-code"
-      @click="handleCopyButtonClick"
+      name="Copy code"
+      @click="handleClick"
     >
       <EvaCopy :class="'icon'" />
     </button>
     <section class="contents">
+      <pre v-if="hasLineNumbers">
+        <code>{{ lineNumbers }}</code>
+      </pre>
       <slot />
     </section>
   </section>
@@ -27,7 +30,16 @@ export default {
   components: {
     EvaCopy,
   },
-  setup() {
+  props: {
+    lines: {
+      type: Number,
+    },
+    hasLineNumbers: {
+      type: Boolean,
+      default: false,
+    }
+  },
+  setup(props) {
     const prose = ref(null),
           copiable = useCopiable(''),
           code = computed(() => {
@@ -36,13 +48,16 @@ export default {
             return code
           })
 
-    function handleCopyButtonClick () {
+    function handleClick () {
       copiable.copy()
     }
 
+    const lineNumbers = new Array(props.lines).map(line => `${line + 1}\n`)
+
     return {
       prose,
-      handleCopyButtonClick
+      handleClick,
+      lineNumbers,
     }
   },
 }
