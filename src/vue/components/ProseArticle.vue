@@ -52,7 +52,7 @@ export default {
       prose,
       stats,
       frontMatter,
-      fullPath
+      fullPath,
     }
   },
 }
