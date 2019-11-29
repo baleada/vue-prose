@@ -2,11 +2,7 @@
   <section
     ref="prose"
     class="baleada-prose-grid"
-    :class="[
-      isStriped ? 'baleada-prose-grid-striped' : '',
-      hasMaxHeight ? 'baleada-prose-grid-max-height' : '',
-      canFilterByQuery ? 'baleada-prose-grid-filter-by-query' : '',
-    ]"
+    :class="[classes]"
   >
     <input
       v-if="canFilterByQuery"
@@ -17,13 +13,13 @@
       @input="handleFilterQuery"
     />
     <input
-      v-if="canFilterByQuery && canChangeFilterIsCaseSensitive"
+      v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
       type="checkbox"
       :checked="filterIsCaseSensitiveRef"
       @change="handleCaseSensitiveChange"
     />
-    <label v-if="canFilterByQuery && canChangeFilterIsCaseSensitive">
-      Filter is case sensitive
+    <label v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
+      {{ messages.grid.changeFilterCaseSensitivityLabel }}
     </label>
     <section
       class="contents"
@@ -38,7 +34,7 @@
 </template>
 
 <script>
-import { reactive, ref, watch, computed, provide } from '@vue/composition-api'
+import { reactive, ref, watch, computed, provide, inject } from '@vue/composition-api'
 import { useGridKeyboardAccesibility } from '../composition'
 
 import { useSymbol } from '../composition'
@@ -54,9 +50,13 @@ export default {
       type: Boolean,
       default: false,
     },
-    canChangeFilterIsCaseSensitive: {
+    canChangeFilterCaseSensitivity: {
       type: Boolean,
       default: false,
+    },
+    classes: {
+      type: String,
+      default: '',
     },
     ariaLabel: {
       type: String,
@@ -65,6 +65,9 @@ export default {
   },
   setup(props) {
     const prose = ref(null)
+
+    /* Get messages */
+    const messages = inject(useSymbol('layout', 'messages'))
 
     /* Model grid */
     const rowgroups = ref([]),
@@ -186,6 +189,7 @@ export default {
 
     return {
       prose,
+      messages,
       filterQuery,
       handleFilterQuery,
       filterIsCaseSensitiveRef,

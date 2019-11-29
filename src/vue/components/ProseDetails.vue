@@ -2,6 +2,7 @@
   <details
     ref="prose"
     class="baleada-prose-details"
+    :class="[classes]"
     :open="isOpen"
     @click="handleClick"
   >
@@ -27,7 +28,11 @@ export default {
     summary: {
       type: String,
       default: ''
-    }
+    },
+    classes: {
+      type: String,
+      default: '',
+    },
   },
   setup() {
     const prose = ref(null)

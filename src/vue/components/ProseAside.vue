@@ -1,22 +1,20 @@
-<template>
+<template functional>
   <aside
     ref="prose"
     class="baleada-prose-aside"
-    :class="[`baleada-prose-aside-${type}`]"
+    :class="[`baleada-prose-aside-${props.type}`, props.classes]"
   >
-    <EvaInfo v-if="type === 'info'"/>
-    <EvaAlertTriangle v-if="type === 'warning'"/>
-    <EvaFlash v-if="type === 'danger'"/>
-    <EvaAward v-if="type === 'success'"/>
+    <EvaInfo v-if="props.type === 'info'"/>
+    <EvaAlertTriangle v-if="props.type === 'warning'"/>
+    <EvaFlash v-if="props.type === 'danger'"/>
+    <EvaAward v-if="props.type === 'success'"/>
     <section class="contents">
-      <slot></slot>
+      <slot />
     </section>
   </aside>
 </template>
 
 <script>
-import { ref } from '@vue/composition-api'
-
 import { EvaInfo } from '@baleada/icons/vue'
 import { EvaAlertTriangle } from '@baleada/icons/vue'
 import { EvaFlash } from '@baleada/icons/vue'
@@ -37,14 +35,11 @@ export default {
       validator: (value) => {
         return ['info', 'warning', 'danger', 'success'].indexOf(value) !== -1;
       }
-    }
-  },
-  setup() {
-    const prose = ref(null)
-
-    return {
-      prose
-    }
+    },
+    classes: {
+      type: String,
+      default: '',
+    },
   },
 }
 </script>

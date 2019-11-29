@@ -1,47 +1,31 @@
 const fs = require('fs')
 
 module.exports = function (framework) {
-  const components = getFiles(`./src/vue/components`),
-        propsInterfaces = components.reduce(
-          (propsInterfaces, { path, name }) => {
-            console.log(name)
-            const contents = fs.readFileSync(path, 'utf8'),
-                  propsMatch = contents.match(/props: {(.|\r?\n)*?\n\s\s}/)
+  const components = getFiles(`./src/vue/components`).filter(({ name }) => name !== 'ProseLayout'),
+        propsInterfaces = components.map(({ path, name }) => {
+          const contents = fs.readFileSync(path, 'utf8'),
+                propsMatch = contents.match(/props: {(.|\r?\n)*?\n\s\s}/)
 
-            if (!propsMatch) {
-              return {
-                ...propsInterfaces,
-                [name]: {
-                  name,
-                  interface: {},
-                }
-              }
-            }
+          if (!propsMatch) {
+            return { name, interface: {} }
+          }
 
-            const propsString = propsMatch[0],
-                  props = propsString
-                    .match(/(\w+): {/g).slice(1)
-                    .map(str => str.replace(/: {/g, '')),
-                  propTypes = propsString
-                    .match(/type: (\w+)/g)
-                    .map(str => str.replace(/type: /g, '').toLowerCase()),
-                  propsInterface = props.reduce((propsInterface, prop, i) => {
-                    return {
-                      ...propsInterface,
-                      [prop]: propTypes[i],
-                    }
-                  }, {})
+          const propsString = propsMatch[0],
+                props = propsString
+                  .match(/(\w+): {/g).slice(1)
+                  .map(str => str.replace(/: {/g, '')),
+                propTypes = propsString
+                  .match(/type: (\w+)/g)
+                  .map(str => str.replace(/type: /g, '').toLowerCase()),
+                propsInterface = props.reduce((propsInterface, prop, i) => {
+                  return {
+                    ...propsInterface,
+                    [prop]: propTypes[i],
+                  }
+                }, {})
 
-            return {
-              ...propsInterfaces,
-              [name]: {
-                name,
-                interface: propsInterface,
-              },
-            }
-          },
-          {}
-        )
+          return { name, interface: propsInterface }
+        })
 
   fs.writeFileSync(
     `./src/${framework}/propsInterfaces.js`,

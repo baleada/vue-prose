@@ -1,5 +1,8 @@
 <template>
-  <section class="baleada-prose-blockquote">
+  <section
+    class="baleada-prose-blockquote"
+    :class="[classes]"
+  >
     <section class="contents">
       <slot />
     </section>
@@ -19,7 +22,11 @@ export default {
     },
     tweetHashtags: {
       type: Array,
-    }
+    },
+    classes: {
+      type: String,
+      default: '',
+    },
   }
 }
 </script>

@@ -11,7 +11,8 @@ export default {
   ],
   input: [
     'src/vue/index.js',
-    'src/vue/plugin.js'
+    'src/vue/plugin.js',
+    'src/vue/propsInterfaces.js',
   ],
   output: {
     dir: 'vue',

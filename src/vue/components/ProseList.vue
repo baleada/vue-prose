@@ -2,10 +2,7 @@
   <section
     ref="prose"
     class="baleada-prose-list"
-    :class="[
-      hasMaxHeight ? 'baleada-prose-grid-max-height' : '',
-      canFilterByQuery ? 'baleada-prose-grid-filter-by-query' : '',
-    ]"
+    :class="[classes]"
   >
     <input
       v-if="canFilterByQuery"
@@ -32,7 +29,7 @@
 </template>
 
 <script>
-import { ref, watch, computed, provide } from '@vue/composition-api'
+import { ref, watch, computed, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
@@ -46,6 +43,10 @@ export default {
     filterIsCaseSensitive: {
       type: Boolean,
       default: false,
+    },
+    classes: {
+      type: String,
+      default: '',
     },
     canChangeFilterCaseSensitivity: {
       type: Boolean,
@@ -100,11 +101,11 @@ export default {
 
     return {
       prose,
+      messages,
       filterQuery,
       handleFilterQuery,
       filterIsCaseSensitiveRef,
       handleCaseSensitiveChange,
-      messages
     }
   },
 }

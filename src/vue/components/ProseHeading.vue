@@ -2,6 +2,7 @@
   <component
     ref="prose"
     class="baleada-prose-heading"
+    :class="[classes]"
     :is="`h${level}`"
   >
     <button
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, inject } from '@vue/composition-api'
+import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
 
 import { useCopiable } from '@baleada/composition/vue'
 
@@ -40,7 +41,11 @@ export default {
     level: {
       type: Number,
       required: true,
-    }
+    },
+    classes: {
+      type: String,
+      default: '',
+    },
   },
   setup(props) {
     const prose = ref(null),
@@ -56,11 +61,11 @@ export default {
     const copiable = useCopiable('')
 
     watch(slug, () => {
-      useCopiable.setString(`${window.location.origin}${window.location.pathname}#${slug.value}`)
+      copiable.value.setString(`${window.location.origin}${window.location.pathname}#${slug.value}`)
     }, { lazy: true })
 
     function handleClick () {
-      copiable.copy()
+      copiable.value.copy()
     }
 
     return {

@@ -1,123 +1,125 @@
-export default {
-  "ProseArticle": {
+export default [
+  {
     "name": "ProseArticle",
     "interface": {}
   },
-  "ProseAside": {
+  {
     "name": "ProseAside",
     "interface": {
-      "type": "string"
+      "type": "string",
+      "classes": "string"
     }
   },
-  "ProseBlockquote": {
+  {
     "name": "ProseBlockquote",
     "interface": {
       "isTweetable": "boolean",
       "tweetText": "string",
-      "tweetHashtags": "array"
+      "tweetHashtags": "array",
+      "classes": "string"
     }
   },
-  "ProseCodeblock": {
+  {
     "name": "ProseCodeblock",
     "interface": {
       "lines": "number",
-      "hasLineNumbers": "boolean"
+      "hasLineNumbers": "boolean",
+      "classes": "string"
     }
   },
-  "ProseColumnheader": {
+  {
     "name": "ProseColumnheader",
     "interface": {
       "index": "number"
     }
   },
-  "ProseDetails": {
+  {
     "name": "ProseDetails",
     "interface": {
-      "summary": "string"
+      "summary": "string",
+      "classes": "string"
     }
   },
-  "ProseGrid": {
+  {
     "name": "ProseGrid",
     "interface": {
       "canFilterByQuery": "boolean",
       "filterIsCaseSensitive": "boolean",
-      "canChangeFilterIsCaseSensitive": "boolean",
+      "canChangeFilterCaseSensitivity": "boolean",
+      "classes": "string",
       "ariaLabel": "string"
     }
   },
-  "ProseGridContents": {
+  {
     "name": "ProseGridContents",
     "interface": {}
   },
-  "ProseGridcell": {
+  {
     "name": "ProseGridcell",
     "interface": {
       "index": "number"
     }
   },
-  "ProseHeading": {
+  {
     "name": "ProseHeading",
     "interface": {
-      "level": "number"
+      "level": "number",
+      "classes": "string"
     }
   },
-  "ProseLayout": {
-    "name": "ProseLayout",
-    "interface": {
-      "fullPath": "ref",
-      "messages": "object"
-    }
-  },
-  "ProseList": {
+  {
     "name": "ProseList",
     "interface": {
       "canFilterByQuery": "boolean",
       "filterIsCaseSensitive": "boolean",
+      "classes": "string",
       "canChangeFilterCaseSensitivity": "boolean"
     }
   },
-  "ProseListContents": {
+  {
     "name": "ProseListContents",
     "interface": {
       "isOrdered": "boolean"
     }
   },
-  "ProseListItem": {
+  {
     "name": "ProseListItem",
     "interface": {
       "index": "number"
     }
   },
-  "ProseNav": {
+  {
     "name": "ProseNav",
     "interface": {}
   },
-  "ProseRow": {
+  {
     "name": "ProseRow",
     "interface": {
       "index": "number"
     }
   },
-  "ProseRowgroup": {
+  {
     "name": "ProseRowgroup",
     "interface": {
       "index": "number"
     }
   },
-  "ProseSection": {
+  {
     "name": "ProseSection",
-    "interface": {}
+    "interface": {
+      "classes": "string"
+    }
   },
-  "ProseStats": {
+  {
     "name": "ProseStats",
     "interface": {
       "stats": "object"
     }
   },
-  "ProseTableOfContents": {
+  {
     "name": "ProseTableOfContents",
     "interface": {
       "headings": "array"
     }
   }
-}
+]
