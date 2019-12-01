@@ -51,7 +51,7 @@ export default {
     const prose = ref(null),
           text = computed(() => prose.value ? prose.value.textContent : ''),
           slug = computed(() => simpleSlugify(text.value).toLowerCase()),
-          addHeading = inject(useSymbol('layout', 'addHeading'))
+          addHeading = inject(useSymbol('article', 'addHeading'))
 
     onMounted(() => {
       addHeading({ level: props.level, slug: slug.value, text: text.value })
