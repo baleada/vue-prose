@@ -51,7 +51,7 @@ export default {
     provide(useSymbol('article', 'frontMatter'), frontMatter)
 
     const filePath = ref(''),
-          setPath = newPath => (filePath.value = newPath)
+          setFilePath = newFilePath => (filePath.value = newFilePath)
     provide(useSymbol('article', 'setFilePath'), setFilePath)
     provide(useSymbol('article', 'filePath'), filePath)
 
