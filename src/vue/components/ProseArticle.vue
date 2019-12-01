@@ -6,12 +6,12 @@
     <section class="contents">
       <slot
         name="before"
-        v-bind="{ stats, frontMatter, fullPath }"
+        v-bind="{ stats, frontMatter, filePath, fullPath }"
       />
       <slot />
       <slot
         name="after"
-        v-bind="{ stats, frontMatter, fullPath }"
+        v-bind="{ stats, frontMatter, filePath, fullPath }"
       />
     </section>
   </article>
@@ -41,17 +41,25 @@ export default {
 
     /* Collect frontMatter and stats from loaders */
     const stats = ref({}),
-          setStats = newStats => stats.value = newStats
+          setStats = newStats => (stats.value = newStats)
     provide(useSymbol('article', 'setStats'), setStats)
+    provide(useSymbol('article', 'stats'), stats)
 
     const frontMatter = ref({}),
-          setFrontMatter = newFrontMatter => frontMatter.value = newFrontMatter
+          setFrontMatter = newFrontMatter => (frontMatter.value = newFrontMatter)
     provide(useSymbol('article', 'setFrontMatter'), setFrontMatter)
+    provide(useSymbol('article', 'frontMatter'), frontMatter)
+
+    const filePath = ref(''),
+          setPath = newPath => (filePath.value = newPath)
+    provide(useSymbol('article', 'setFilePath'), setFilePath)
+    provide(useSymbol('article', 'filePath'), filePath)
 
     return {
       prose,
       stats,
       frontMatter,
+      filePath,
       fullPath,
     }
   },

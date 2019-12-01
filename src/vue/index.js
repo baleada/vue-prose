@@ -12,6 +12,7 @@ import ProseLayout from './components/ProseLayout.vue'
 import ProseList from './components/ProseList.vue'
 import ProseListContents from './components/ProseListContents.vue'
 import ProseListItem from './components/ProseListItem.vue'
+import ProseMedia from './components/ProseMedia.vue'
 import ProseRow from './components/ProseRow.vue'
 import ProseRowgroup from './components/ProseRowgroup.vue'
 import ProseSection from './components/ProseSection.vue'
@@ -34,6 +35,7 @@ export {
   ProseList,
   ProseListContents,
   ProseListItem,
+  ProseMedia,
   ProseRow,
   ProseRowgroup,
   ProseSection,

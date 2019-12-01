@@ -13,9 +13,9 @@ export default [
   {
     "name": "ProseBlockquote",
     "interface": {
-      "isTweetable": "boolean",
+      "canTweet": "boolean",
       "tweetText": "string",
-      "tweetHashtags": "array",
+      "hashtags": "array",
       "classes": "string"
     }
   },
@@ -86,6 +86,13 @@ export default [
     "name": "ProseListItem",
     "interface": {
       "index": "number"
+    }
+  },
+  {
+    "name": "ProseMedia",
+    "interface": {
+      "type": "string",
+      "src": "string"
     }
   },
   {

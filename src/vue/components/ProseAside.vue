@@ -15,10 +15,7 @@
 </template>
 
 <script>
-import { EvaInfo } from '@baleada/icons/vue'
-import { EvaAlertTriangle } from '@baleada/icons/vue'
-import { EvaFlash } from '@baleada/icons/vue'
-import { EvaAward } from '@baleada/icons/vue'
+import { EvaInfo, EvaAlertTriangle, EvaFlash, EvaAward } from '@baleada/icons/vue'
 
 export default {
   name: 'ProseAside',

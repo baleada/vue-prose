@@ -13,14 +13,14 @@
 export default {
   name: 'ProseBlockquote',
   props: {
-    isTweetable: {
+    canTweet: {
       type: Boolean,
       default: false,
     },
     tweetText: {
       type: String,
     },
-    tweetHashtags: {
+    hashtags: {
       type: Array,
     },
     classes: {

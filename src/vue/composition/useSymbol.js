@@ -3,10 +3,15 @@ const symbols = {
     messages: Symbol('messages'),
     fullPath: Symbol('fullPath'),
     addHeading: Symbol('addHeading'),
+    headings: Symbol('headings'),
   },
   article: {
     setFrontMatter: Symbol('setFrontMatter'),
+    frontMatter: Symbol('frontMatter'),
     setStats: Symbol('setStats'),
+    stats: Symbol('stats'),
+    setFilePath: Symbol('setFilePath'),
+    filePath: Symbol('filePath'),
   },
   grid: {
     addRowgroup: Symbol('addRowgroup'),

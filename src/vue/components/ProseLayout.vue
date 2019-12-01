@@ -49,6 +49,7 @@ export default {
     const headings = ref([]),
           addHeading = heading => headings.value.push(heading)
     provide(useSymbol('layout', 'addHeading'), addHeading)
+    provide(useSymbol('layout', 'headings'), headings)
 
     return {
       headings,
