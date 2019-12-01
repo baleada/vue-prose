@@ -30,6 +30,18 @@ export default {
     /* Track route */
     const fullPath = inject(useSymbol('layout', 'fullPath'))
 
+    /* Manage headings */
+    const headings = ref([]),
+          addHeading = heading => headings.value.push(heading),
+          setHeadings = inject(useSymbol('layout', 'setHeadings'))
+
+    provide(useSymbol('article', 'addHeading'), addHeading)
+    provide(useSymbol('article', 'headings'), headings)
+
+    watch(headings, () => {
+      setHeadings(headings.value)
+    })
+
     /* Scroll to heading */
     const prose = ref(null)
     onMounted(() => {

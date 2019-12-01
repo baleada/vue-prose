@@ -45,10 +45,10 @@ export default {
     /* Provide stuff for ProseArticle */
     provide(useSymbol('layout', 'fullPath'), fullPath)
 
-    /* Provide stuff for ProseHeading */
+    /* Track article headings */
     const headings = ref([]),
-          addHeading = heading => headings.value.push(heading)
-    provide(useSymbol('layout', 'addHeading'), addHeading)
+          setHeadings = newHeadings => headings.value = newHeadngs
+    provide(useSymbol('layout', 'setHeadings'), setHeadings)
     provide(useSymbol('layout', 'headings'), headings)
 
     return {

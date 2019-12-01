@@ -2,10 +2,12 @@ const symbols = {
   layout: {
     messages: Symbol('messages'),
     fullPath: Symbol('fullPath'),
-    addHeading: Symbol('addHeading'),
+    setHeadings: Symbol('setHeadings'),
     headings: Symbol('headings'),
   },
   article: {
+    addHeading: Symbol('addHeading'),
+    headings: Symbol('headings'),
     setFrontMatter: Symbol('setFrontMatter'),
     frontMatter: Symbol('frontMatter'),
     setStats: Symbol('setStats'),
