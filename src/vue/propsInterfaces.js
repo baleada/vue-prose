@@ -89,10 +89,6 @@ export default [
     }
   },
   {
-    "name": "ProseNav",
-    "interface": {}
-  },
-  {
     "name": "ProseRow",
     "interface": {
       "index": "number"
@@ -108,18 +104,6 @@ export default [
     "name": "ProseSection",
     "interface": {
       "classes": "string"
-    }
-  },
-  {
-    "name": "ProseStats",
-    "interface": {
-      "stats": "object"
-    }
-  },
-  {
-    "name": "ProseTableOfContents",
-    "interface": {
-      "headings": "array"
     }
   }
 ]

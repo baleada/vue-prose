@@ -12,12 +12,9 @@ import ProseLayout from './components/ProseLayout.vue'
 import ProseList from './components/ProseList.vue'
 import ProseListContents from './components/ProseListContents.vue'
 import ProseListItem from './components/ProseListItem.vue'
-import ProseNav from './components/ProseNav.vue'
 import ProseRow from './components/ProseRow.vue'
 import ProseRowgroup from './components/ProseRowgroup.vue'
 import ProseSection from './components/ProseSection.vue'
-import ProseStats from './components/ProseStats.vue'
-import ProseTableOfContents from './components/ProseTableOfContents.vue'
 import useGridKeyboardAccesibility from './composition/useGridKeyboardAccesibility.js'
 import useRouter from './composition/useRouter.js'
 import useSymbol from './composition/useSymbol.js'
@@ -37,12 +34,9 @@ export {
   ProseList,
   ProseListContents,
   ProseListItem,
-  ProseNav,
   ProseRow,
   ProseRowgroup,
   ProseSection,
-  ProseStats,
-  ProseTableOfContents,
   useGridKeyboardAccesibility,
   useRouter,
   useSymbol,

@@ -12,12 +12,9 @@ import ProseLayout from './ProseLayout.vue'
 import ProseList from './ProseList.vue'
 import ProseListContents from './ProseListContents.vue'
 import ProseListItem from './ProseListItem.vue'
-import ProseNav from './ProseNav.vue'
 import ProseRow from './ProseRow.vue'
 import ProseRowgroup from './ProseRowgroup.vue'
 import ProseSection from './ProseSection.vue'
-import ProseStats from './ProseStats.vue'
-import ProseTableOfContents from './ProseTableOfContents.vue'
 
 export {
   ProseArticle,
@@ -34,10 +31,7 @@ export {
   ProseList,
   ProseListContents,
   ProseListItem,
-  ProseNav,
   ProseRow,
   ProseRowgroup,
   ProseSection,
-  ProseStats,
-  ProseTableOfContents,
 }
