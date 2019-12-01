@@ -51,10 +51,7 @@ export default {
     provide(useSymbol('layout', 'setHeadings'), setHeadings)
     provide(useSymbol('layout', 'headings'), headings)
 
-    return {
-      headings,
-      addHeading,
-    }
+    return {}
   },
 }
 </script>
