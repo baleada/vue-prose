@@ -1,24 +1,26 @@
 import { computed, watch } from '@vue/composition-api'
 
 /*
- * This is some wacky stuff that transfers focus to the correct component in a ProseGrid, respecting the fact that cells can't be focused if their rows or columns have been filtered out by the ProseGrid filter query feature.
+ * This wacky shiznit transfers focus to the correct component in a ProseGrid, respecting the fact that cells can't be focused if their rows or columns have been filtered out by the ProseGrid filter-by-query feature.
  */
-export default function(getters) {
-  const { focused, columns, rows, grid, currentRowIndex, currentColumnIndex } = getters
+export default function(getters, setters) {
+  const { focused, columns, rows, grid, currentRow, currentColumn } = getters,
+        { setFocused } = setters
 
   const handlers = {
     arrowright: evt => {
       // → Moves focus one cell to the right. If focus is on the right-most cell in the row, focus does not move.
       const lastColumnIsFocused = focused().gridcell === columns()[columns().length - 1]
       if (!lastColumnIsFocused) {
-        focused().gridcell = columns()[currentColumnIndex() + 1]
+
+        setFocused({ gridcell: columns()[currentColumn() + 1] })
       }
     },
     arrowleft: evt => {
       // ← Moves focus one cell to the left. If focus is on the left-most cell in the row, focus does not move.
       const firstColumnIsFocused = focused().gridcell === columns()[0]
       if (!firstColumnIsFocused) {
-        focused().gridcell = columns()[currentColumnIndex() - 1]
+        setFocused({ gridcell: columns()[currentColumn() - 1] })
       }
     },
     arrowdown: evt => {
@@ -26,12 +28,12 @@ export default function(getters) {
       const headerRowIsFocused = focused().rowgroup === 0
 
       if (headerRowIsFocused) {
-        focused().rowgroup = 1
-        focused().row = rows()[1] - 1
+        setFocused({ rowgroup: 1 })
+        setFocused({ row: rows()[1] - 1 })
       } else {
         const lastRowIsFocused = focused().row + focused().rowgroup === rows()[rows().length - 1]
         if (!lastRowIsFocused) {
-          focused().row = rows()[currentRowIndex() + 1] - 1
+          setFocused({ row: rows()[currentRow() + 1] - 1 })
         }
       }
     },
@@ -42,21 +44,21 @@ export default function(getters) {
       if (!headerRowIsFocused) {
         const firstRowIsFocused = focused().row + focused().rowgroup === rows()[1]
         if (firstRowIsFocused) {
-          focused().rowgroup = 0
-          focused().row = 0
+          setFocused({ rowgroup: 0 })
+          setFocused({ row: 0 })
         } else {
-          focused().rowgroup = 1
-          focused().row = rows()[currentRowIndex() - 1] - 1
+          setFocused({ rowgroup: 1 })
+          setFocused({ row: rows()[currentRow() - 1] - 1 })
         }
       }
     },
     home: evt => {
       // Home Moves focus to the first cell in the row that contains focus
-      focused().gridcell = columns()[0]
+      setFocused({ gridcell: columns()[0] })
     },
     end: evt => {
       // End Moves focus to the last cell in the row that contains focus.
-      focused().gridcell = columns()[columns().length - 1]
+      setFocused({ gridcell: columns()[columns().length - 1] })
     },
     'meta+arrowleft': function(evt) {
       this.home(evt)
@@ -65,24 +67,24 @@ export default function(getters) {
       this.end(evt)
     },
     'meta+arrowup': function(evt) {
-      focused().rowgroup = 0
-      focused().row = 0
+      setFocused({ rowgroup: 0 })
+      setFocused({ row: 0 })
     },
     'meta+arrowdown': evt => {
-      focused().rowgroup = 1
-      focused().row = rows()[rows().length - 1] - 1
+      setFocused({ rowgroup: 1 })
+      setFocused({ row: rows()[rows().length - 1] - 1 })
     },
     'meta+home': evt => {
       // ctrl + Home Moves focus to the first cell in the first row.
-      focused().rowgroup = 0
-      focused().row = 0
-      focused().gridcell = 0
+      setFocused({ rowgroup: 0 })
+      setFocused({ row: 0 })
+      setFocused({ gridcell: 0 })
     },
     'meta+end': evt => {
       // ctrl + End Moves focus to the last cell in the last row.
-      focused().rowgroup = 1
-      focused().row = rows()[rows().length - 1] - 1
-      focused().gridcell = columns()[columns().length - 1]
+      setFocused({ rowgroup: 1 })
+      setFocused({ row: rows()[rows().length - 1] - 1 })
+      setFocused({ gridcell: columns()[columns().length - 1] })
     },
   }
   // Page Down Moves focus down an author-determined number of rows, typically scrolling so the bottom row in the currently visible set of rows becomes one of the first visible rows(). If focus is in the last row of the grid, focus does not move.
@@ -90,13 +92,13 @@ export default function(getters) {
 
   function handler (evt) {
     const key = evt.key.toLowerCase()
-    
+
     if (grid().isSameNode(evt.target)) {
       if (handlers.hasOwnProperty(key)) {
         evt.preventDefault()
-        focused().rowgroup = 0
-        focused().row = 0
-        focused().gridcell = 0
+        setFocused({ rowgroup: 0 })
+        setFocused({ row: 0 })
+        setFocused({ gridcell: 0 })
       }
     } else if (evt.ctrlKey || evt.metaKey) {
       if (handlers.hasOwnProperty(`meta+${key}`)) {

@@ -21,24 +21,28 @@ export default {
     index: {
       type: Number,
       required: true,
-    }
+    },
   },
   setup (props) {
-    provide(useSymbol('row', 'index'), props.index)
-
     const prose = ref(null),
-          isFiltered = ref(false),
-          setIsFiltered = newIsFiltered => {
-            isFiltered.value = newIsFiltered
-            return isFiltered.value
-          }
+          canFilterByQuery = inject(useSymbol('grid', 'canFilterByQuery'))
 
-    const addRow = inject(useSymbol('grid', 'addRow')),
-          rowgroupIndex = inject(useSymbol('rowgroup', 'index'))
+    if (canFilterByQuery.value) {
+      const filterQuery = inject(useSymbol('grid', 'filterQuery')),
+            filterIsCaseSensitive = inject(useSymbol('grid', 'filterIsCaseSensitive')),
+            setRowIsFiltered = inject(useSymbol('grid', 'setRowIsFiltered')),
+            text = computed(() => prose.value ? prose.value.textContent : undefined),
+            isFiltered = ref(false)
 
-    onMounted(() => {
-      addRow(rowgroupIndex, props.index, prose, setIsFiltered)
-    })
+      watch([filterQuery, filterIsCaseSensitive], () => {
+        const matchesFilterQuery = filterIsCaseSensitive.value
+                ? text.value.includes(filterQuery.value)
+                : text.value.toLowerCase().includes(filterQuery.value.toLowerCase())
+
+        isFiltered.value = matchesFilterQuery
+        setRowIsFiltered({ row: props.index, isFilterable: matchesFilterQuery })
+      })
+    }
 
     return {
       prose,

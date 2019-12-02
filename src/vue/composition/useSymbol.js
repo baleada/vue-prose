@@ -16,9 +16,10 @@ const symbols = {
     filePath: Symbol('filePath'),
   },
   grid: {
-    addRowgroup: Symbol('addRowgroup'),
-    addRow: Symbol('addRow'),
-    addGridcell: Symbol('addGridcell'),
+    filterQuery: Symbol('filterQuery'),
+    computedFilterIsCaseSensitive: Symbol('computedFilterIsCaseSensitive'),
+    setRowIsFiltered: Symbol('setRowIsFiltered'),
+    focused: Symbol('focused'),
     setFocused: Symbol('setFocused'),
   },
   list: {
