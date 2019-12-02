@@ -45,7 +45,7 @@ export default {
                 : text.value.toLowerCase().includes(filterQuery.value.toLowerCase())
 
         isFiltered.value = !matchesFilterQuery
-        setRowIsFiltered({ row: props.index, isFilterable: !matchesFilterQuery })
+        setRowIsFiltered({ row: props.index, isFiltered: !matchesFilterQuery })
       })
     }
 

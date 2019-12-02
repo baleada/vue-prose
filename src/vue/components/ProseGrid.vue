@@ -27,6 +27,7 @@
       :aria-label="ariaLabel"
       @keydown="handleKeydown"
       @focus="handleFocus"
+      ref="contents"
     >
       <slot />
     </section>
@@ -72,7 +73,8 @@ export default {
     },
   },
   setup(props) {
-    const prose = ref(null)
+    const prose = ref(null),
+          contents = ref(null)
 
     /* Get messages */
     const messages = inject(useSymbol('layout', 'messages'))
@@ -82,7 +84,7 @@ export default {
 
     const filterQuery = props.canFilterByQuery ? ref('') : {},
           computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {}
-    let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, filteredRows, setRowIsFiltered
+    let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, setRowIsFiltered
     if (props.canFilterByQuery) {
       handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
       handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
@@ -91,12 +93,7 @@ export default {
           .slice(1) // header row never gets filtered
           .map(({ row }) => ({ row, isFiltered: false }))
       ),
-      setRowIsFiltered = ({ row, isFiltered }) => {
-        // Don't trigger updates if data hasn't changed
-        if (filterableRows.value[row].isFiltered !== isFiltered) {
-          filterableRows.value[row].isFiltered = isFiltered
-        }
-      }
+      setRowIsFiltered = ({ row, isFiltered }) => (filterableRows.value[row].isFiltered = isFiltered)
 
       provide(useSymbol('grid', 'filterQuery'), filterQuery)
       provide(useSymbol('grid', 'filterIsCaseSensitive'), computedFilterIsCaseSensitive)
@@ -145,7 +142,7 @@ export default {
             focused: () => focused.value,
             rows: () => focusableRowIndices.value,
             columns: () => focusableColumnIndices.value,
-            grid: () => prose.value,
+            grid: () => contents.value,
             currentRow: () => currentRowIndex.value,
             currentColumn: () => currentColumnIndex.value,
           },
@@ -160,6 +157,7 @@ export default {
 
     return {
       prose,
+      contents,
       messages,
       filterQuery,
       handleFilterQueryInput,

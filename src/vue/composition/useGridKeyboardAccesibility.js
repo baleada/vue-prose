@@ -1,8 +1,3 @@
-import { computed, watch } from '@vue/composition-api'
-
-/*
- * This wacky shiznit transfers focus to the correct component in a ProseGrid, respecting the fact that cells can't be focused if their rows or columns have been filtered out by the ProseGrid filter-by-query feature.
- */
 export default function(getters, setters) {
   const { focused, columns, rows, grid, currentRow, currentColumn } = getters,
         { setFocused } = setters
@@ -12,7 +7,6 @@ export default function(getters, setters) {
       // → Moves focus one cell to the right. If focus is on the right-most cell in the row, focus does not move.
       const lastColumnIsFocused = focused().gridcell === columns()[columns().length - 1]
       if (!lastColumnIsFocused) {
-
         setFocused({ gridcell: columns()[currentColumn() + 1] })
       }
     },
