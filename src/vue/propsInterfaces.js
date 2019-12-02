@@ -30,6 +30,8 @@ export default [
   {
     "name": "ProseColumnheader",
     "interface": {
+      "rowgroup": "number",
+      "row": "number",
       "index": "number"
     }
   },
@@ -47,7 +49,9 @@ export default [
       "filterIsCaseSensitive": "boolean",
       "canChangeFilterCaseSensitivity": "boolean",
       "classes": "string",
-      "ariaLabel": "string"
+      "ariaLabel": "string",
+      "rows": "array",
+      "gridcells": "array"
     }
   },
   {
@@ -57,6 +61,8 @@ export default [
   {
     "name": "ProseGridcell",
     "interface": {
+      "rowgroup": "number",
+      "row": "number",
       "index": "number"
     }
   },
@@ -98,6 +104,7 @@ export default [
   {
     "name": "ProseRow",
     "interface": {
+      "rowgroup": "number",
       "index": "number"
     }
   },

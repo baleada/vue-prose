@@ -11,31 +11,43 @@
 </template>
 
 <script>
-import { ref, onMounted, inject } from '@vue/composition-api'
+import { ref, computed, watch, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
 export default {
   name: 'ProseColumnheader',
   props: {
+    rowgroup: {
+      type: Number,
+      required: true,
+    },
+    row: {
+      type: Number,
+      required: true,
+    },
     index: {
       type: Number,
       required: true,
-    }
+    },
   },
   setup(props) {
     const prose = ref(null),
-          rowgroupIndex = inject(useSymbol('rowgroup', 'index')),
-          rowIndex = inject(useSymbol('row', 'index')),
-          addGridcell = inject(useSymbol('grid', 'addGridcell'))
+          focused = inject(useSymbol('grid', 'focused')),
+          isFocused = computed(() => {
+            const { rowgroup, row, gridcell } = focused.value
+            return rowgroup === props.rowgroup && row === props.row && gridcell === props.index
+          })
 
-    onMounted(() => {
-      addGridcell(rowgroupIndex, rowIndex, props.index, prose)
+    watch(() => {
+      if (isFocused.value) {
+        prose.value.focus()
+      }
     })
 
     const setFocused = inject(useSymbol('grid', 'setFocused'))
     function handleClick () {
-      setFocused(rowgroupIndex, rowIndex, props.index)
+      setFocused({ rowgroup: props.rowgroup, row: props.row, gridcell: props.index })
     }
 
     return {

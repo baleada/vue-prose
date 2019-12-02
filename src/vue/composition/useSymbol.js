@@ -16,8 +16,9 @@ const symbols = {
     filePath: Symbol('filePath'),
   },
   grid: {
+    canFilterByQuery: Symbol('canFilterByQuery'),
     filterQuery: Symbol('filterQuery'),
-    computedFilterIsCaseSensitive: Symbol('computedFilterIsCaseSensitive'),
+    filterIsCaseSensitive: Symbol('filterIsCaseSensitive'),
     setRowIsFiltered: Symbol('setRowIsFiltered'),
     focused: Symbol('focused'),
     setFocused: Symbol('setFocused'),

@@ -78,16 +78,18 @@ export default {
     const messages = inject(useSymbol('layout', 'messages'))
 
     /* Filtering */
+    provide(useSymbol('grid', 'canFilterByQuery'), props.canFilterByQuery)
+
     const filterQuery = props.canFilterByQuery ? ref('') : {},
           computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {}
-    let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, filteredRows, setFilteredState
+    let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, filteredRows, setRowIsFiltered
     if (props.canFilterByQuery) {
       handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
       handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
       filterableRows = ref(
         props.rows
           .slice(1) // header row never gets filtered
-          .map(({ row }) => ({ row, isFiltered: false })
+          .map(({ row }) => ({ row, isFiltered: false }))
       ),
       setRowIsFiltered = ({ row, isFiltered }) => {
         // Don't trigger updates if data hasn't changed
@@ -97,13 +99,13 @@ export default {
       }
 
       provide(useSymbol('grid', 'filterQuery'), filterQuery)
-      provide(useSymbol('grid', 'computedFilterIsCaseSensitive'), computedFilterIsCaseSensitive)
+      provide(useSymbol('grid', 'filterIsCaseSensitive'), computedFilterIsCaseSensitive)
       provide(useSymbol('grid', 'setRowIsFiltered'), setRowIsFiltered)
     }
 
 
     /* Focusing */
-    const focusableRows = computed(() => filterableRows.value.filter(({ isFiltered }) => !isFiltered.value),
+    const focusableRows = computed(() => filterableRows.value.filter(({ isFiltered }) => !isFiltered)),
           focusableGridcells = computed(() => {
             return props.gridcells
               .filter(({ rowgroup, row }) => {
@@ -116,24 +118,27 @@ export default {
           }),
           currentRowIndex = computed(() => focusableRowIndices.value.findIndex(row => row === focused.value.row + focused.value.rowgroup)),
           focusableColumnIndices = computed(() => {
-            const indices = new Set(focusableGridcells.value.map(({ coordinates: { gridcell } }) => gridcell))
+            const indices = new Set(focusableGridcells.value.map(({ gridcell }) => gridcell))
             return Array.from(indices)
           }),
           currentColumnIndex = computed(() => focusableColumnIndices.value.findIndex(column => column === focused.value.gridcell)),
           focused = ref({ rowgroup: undefined, row: undefined, gridcell: undefined }),
           setFocused = ({ rowgroup, row, gridcell }) => {
-            if (typeof rowgroup === 'number') {
-              focused.value.rowgroup = rowgroup
-            }
-            if (typeof row === 'number') {
-              focused.value.row = row
-            }
-            if (typeof gridcell === 'number') {
-              focused.value.gridcell = gridcell
-            }
-          },
+            if (focused.value.rowgroup !== rowgroup || focused.value.row !== row || focused.value.gridcell !== gridcell) {
+              const numWasPassed = [rowgroup, row, gridcell].some(arg => typeof arg === 'number'),
+                    newFocused = numWasPassed
+                      ? {
+                        rowgroup: typeof rowgroup === 'number' ? rowgroup : focused.value.rowgroup,
+                        row: typeof row === 'number' ? row : focused.value.row,
+                        gridcell: typeof gridcell === 'number' ? gridcell : focused.value.gridcell,
+                      }
+                      : { rowgroup, row, gridcell }
 
-    provide(useSymbol('grid', 'setFocused'), focused)
+              focused.value = newFocused
+            }
+          }
+
+    provide(useSymbol('grid', 'focused'), focused)
     provide(useSymbol('grid', 'setFocused'), setFocused)
 
     const getters = {
