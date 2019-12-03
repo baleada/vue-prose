@@ -70,7 +70,7 @@ export default {
           computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
           handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
           handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
-    let handleCaseSensitivityChange, handleFilterQueryInput, filterableListItems, setListItemIsFiltered
+    let filterableListItems, setListItemIsFiltered
     if (props.canFilterByQuery) {
       filterableListItems = ref(
         props.listItems.map(({ listItem }) => ({ listItem, isFiltered: false }))

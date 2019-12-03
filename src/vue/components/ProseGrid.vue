@@ -87,7 +87,7 @@ export default {
           computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
           handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
           handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
-    let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, setRowIsFiltered
+    let filterableRows, setRowIsFiltered
     if (props.canFilterByQuery) {
       filterableRows = ref(
         props.rows
