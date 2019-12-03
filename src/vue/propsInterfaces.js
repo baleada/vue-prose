@@ -78,8 +78,9 @@ export default [
     "interface": {
       "canFilterByQuery": "boolean",
       "filterIsCaseSensitive": "boolean",
+      "canChangeFilterCaseSensitivity": "boolean",
       "classes": "string",
-      "canChangeFilterCaseSensitivity": "boolean"
+      "listItems": "array"
     }
   },
   {

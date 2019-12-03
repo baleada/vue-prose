@@ -14,6 +14,7 @@
     />
     <input
       v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
+      name="Change filter case sensitivity"
       type="checkbox"
       :checked="computedFilterIsCaseSensitive"
       @change="handleCaseSensitivityChange"

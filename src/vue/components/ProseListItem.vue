@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { ref, onMounted, inject } from '@vue/composition-api'
+import { ref, computed, watch, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
@@ -25,17 +25,25 @@ export default {
   },
   setup (props) {
     const prose = ref(null),
+          canFilterByQuery = inject(useSymbol('grid', 'canFilterByQuery')),
           isFiltered = ref(false),
-          setIsFiltered = newIsFiltered => {
-            isFiltered.value = newIsFiltered
-            return isFiltered.value
-          }
+          text = computed(() => prose.value ? prose.value.textContent : '')
 
-    const addRow = inject(useSymbol('list', 'addRow'))
+    let filterQuery, filterIsCaseSensitive, setListItemIsFiltered
+    if (canFilterByQuery) {
+      filterQuery = inject(useSymbol('grid', 'filterQuery'))
+      filterIsCaseSensitive = inject(useSymbol('grid', 'filterIsCaseSensitive'))
+      setListItemIsFiltered = inject(useSymbol('grid', 'setListItemIsFiltered'))
 
-    onMounted(() => {
-      addRow(props.index, prose, setIsFiltered)
-    })
+      watch([filterQuery, filterIsCaseSensitive], () => {
+        const matchesFilterQuery = filterIsCaseSensitive.value
+                ? text.value.includes(filterQuery.value)
+                : text.value.toLowerCase().includes(filterQuery.value.toLowerCase())
+
+        isFiltered.value = !matchesFilterQuery
+        setListItemIsFiltered({ listItem: props.index, isFiltered: !matchesFilterQuery })
+      })
+    }
 
     return {
       prose,

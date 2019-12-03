@@ -10,14 +10,14 @@
       name="Type to filter"
       type="text"
       :value="filterQuery"
-      @input="handleFilterQuery"
+      @input="handleFilterQueryInput"
     />
     <input
       v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
       name="Change filter case sensitivity"
       type="checkbox"
-      :checked="filterIsCaseSensitiveRef"
-      @change="handleCaseSensitiveChange"
+      :checked="computedFilterIsCaseSensitive"
+      @change="handleCaseSensitivityChange"
     />
     <label v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
       {{ messages.list.changeFilterCaseSensitivityLabel }}
@@ -44,13 +44,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    canChangeFilterCaseSensitivity: {
+      type: Boolean,
+      default: false,
+    },
     classes: {
       type: String,
       default: '',
     },
-    canChangeFilterCaseSensitivity: {
-      type: Boolean,
-      default: false,
+    listItems: {
+      type: Array,
+      required: true,
     },
   },
   setup(props) {
@@ -59,53 +63,32 @@ export default {
     /* Get messages */
     const messages = inject(useSymbol('layout', 'messages'))
 
-    /* Model list */
-    const rows = ref([]),
-          addRow = (index, ref, setIsFiltered) => {
-            rows.value.push({
-              ref,
-              isFiltered: false,
-              setIsFiltered,
-              coordinates: { row: index },
-              text: ref.value.textContent,
-            })
-          }
-
-    provide(useSymbol('list', 'addRow'), addRow)
-
     /* Filtering */
-    const filterIsCaseSensitiveRef = ref(props.filterIsCaseSensitive),
-          filterQuery = ref(''),
-          handleCaseSensitiveChange = () => (filterIsCaseSensitiveRef.value = !filterIsCaseSensitiveRef.value),
-          handleFilterQuery = (evt) => (filterQuery.value = evt.target.value),
-          filteredRows = computed(() => rows.value.filter(({ isFiltered }) => !isFiltered)),
-          setFilteredState = (query, isCaseSensitive) => {
-            rows.value
-              .forEach(row => {
-                const { text, setIsFiltered } = row,
-                      matchesFilterQuery = isCaseSensitive
-                        ? text.includes(query)
-                        : text.toLowerCase().includes(query.toLowerCase())
+    provide(useSymbol('list', 'canFilterByQuery'), props.canFilterByQuery)
 
-                row.isFiltered = setIsFiltered(!matchesFilterQuery)
-              })
-          }
-
+    const filterQuery = props.canFilterByQuery ? ref('') : {},
+          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {}
+    let handleCaseSensitivityChange, handleFilterQueryInput, filterableListItems, setListItemIsFiltered
     if (props.canFilterByQuery) {
-      watch(
-        [filterQuery, filterIsCaseSensitiveRef],
-        () => setFilteredState(filterQuery.value, filterIsCaseSensitiveRef.value),
-        { lazy: true }
-      )
+      handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
+      handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
+      filterableListItems = ref(
+        props.listItems.map(({ listItem }) => ({ listItem, isFiltered: false }))
+      ),
+      setListItemIsFiltered = ({ listItem, isFiltered }) => (filterableListItems.value[listItem].isFiltered = isFiltered)
+
+      provide(useSymbol('list', 'filterQuery'), filterQuery)
+      provide(useSymbol('list', 'filterIsCaseSensitive'), computedFilterIsCaseSensitive)
+      provide(useSymbol('list', 'setListItemIsFiltered'), setListItemIsFiltered)
     }
 
     return {
       prose,
       messages,
       filterQuery,
-      handleFilterQuery,
-      filterIsCaseSensitiveRef,
-      handleCaseSensitiveChange,
+      handleFilterQueryInput,
+      computedFilterIsCaseSensitive,
+      handleCaseSensitivityChange,
     }
   },
 }

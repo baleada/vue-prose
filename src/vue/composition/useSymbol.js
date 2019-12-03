@@ -24,7 +24,10 @@ const symbols = {
     setFocused: Symbol('setFocused'),
   },
   list: {
-    addRow: Symbol('addRow'),
+    canFilterByQuery: Symbol('canFilterByQuery'),
+    filterQuery: Symbol('filterQuery'),
+    filterIsCaseSensitive: Symbol('filterIsCaseSensitive'),
+    setListItemIsFiltered: Symbol('setListItemIsFiltered'),
   },
   rowgroup: {
     index: Symbol('index'),
