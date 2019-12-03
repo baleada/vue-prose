@@ -84,11 +84,11 @@ export default {
     provide(useSymbol('grid', 'canFilterByQuery'), props.canFilterByQuery)
 
     const filterQuery = props.canFilterByQuery ? ref('') : {},
-          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {}
+          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
+          handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
+          handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
     let handleCaseSensitivityChange, handleFilterQueryInput, filterableRows, setRowIsFiltered
     if (props.canFilterByQuery) {
-      handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
-      handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
       filterableRows = ref(
         props.rows
           .slice(1) // header row never gets filtered

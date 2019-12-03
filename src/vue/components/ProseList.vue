@@ -67,11 +67,11 @@ export default {
     provide(useSymbol('list', 'canFilterByQuery'), props.canFilterByQuery)
 
     const filterQuery = props.canFilterByQuery ? ref('') : {},
-          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {}
+          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
+          handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
+          handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
     let handleCaseSensitivityChange, handleFilterQueryInput, filterableListItems, setListItemIsFiltered
     if (props.canFilterByQuery) {
-      handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
-      handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
       filterableListItems = ref(
         props.listItems.map(({ listItem }) => ({ listItem, isFiltered: false }))
       ),

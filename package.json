@@ -37,7 +37,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@baleada/composition": "^0.0.0",
-    "@baleada/icons": "^0.0.0"
+    "@baleada/composition": "0.x",
+    "@baleada/icons": "0.x"
   }
 }
