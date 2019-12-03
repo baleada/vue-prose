@@ -25,15 +25,15 @@ export default {
   },
   setup (props) {
     const prose = ref(null),
-          canFilterByQuery = inject(useSymbol('grid', 'canFilterByQuery')),
+          canFilterByQuery = inject(useSymbol('list', 'canFilterByQuery')),
           isFiltered = ref(false),
           text = computed(() => prose.value ? prose.value.textContent : '')
 
     let filterQuery, filterIsCaseSensitive, setListItemIsFiltered
     if (canFilterByQuery) {
-      filterQuery = inject(useSymbol('grid', 'filterQuery'))
-      filterIsCaseSensitive = inject(useSymbol('grid', 'filterIsCaseSensitive'))
-      setListItemIsFiltered = inject(useSymbol('grid', 'setListItemIsFiltered'))
+      filterQuery = inject(useSymbol('list', 'filterQuery'))
+      filterIsCaseSensitive = inject(useSymbol('list', 'filterIsCaseSensitive'))
+      setListItemIsFiltered = inject(useSymbol('list', 'setListItemIsFiltered'))
 
       watch([filterQuery, filterIsCaseSensitive], () => {
         const matchesFilterQuery = filterIsCaseSensitive.value
