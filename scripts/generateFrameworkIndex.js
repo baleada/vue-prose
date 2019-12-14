@@ -14,7 +14,7 @@ ${imported}\n${exported}\n\
 `
   )
 
-  console.log(`Indexed ${all.length} ${framework} functions.`)
+  console.log(`Indexed ${all.length} ${framework} files.`)
 }
 
 function getFiles(framework, category) {

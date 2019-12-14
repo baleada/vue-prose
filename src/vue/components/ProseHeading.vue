@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted, inject } from '@vue/composition-api'
+import { ref, computed, watch, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
 
 import { useCopiable } from '@baleada/composition/vue'
 
@@ -31,6 +31,13 @@ import { useSymbol } from '../composition'
 import simpleSlugify from '../util/simpleSlugify'
 
 import { EvaLink } from '@baleada/icons/vue'
+
+function toTextContent (vNode) {
+  const { tag, text, children } = vNode
+  return tag
+    ? children.reduce((textContent, child) => textContent + toTextContent(child), '')
+    : text
+}
 
 export default {
   name: 'ProseHeading',
@@ -49,20 +56,21 @@ export default {
   },
   setup(props) {
     const prose = ref(null),
-          text = computed(() => prose.value ? prose.value.textContent : ''),
-          slug = computed(() => simpleSlugify(text.value).toLowerCase()),
+          defaultSlot = getCurrentInstance().$slots.default[0],
+          text = toTextContent(defaultSlot),
+          slug = simpleSlugify(text).toLowerCase(),
           addHeading = inject(useSymbol('article', 'addHeading'))
 
     onMounted(() => {
-      addHeading({ level: props.level, slug: slug.value, text: text.value })
+      addHeading({ level: props.level, slug, text })
     })
 
     /* Copy link */
     const copiable = useCopiable('')
 
-    watch(slug, () => {
+    onMounted(() => {
       copiable.value.setString(`${window.location.origin}${window.location.pathname}#${slug.value}`)
-    }, { lazy: true })
+    })
 
     function handleClick () {
       copiable.value.copy()
