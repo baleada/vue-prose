@@ -3,17 +3,7 @@
     ref="prose"
     class="baleada-prose-article"
   >
-    <section class="contents">
-      <slot
-        name="before"
-        v-bind="{ stats, frontMatter, filePath, fullPath }"
-      />
-      <slot />
-      <slot
-        name="after"
-        v-bind="{ stats, frontMatter, filePath, fullPath }"
-      />
-    </section>
+    <slot />
   </article>
 </template>
 
@@ -69,10 +59,6 @@ export default {
 
     return {
       prose,
-      stats,
-      frontMatter,
-      filePath,
-      fullPath,
     }
   },
 }
