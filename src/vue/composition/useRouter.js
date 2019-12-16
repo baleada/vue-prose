@@ -1,9 +1,8 @@
 /* Adapted from https://github.com/u3u/vue-hooks */
-import { computed } from '@vue/composition-api'
-import { getRuntimeVM } from '../util/runtime'
+import { computed, getCurrentInstance } from '@vue/composition-api'
 
 export default function useRouter () {
-  const vm = getRuntimeVM(),
+  const vm = getCurrentInstance(),
         route = computed(() => vm.$route)
   return { route, router: vm.$router }
 }

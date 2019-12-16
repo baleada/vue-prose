@@ -15,7 +15,9 @@ export default [
     "interface": {
       "canTweet": "boolean",
       "tweetText": "string",
-      "hashtags": "array",
+      "tweetUrl": "string",
+      "tweetVia": "string",
+      "tweetHashtags": "array",
       "classes": "string"
     }
   },

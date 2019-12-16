@@ -1,5 +1,4 @@
 import * as components from './components'
-import { setRuntimeVM } from './util/runtime'
 
 const defaultOptions = {
   components: Object.keys(components).map(component => components[component]),
@@ -13,7 +12,6 @@ export default function install (Vue, options = {}) {
   }
 
   installComponents(Vue, options)
-  installRuntime(Vue)
 }
 
 function installComponents (Vue, options) {
@@ -27,8 +25,4 @@ function installComponents (Vue, options) {
 
     Vue.component(name, callback)
   })
-}
-
-function installRuntime (Vue) {
-  Vue.mixin({ beforeCreate: setRuntimeVM })
 }
