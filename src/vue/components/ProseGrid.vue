@@ -4,24 +4,28 @@
     class="baleada-prose-grid"
     :class="[classes]"
   >
-    <input
-      v-if="canFilterByQuery"
-      placeholder="Type to filter..."
-      name="Type to filter"
-      type="text"
-      :value="filterQuery"
-      @input="handleFilterQueryInput"
-    />
-    <input
-      v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
-      name="Change filter case sensitivity"
-      type="checkbox"
-      :checked="computedFilterIsCaseSensitive"
-      @change="handleCaseSensitivityChange"
-    />
-    <label v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
-      {{ messages.grid.changeFilterCaseSensitivityLabel }}
-    </label>
+    <div>
+      <input
+        v-if="canFilterByQuery"
+        placeholder="Type to filter..."
+        name="Type to filter"
+        type="text"
+        :value="filterQuery"
+        @input="handleFilterQueryInput"
+      />
+    </div>
+    <div>
+      <input
+        v-if="canFilterByQuery && canChangeFilterCaseSensitivity"
+        name="Change filter case sensitivity"
+        type="checkbox"
+        :checked="computedFilterIsCaseSensitive"
+        @change="handleCaseSensitivityChange"
+      />
+      <label v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
+        {{ messages.grid.changeFilterCaseSensitivityLabel }}
+      </label>
+    </div>
     <section
       class="contents"
       tabindex="0"
