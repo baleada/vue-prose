@@ -4,6 +4,7 @@
       ref="prose"
       v-show="!isFiltered"
       class="baleada-prose-row"
+      role="row"
     >
       <slot />
     </div>
