@@ -59,7 +59,7 @@ export default {
     const copiable = useCopiable('')
 
     onMounted(() => {
-      copiable.value.setString(`${window.location.origin}${window.location.pathname}#${slug.value}`)
+      copiable.value.setString(`${window.location.origin}${window.location.pathname}#${slug}`)
     })
 
     function handleClick () {

@@ -1,6 +1,6 @@
 {
   "name": "@baleada/prose",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Components that enhance prose for the Baleada toolkit",
   "main": "index.js",
   "scripts": {
