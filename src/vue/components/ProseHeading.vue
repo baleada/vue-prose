@@ -5,12 +5,6 @@
     :class="[classes]"
     :is="`h${level}`"
   >
-    <button
-      name="Copy link to heading"
-      @click="handleClick"
-    >
-      <EvaLink />
-    </button>
     <a
       :id="slug"
       :href="`#${slug}`"
@@ -18,6 +12,12 @@
     >
       <slot />
     </a>
+    <button
+      name="Copy link to heading"
+      @click="handleClick"
+    >
+      <EvaLink />
+    </button>
   </component>
 </template>
 

@@ -3,6 +3,9 @@
     class="baleada-prose-blockquote"
     :class="[classes]"
   >
+    <section class="contents">
+      <slot />
+    </section>
     <a
       :href="intent"
       target="_blank"
@@ -11,9 +14,6 @@
     >
       <SimpleTwitter />
     </a>
-    <section class="contents">
-      <slot />
-    </section>
   </section>
 </template>
 

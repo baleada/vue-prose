@@ -4,6 +4,12 @@
     class="baleada-prose-codeblock"
     :class="[classes]"
   >
+    <section class="contents">
+      <pre v-if="hasLineNumbers">
+        <code>{{ lineNumbers }}</code>
+      </pre>
+      <slot />
+    </section>
     <!-- Copy button -->
     <button
       name="Copy code"
@@ -11,12 +17,6 @@
     >
       <EvaCopy />
     </button>
-    <section class="contents">
-      <pre v-if="hasLineNumbers">
-        <code>{{ lineNumbers }}</code>
-      </pre>
-      <slot />
-    </section>
   </section>
 </template>
 
