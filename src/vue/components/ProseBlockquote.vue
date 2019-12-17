@@ -7,6 +7,7 @@
       <slot />
     </section>
     <a
+      v-if="canTweet"
       :href="intent"
       target="_blank"
       rel="noopener noreferrer"
