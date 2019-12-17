@@ -107,7 +107,7 @@ export default {
     /* Focusing */
     const focusableRows = props.canFilterByQuery
             ? computed(() => filterableRows.value.filter(({ isFiltered }) => !isFiltered))
-            : props.rows,
+            : ref(props.rows),
           focusableGridcells = computed(() => {
             return props.gridcells
               .filter(({ rowgroup, row }) => {
