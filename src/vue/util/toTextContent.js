@@ -1,6 +1,4 @@
 export default function toTextContent (vNode) {
-  const { tag, text, children } = vNode
-  return tag
-    ? children.reduce((textContent, child) => textContent + toTextContent(child), '')
-    : text
+  const { text = '', children = [] } = vNode
+  return text + children.reduce((textContent, child) => textContent + toTextContent(child), '')
 }
