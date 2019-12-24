@@ -24,9 +24,11 @@ export default {
     const fullPath = inject(props.fullPathInjectKey),
           defaultMessages = {
             grid: {
+              filterByQueryPlaceholder: 'Type to filter...',
               changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
             },
             list: {
+              filterByQueryPlaceholder: 'Type to filter...',
               changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
             },
           },
@@ -50,6 +52,8 @@ export default {
           setHeadings = newHeadings => headings.value = newHeadings
     provide(useSymbol('layout', 'setHeadings'), setHeadings)
     provide(useSymbol('layout', 'headings'), headings)
+
+    // TODO: accept default options for all props
 
     return {}
   },

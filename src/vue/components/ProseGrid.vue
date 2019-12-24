@@ -6,8 +6,8 @@
   >
     <div v-if="canFilterByQuery">
       <input
-        placeholder="Type to filter..."
-        name="Type to filter"
+        :placeholder="messages.grid.filterByQueryPlaceholder"
+        name="Filter by query"
         type="text"
         :value="filterQuery"
         @input="handleFilterQueryInput"
@@ -159,6 +159,8 @@ export default {
       focused.value.row = undefined
       focused.value.gridcell = undefined
     }
+
+    // TODO: pagination feature
 
     return {
       prose,

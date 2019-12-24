@@ -36,7 +36,7 @@ export default {
     const prose = ref(null),
           addMedia = inject(useSymbol('layout', 'addMedia'))
 
-    onMounted(() => addMedia({ type, src }))
+    addMedia({ type, src }) // TODO: Maybe include ref here if it allows to avoid double loading
 
     // download
     // play/pause

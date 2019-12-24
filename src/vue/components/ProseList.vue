@@ -6,8 +6,8 @@
   >
     <div v-if="canFilterByQuery">
       <input
-        placeholder="Type to filter..."
-        name="Type to filter"
+        :placeholder="messages.list.filterByQueryPlaceholder"
+        name="Filter by query"
         type="text"
         :value="filterQuery"
         @input="handleFilterQueryInput"
@@ -83,6 +83,8 @@ export default {
       provide(useSymbol('list', 'filterIsCaseSensitive'), computedFilterIsCaseSensitive)
       provide(useSymbol('list', 'setListItemIsFiltered'), setListItemIsFiltered)
     }
+
+    // TODO: pagination feature
 
     return {
       prose,
