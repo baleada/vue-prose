@@ -2,12 +2,12 @@
   <aside
     ref="prose"
     class="baleada-prose-aside"
-    :class="[`baleada-prose-aside-${type}`, classes]"
+    :class="[`baleada-prose-aside-${mergedProps.type}`, mergedProps.classes]"
   >
-    <EvaInfo v-if="type === 'info'"/>
-    <EvaAlertTriangle v-if="type === 'warning'"/>
-    <EvaFlash v-if="type === 'danger'"/>
-    <EvaAward v-if="type === 'success'"/>
+    <EvaInfo v-if="mergedProps.type === 'info'"/>
+    <EvaAlertTriangle v-if="mergedProps.type === 'warning'"/>
+    <EvaFlash v-if="mergedProps.type === 'danger'"/>
+    <EvaAward v-if="mergedProps.type === 'success'"/>
     <section class="contents">
       <slot />
     </section>
@@ -16,6 +16,8 @@
 
 <script>
 import { EvaInfo, EvaAlertTriangle, EvaFlash, EvaAward } from '@baleada/icons/vue'
+
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseAside',
@@ -28,15 +30,22 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'info',
+      // default: 'info',
       validator: (value) => {
         return ['info', 'warning', 'danger', 'success'].indexOf(value) !== -1;
       }
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
   },
+  setup (props) {
+    const mergedProps = mergeProps({ props, component: 'aside' })
+
+    return {
+      mergedProps
+    }
+  }
 }
 </script>

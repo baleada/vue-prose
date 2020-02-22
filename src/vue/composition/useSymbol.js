@@ -4,6 +4,7 @@ const symbols = {
     fullPath: Symbol('fullPath'),
     setHeadings: Symbol('setHeadings'),
     headings: Symbol('headings'),
+    defaultProps: Symbol('defaultProps'),
   },
   article: {
     addHeading: Symbol('addHeading'),

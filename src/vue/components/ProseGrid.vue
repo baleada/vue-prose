@@ -2,9 +2,9 @@
   <section
     ref="prose"
     class="baleada-prose-grid"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
   >
-    <div v-if="canFilterByQuery">
+    <div v-if="mergedProps.canFilterByQuery">
       <input
         :placeholder="messages.grid.filterByQueryPlaceholder"
         name="Filter by query"
@@ -13,7 +13,7 @@
         @input="handleFilterQueryInput"
       />
     </div>
-    <div v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
+    <div v-if="mergedProps.canFilterByQuery && mergedProps.canChangeFilterCaseSensitivity">
       <input
         name="Change filter case sensitivity"
         type="checkbox"
@@ -43,24 +43,26 @@ import { useGridKeyboardAccesibility } from '../composition'
 
 import { useSymbol } from '../composition'
 
+import { mergeProps } from '../util'
+
 export default {
   name: 'ProseGrid',
   props: {
     canFilterByQuery: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     filterIsCaseSensitive: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     canChangeFilterCaseSensitivity: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
     ariaLabel: {
       type: String,
@@ -77,7 +79,8 @@ export default {
   },
   setup(props) {
     const prose = ref(null),
-          contents = ref(null)
+          contents = ref(null),
+          mergedProps = mergeProps({ props, component: 'grid' })
 
     /* Get messages */
     const messages = inject(useSymbol('layout', 'messages'))
@@ -172,6 +175,7 @@ export default {
       handleCaseSensitivityChange,
       handleKeydown,
       handleFocus,
+      mergedProps,
     }
   },
 }

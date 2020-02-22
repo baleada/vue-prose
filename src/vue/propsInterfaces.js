@@ -1,7 +1,9 @@
 export default [
   {
     "name": "ProseArticle",
-    "interface": {}
+    "interface": {
+      "classes": "string"
+    }
   },
   {
     "name": "ProseAside",
@@ -25,6 +27,7 @@ export default [
     "name": "ProseCodeblock",
     "interface": {
       "lines": "number",
+      "canCopy": "boolean",
       "hasLineNumbers": "boolean",
       "classes": "string"
     }
@@ -72,6 +75,7 @@ export default [
     "name": "ProseHeading",
     "interface": {
       "level": "number",
+      "canCopy": "boolean",
       "classes": "string"
     }
   },
@@ -101,7 +105,8 @@ export default [
     "name": "ProseMedia",
     "interface": {
       "type": "string",
-      "src": "string"
+      "src": "string",
+      "classes": "string"
     }
   },
   {

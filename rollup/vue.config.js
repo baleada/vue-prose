@@ -1,6 +1,6 @@
 import vue from 'rollup-plugin-vue'
 import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve'
 
 export default {
   external: [

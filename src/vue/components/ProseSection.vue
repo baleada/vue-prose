@@ -1,7 +1,7 @@
-<template functional>
+<template>
   <section
     class="baleada-prose-section"
-    :class="[props.classes]"
+    :class="[mergedProps.classes]"
   >
     <section class="contents">
       <slot />
@@ -10,13 +10,22 @@
 </template>
 
 <script>
+import { mergeProps } from '../util'
+
 export default {
   name: 'ProseSection',
   props: {
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
   },
+  setup (props) {
+    const mergedProps = mergeProps({ props, component: 'section' })
+
+    return {
+      mergedProps,
+    }
+  }
 }
 </script>

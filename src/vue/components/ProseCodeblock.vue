@@ -2,16 +2,17 @@
   <section
     ref="prose"
     class="baleada-prose-codeblock"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
   >
     <section class="contents">
-      <pre v-if="hasLineNumbers">
+      <pre v-if="mergedProps.hasLineNumbers">
         <code>{{ lineNumbers }}</code>
       </pre>
       <slot />
     </section>
     <!-- Copy button -->
     <button
+      v-if="mergedProps.canCopy"
       name="Copy code"
       @click="handleClick"
     >
@@ -22,7 +23,9 @@
 
 <script>
 import { ref, computed, watch } from '@vue/composition-api'
-import { useCopiable } from '@baleada/composition/vue'
+import { useCopyable } from '@baleada/composition/vue'
+
+import { mergeProps } from '../util'
 
 import { EvaCopy } from '@baleada/icons/vue'
 
@@ -35,24 +38,29 @@ export default {
     lines: {
       type: Number,
     },
+    canCopy: {
+      type: Boolean,
+      // default: false,
+    },
     hasLineNumbers: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     classes: {
       type: String,
       default: '',
     }
   },
-  setup(props) {
+  setup (props) {
     const prose = ref(null),
-          copiable = useCopiable(''),
+          mergedProps = mergeProps({ props, component: 'codeblock' }),
+          copyable = useCopyable(''),
           code = computed(() => prose.value ? prose.value.textContent : '')
 
-    watch(code, () => copiable.value.setString(code.value))
+    watch(code, () => copyable.value.setString(code.value))
 
     function handleClick () {
-      copiable.value.copy()
+      copyable.value.copy()
     }
 
     const lineNumbers = new Array(props.lines).map(line => `${line + 1}\n`)
@@ -61,6 +69,7 @@ export default {
       prose,
       handleClick,
       lineNumbers,
+      mergedProps,
     }
   },
 }

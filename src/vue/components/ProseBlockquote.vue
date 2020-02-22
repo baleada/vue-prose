@@ -1,13 +1,13 @@
 <template>
   <section
     class="baleada-prose-blockquote"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
   >
     <section class="contents">
       <slot />
     </section>
     <a
-      v-if="canTweet"
+      v-if="mergedProps.canTweet"
       :href="intent"
       target="_blank"
       rel="noopener noreferrer"
@@ -19,11 +19,12 @@
 </template>
 
 <script>
-import { getCurrentInstance } from '@vue/composition-api'
+import { getCurrentInstance, inject } from '@vue/composition-api'
 
 import { SimpleTwitter } from '@baleada/icons/vue'
 
-import { toTweetIntent, toTextContent } from '../util'
+import { mergeProps, toTweetIntent, toTextContent } from '../util'
+import { useSymbol } from '../composition'
 
 export default {
   name: 'ProseBlockquote',
@@ -33,41 +34,43 @@ export default {
   props: {
     canTweet: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     tweetText: {
       type: String,
-      default: '',
+      // default: '',
     },
     tweetUrl: {
       type: String,
-      default: '',
+      // default: '',
     },
     tweetVia: {
       type: String,
-      default: '',
+      // default: '',
     },
     tweetHashtags: {
       type: Array,
-      default: () => []
+      // default: () => []
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
   },
   setup (props) {
-    const defaultSlot = getCurrentInstance().$slots.default[0],
-          text = props.tweetText|| toTextContent(defaultSlot),
+    const mergedProps = mergeProps({ props, component: 'blockquote' }),
+          defaultSlots = getCurrentInstance().$slots.default,
+          text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           intent = toTweetIntent({
             text,
-            hashtags: props.tweetHashtags,
-            url: props.tweetUrl,
-            via: props.tweetVia,
+            hashtags: mergedProps.tweetHashtags,
+            url: mergedProps.tweetUrl,
+            via: mergedProps.tweetVia,
           })
 
     return {
-      intent
+      intent,
+      mergedProps,
     }
   },
 }

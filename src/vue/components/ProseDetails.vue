@@ -2,7 +2,7 @@
   <details
     ref="prose"
     class="baleada-prose-details"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
     :open="isOpen"
     @click="handleClick"
   >
@@ -19,6 +19,8 @@ import { ref } from '@vue/composition-api'
 
 import { EvaChevronRight } from '@baleada/icons/vue'
 
+import { mergeProps } from '../util'
+
 export default {
   name: 'ProseDetails',
   components: {
@@ -27,15 +29,16 @@ export default {
   props: {
     summary: {
       type: String,
-      default: ''
+      // default: ''
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
   },
-  setup() {
-    const prose = ref(null)
+  setup (props) {
+    const prose = ref(null),
+          mergedProps = mergeProps({ props, component: 'details' })
 
     /* Manage open state */
     const isOpen = ref(false),
@@ -48,6 +51,7 @@ export default {
       prose,
       isOpen,
       handleClick,
+      mergedProps,
     }
   },
 }

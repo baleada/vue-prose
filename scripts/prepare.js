@@ -7,6 +7,7 @@ const generateIndex = require('./generateIndex'),
 function prepare () {
   /* Index all */
   generateIndex('./src/vue/util')
+  generateIndex('./src/vue/stubs')
   generateFrameworkIndices('vue')
 
   /* Props Interfaces */

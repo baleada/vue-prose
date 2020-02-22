@@ -1,11 +1,5 @@
-import scrollToHeading from './scrollToHeading.js'
-import simpleSlugify from './simpleSlugify.js'
-import toTextContent from './toTextContent.js'
-import toTweetIntent from './toTweetIntent.js'
-
-export {
-  scrollToHeading,
-  simpleSlugify,
-  toTextContent,
-  toTweetIntent,
-}
+export { default as mergeProps } from './mergeProps.js'
+export { default as scrollToHeading } from './scrollToHeading.js'
+export { default as simpleSlugify } from './simpleSlugify.js'
+export { default as toTextContent } from './toTextContent.js'
+export { default as toTweetIntent } from './toTweetIntent.js'

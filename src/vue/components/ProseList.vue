@@ -2,9 +2,9 @@
   <section
     ref="prose"
     class="baleada-prose-list"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
   >
-    <div v-if="canFilterByQuery">
+    <div v-if="mergedProps.canFilterByQuery">
       <input
         :placeholder="messages.list.filterByQueryPlaceholder"
         name="Filter by query"
@@ -13,7 +13,7 @@
         @input="handleFilterQueryInput"
       />
     </div>
-    <div v-if="canFilterByQuery && canChangeFilterCaseSensitivity">
+    <div v-if="mergedProps.canFilterByQuery && mergedProps.canChangeFilterCaseSensitivity">
       <input
         name="Change filter case sensitivity"
         type="checkbox"
@@ -35,24 +35,26 @@ import { ref, watch, computed, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
+import { mergeProps } from '../util'
+
 export default {
   name: 'ProseList',
   props: {
     canFilterByQuery: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     filterIsCaseSensitive: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     canChangeFilterCaseSensitivity: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
     },
     listItems: {
       type: Array,
@@ -60,7 +62,8 @@ export default {
     },
   },
   setup(props) {
-    const prose = ref(null)
+    const prose = ref(null),
+          mergedProps = mergeProps({ props, component: 'list' })
 
     /* Get messages */
     const messages = inject(useSymbol('layout', 'messages'))
@@ -93,6 +96,7 @@ export default {
       handleFilterQueryInput,
       computedFilterIsCaseSensitive,
       handleCaseSensitivityChange,
+      mergedProps,
     }
   },
 }

@@ -2,6 +2,7 @@
   <article
     ref="prose"
     class="baleada-prose-article"
+    :class="[mergedProps.classes]"
   >
     <slot />
   </article>
@@ -12,11 +13,19 @@ import { ref, computed, watch, onMounted, provide, inject } from '@vue/compositi
 
 import { useSymbol } from '../composition'
 
-import { scrollToHeading } from '../util'
+import { mergeProps, scrollToHeading } from '../util'
 
 export default {
   name: 'ProseArticle',
-  setup() {
+  props: {
+    classes: {
+      type: String,
+      // default: '',
+    },
+  },
+  setup (props) {
+    const mergedProps = mergeProps({ props, component: 'article' })
+
     /* Track route */
     const fullPath = inject(useSymbol('layout', 'fullPath'))
 
@@ -59,6 +68,7 @@ export default {
 
     return {
       prose,
+      mergedProps
     }
   },
 }

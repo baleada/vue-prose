@@ -2,6 +2,7 @@
   <section
     class="baleada-prose-media"
     ref="prose"
+    :class="[mergedProps.classes]"
   >
     <section class="contents">
       <component :is="type" :src="src" />
@@ -15,6 +16,8 @@ import { ref, onMounted, inject } from '@vue/composition-api'
 import { EvaImage } from '@baleada/icons/vue'
 
 import { useSymbol } from '../composition'
+
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseMedia',
@@ -30,11 +33,16 @@ export default {
     src: {
       type: String,
       required: true,
+    },
+    classes: {
+      type: String,
+      // default: '',
     }
   },
   setup({ type, src }) {
     const prose = ref(null),
-          addMedia = inject(useSymbol('layout', 'addMedia'))
+          addMedia = inject(useSymbol('layout', 'addMedia')),
+          mergedProps = mergeProps({ props, component: 'media' })
 
     addMedia({ type, src }) // TODO: Maybe include ref here if it allows to avoid double loading
 
@@ -47,7 +55,9 @@ export default {
     // lazy load
     // - set src to a placeholder
 
-    return {}
+    return {
+      mergedProps,
+    }
   },
 }
 </script>

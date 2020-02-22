@@ -1,39 +1,18 @@
-import ProseArticle from './ProseArticle.vue'
-import ProseAside from './ProseAside.vue'
-import ProseBlockquote from './ProseBlockquote.vue'
-import ProseCodeblock from './ProseCodeblock.vue'
-import ProseColumnheader from './ProseColumnheader.vue'
-import ProseDetails from './ProseDetails.vue'
-import ProseGrid from './ProseGrid.vue'
-import ProseGridContents from './ProseGridContents.vue'
-import ProseGridcell from './ProseGridcell.vue'
-import ProseHeading from './ProseHeading.vue'
-import ProseLayout from './ProseLayout.vue'
-import ProseList from './ProseList.vue'
-import ProseListContents from './ProseListContents.vue'
-import ProseListItem from './ProseListItem.vue'
-import ProseMedia from './ProseMedia.vue'
-import ProseRow from './ProseRow.vue'
-import ProseRowgroup from './ProseRowgroup.vue'
-import ProseSection from './ProseSection.vue'
-
-export {
-  ProseArticle,
-  ProseAside,
-  ProseBlockquote,
-  ProseCodeblock,
-  ProseColumnheader,
-  ProseDetails,
-  ProseGrid,
-  ProseGridContents,
-  ProseGridcell,
-  ProseHeading,
-  ProseLayout,
-  ProseList,
-  ProseListContents,
-  ProseListItem,
-  ProseMedia,
-  ProseRow,
-  ProseRowgroup,
-  ProseSection,
-}
+export { default as ProseArticle } from './ProseArticle.vue'
+export { default as ProseAside } from './ProseAside.vue'
+export { default as ProseBlockquote } from './ProseBlockquote.vue'
+export { default as ProseCodeblock } from './ProseCodeblock.vue'
+export { default as ProseColumnheader } from './ProseColumnheader.vue'
+export { default as ProseDetails } from './ProseDetails.vue'
+export { default as ProseGrid } from './ProseGrid.vue'
+export { default as ProseGridContents } from './ProseGridContents.vue'
+export { default as ProseGridcell } from './ProseGridcell.vue'
+export { default as ProseHeading } from './ProseHeading.vue'
+export { default as ProseLayout } from './ProseLayout.vue'
+export { default as ProseList } from './ProseList.vue'
+export { default as ProseListContents } from './ProseListContents.vue'
+export { default as ProseListItem } from './ProseListItem.vue'
+export { default as ProseMedia } from './ProseMedia.vue'
+export { default as ProseRow } from './ProseRow.vue'
+export { default as ProseRowgroup } from './ProseRowgroup.vue'
+export { default as ProseSection } from './ProseSection.vue'

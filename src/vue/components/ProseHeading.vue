@@ -2,7 +2,7 @@
   <component
     ref="prose"
     class="baleada-prose-heading"
-    :class="[classes]"
+    :class="[mergedProps.classes]"
     :is="`h${level}`"
   >
     <a
@@ -13,7 +13,8 @@
       <slot />
     </a>
     <button
-      name="Copy link to heading"
+      v-if="mergedProps.canCopy"
+      aria-label="Copy link to heading"
       @click="handleClick"
     >
       <EvaLink />
@@ -24,10 +25,10 @@
 <script>
 import { ref, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
 
-import { useCopiable } from '@baleada/composition/vue'
+import { useCopyable } from '@baleada/composition/vue'
 
 import { useSymbol } from '../composition'
-import { simpleSlugify, toTextContent } from '../util'
+import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { EvaLink } from '@baleada/icons/vue'
 
@@ -41,35 +42,41 @@ export default {
       type: Number,
       required: true,
     },
+    canCopy: {
+      type: Boolean,
+      // default: false,
+    },
     classes: {
       type: String,
       default: '',
     },
   },
-  setup(props) {
+  setup (props) {
     const prose = ref(null),
-          defaultSlot = getCurrentInstance().$slots.default[0],
-          text = toTextContent(defaultSlot),
+          mergedProps = mergeProps({ props, component: 'heading' }),
+          defaultSlots = getCurrentInstance().$slots.default,
+          text = defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           slug = simpleSlugify(text).toLowerCase(),
           addHeading = inject(useSymbol('article', 'addHeading'))
 
     addHeading({ level: props.level, slug, text })
 
     /* Copy link */
-    const copiable = useCopiable('')
+    const copyable = useCopyable('')
 
     onMounted(() => {
-      copiable.value.setString(`${window.location.origin}${window.location.pathname}#${slug}`)
+      copyable.value.setString(`${window.location.origin}${window.location.pathname}#${slug}`)
     })
 
     function handleClick () {
-      copiable.value.copy()
+      copyable.value.copy()
     }
 
     return {
       prose,
       slug,
-      handleClick
+      handleClick,
+      mergedProps
     }
   },
 }

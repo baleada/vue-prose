@@ -5,9 +5,32 @@
 </template>
 
 <script>
-import { ref, computed, provide, inject } from '@vue/composition-api'
+import { ref, isRef, computed, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
+
+import { mergeProps } from '../util'
+
+import { defaultMessages as defaultMessagesStub, defaultProps as defaultPropsStub } from '../stubs'
+
+function formatAsRef (object) {
+  return isRef(object)
+    ? object
+    : ref(object)
+}
+
+function mergeWithDefaultProps (injectedDefaultProps) {
+  return Object.keys(defaultPropsStub).reduce(
+    (mergedDefaultProps, component) => ({
+      ...mergedDefaultProps,
+      [component]: {
+        ...defaultPropsStub[component],
+        ...injectedDefaultProps.value[component],
+      }
+    }),
+    {}
+  )
+}
 
 export default {
   name: 'ProseLayout',
@@ -18,33 +41,33 @@ export default {
     },
     messagesInjectKey: {
       type: [Symbol, String],
-    }
+    },
+    defaultPropsInjectKey: {
+      type: [Symbol, String],
+    },
   },
-  setup(props) {
+  setup (props) {
     const fullPath = inject(props.fullPathInjectKey),
-          defaultMessages = {
-            grid: {
-              filterByQueryPlaceholder: 'Type to filter...',
-              changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
-            },
-            list: {
-              filterByQueryPlaceholder: 'Type to filter...',
-              changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
-            },
-          },
+          emptyRefStub = { value: {} },
           injectedMessages = props.messagesInjectKey
-            ? inject(props.messagesInjectKey)
-            : { value: {} },
+            ? formatAsRef(inject(props.messagesInjectKey))
+            : emptyRefStub,
           messages = computed(() => ({
-            ...defaultMessages,
+            ...defaultMessagesStub,
             ...injectedMessages.value,
-          }))
-
+          })),
+          injectedDefaultProps = props.defaultPropsInjectKey
+            ? formatAsRef(inject(props.defaultPropsInjectKey))
+            : emptyRefStub,
+          defaultProps = computed(() => mergeWithDefaultProps(injectedDefaultProps))
 
     /* Provide reactive messages for i18n */
     provide(useSymbol('layout', 'messages'), messages)
 
-    /* Provide stuff for ProseArticle */
+    /* Provide reactive default prop values for all components */
+    provide(useSymbol('layout', 'defaultProps'), defaultProps)
+
+    /* Provide reactive full path for ProseArticle */
     provide(useSymbol('layout', 'fullPath'), fullPath)
 
     /* Track article headings */
@@ -52,8 +75,6 @@ export default {
           setHeadings = newHeadings => headings.value = newHeadings
     provide(useSymbol('layout', 'setHeadings'), setHeadings)
     provide(useSymbol('layout', 'headings'), headings)
-
-    // TODO: accept default options for all props
 
     return {}
   },
