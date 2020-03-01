@@ -7,7 +7,7 @@ export default function mergeProps({ props, component }) {
 
   // This for...in loop allows mergedProps to directly reference the original props object, retaining prop reactivity
   for (let prop in defaultProps) {
-    mergedProps[prop] = props[prop] || defaultProps[prop]
+    mergedProps[prop] = props[prop] === undefined ? defaultProps[prop] : props[prop]
   }
 
   return mergedProps

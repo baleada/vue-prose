@@ -49,15 +49,15 @@ export default {
   name: 'ProseGrid',
   props: {
     canFilterByQuery: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     filterIsCaseSensitive: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     canChangeFilterCaseSensitivity: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     classes: {
@@ -86,14 +86,14 @@ export default {
     const messages = inject(useSymbol('layout', 'messages'))
 
     /* Filtering */
-    provide(useSymbol('grid', 'canFilterByQuery'), props.canFilterByQuery)
+    provide(useSymbol('grid', 'canFilterByQuery'), mergedProps.canFilterByQuery)
 
-    const filterQuery = props.canFilterByQuery ? ref('') : {},
-          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
+    const filterQuery = mergedProps.canFilterByQuery ? ref('') : {},
+          computedFilterIsCaseSensitive = mergedProps.canFilterByQuery ? ref(mergedProps.filterIsCaseSensitive) : {},
           handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
           handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
     let filterableRows, setRowIsFiltered
-    if (props.canFilterByQuery) {
+    if (mergedProps.canFilterByQuery) {
       filterableRows = ref(
         props.rows
           .slice(1) // header row never gets filtered
@@ -108,7 +108,7 @@ export default {
 
 
     /* Focusing */
-    const focusableRows = props.canFilterByQuery
+    const focusableRows = mergedProps.canFilterByQuery
             ? computed(() => filterableRows.value.filter(({ isFiltered }) => !isFiltered))
             : ref(props.rows),
           focusableGridcells = computed(() => {

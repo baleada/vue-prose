@@ -5,9 +5,7 @@
     :class="[mergedProps.classes]"
   >
     <section class="contents">
-      <pre v-if="mergedProps.hasLineNumbers">
-        <code>{{ lineNumbers }}</code>
-      </pre>
+      <pre v-if="mergedProps.hasLineNumbers"><code>{{ lineNumbers }}</code></pre>
       <slot />
     </section>
     <!-- Copy button -->
@@ -39,11 +37,11 @@ export default {
       type: Number,
     },
     canCopy: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     hasLineNumbers: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     classes: {
@@ -63,7 +61,10 @@ export default {
       copyable.value.copy()
     }
 
-    const lineNumbers = new Array(props.lines).map(line => `${line + 1}\n`)
+    let lineNumbers = ''
+    for (let i = 1; i <= props.lines; i++) {
+      lineNumbers += `${i}\n`
+    }
 
     return {
       prose,

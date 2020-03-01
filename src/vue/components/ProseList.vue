@@ -41,15 +41,15 @@ export default {
   name: 'ProseList',
   props: {
     canFilterByQuery: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     filterIsCaseSensitive: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     canChangeFilterCaseSensitivity: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     classes: {
@@ -69,14 +69,14 @@ export default {
     const messages = inject(useSymbol('layout', 'messages'))
 
     /* Filtering */
-    provide(useSymbol('list', 'canFilterByQuery'), props.canFilterByQuery)
+    provide(useSymbol('list', 'canFilterByQuery'), mergedProps.canFilterByQuery)
 
-    const filterQuery = props.canFilterByQuery ? ref('') : {},
-          computedFilterIsCaseSensitive = props.canFilterByQuery ? ref(props.filterIsCaseSensitive) : {},
+    const filterQuery = mergedProps.canFilterByQuery ? ref('') : {},
+          computedFilterIsCaseSensitive = mergedProps.canFilterByQuery ? ref(mergedProps.filterIsCaseSensitive) : {},
           handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
           handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
     let filterableListItems, setListItemIsFiltered
-    if (props.canFilterByQuery) {
+    if (mergedProps.canFilterByQuery) {
       filterableListItems = ref(
         props.listItems.map(({ listItem }) => ({ listItem, isFiltered: false }))
       ),

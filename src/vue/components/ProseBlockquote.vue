@@ -33,7 +33,7 @@ export default {
   },
   props: {
     canTweet: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     tweetText: {

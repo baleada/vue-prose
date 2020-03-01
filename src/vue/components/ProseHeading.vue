@@ -43,7 +43,7 @@ export default {
       required: true,
     },
     canCopy: {
-      type: Boolean,
+      // type: Boolean,
       // default: false,
     },
     classes: {
