@@ -12,7 +12,10 @@ export default function scrollToHeading (fullPath, options) {
   if (!isAnchored(fullPath)) {
     options.container.scrollTop = 0
   } else {
-    const slug = fullPath.split('#')[1].split('.')[0].toLowerCase(),
+    const slug = fullPath
+            .split('#')[1] // Get end of URL
+            .split('.')[0] // Remove file extension
+            .toLowerCase(),
           anchor = options.container.querySelector(`#${slug}`),
           heading = anchor ? anchor.parentNode : undefined
 

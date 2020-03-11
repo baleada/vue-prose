@@ -2,7 +2,8 @@ export default [
   {
     "name": "ProseArticle",
     "interface": {
-      "classes": "string"
+      "classes": "string",
+      "scrollableContainer": "ref"
     }
   },
   {

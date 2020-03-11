@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted, provide, inject } from '@vue/composition-api'
+import { ref, isRef, computed, watch, onMounted, provide, inject } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 
@@ -22,6 +22,10 @@ export default {
       type: String,
       // default: '',
     },
+    scrollableContainer: {
+      // type: Ref, Node,
+      // default: prose.value
+    }
   },
   setup (props) {
     const mergedProps = mergeProps({ props, component: 'article' })
@@ -43,11 +47,18 @@ export default {
 
     /* Scroll to heading */
     const prose = ref(null)
+    let container
     onMounted(() => {
-      scrollToHeading(fullPath.value, { container: prose.value })
+      container = mergedProps.scrollableContainer === undefined 
+        ? prose.value 
+        : isRef(mergedProps.scrollableContainer)
+          ? mergedProps.scrollableContainer.value
+          : mergedProps.scrollableContainer
+
+      scrollToHeading(fullPath.value, { container })
     })
     watch(fullPath, () => {
-      scrollToHeading(fullPath.value, { container: prose.value })
+      scrollToHeading(fullPath.value, { container })
     }, { lazy: true })
 
     /* Collect frontMatter and stats from loaders */

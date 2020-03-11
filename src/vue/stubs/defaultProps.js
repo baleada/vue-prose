@@ -1,6 +1,7 @@
 export default {
   article: {
     classes: '',
+    // scrollableContainer: undefined
   },
   aside: {
     classes: '',
