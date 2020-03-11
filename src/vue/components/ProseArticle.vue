@@ -22,9 +22,8 @@ export default {
       type: String,
       // default: '',
     },
-    scrollableContainer: {
-      // type: Ref, Node,
-      // default: prose.value
+    scrollableContainerGetter: {
+      type: Function,
     }
   },
   setup (props) {
@@ -46,15 +45,10 @@ export default {
     })
 
     /* Scroll to heading */
-    const prose = ref(null)
-    let container
+    const prose = ref(null),
+          container = mergedProps.scrollableContainerGetter || (() => prose.value)
+          
     onMounted(() => {
-      container = mergedProps.scrollableContainer === undefined 
-        ? prose.value 
-        : isRef(mergedProps.scrollableContainer)
-          ? mergedProps.scrollableContainer.value
-          : mergedProps.scrollableContainer
-
       scrollToHeading(fullPath.value, { container })
     })
     watch(fullPath, () => {
