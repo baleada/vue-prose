@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, inject } from '@vue/composition-api'
+import { getCurrentInstance, inject, onMounted } from '@vue/composition-api'
 
 import { SimpleTwitter } from '@baleada/icons/vue'
 
@@ -61,12 +61,17 @@ export default {
     const mergedProps = mergeProps({ props, component: 'blockquote' }),
           defaultSlots = getCurrentInstance().$slots.default,
           text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
-          intent = toTweetIntent({
-            text,
-            hashtags: mergedProps.tweetHashtags,
-            url: mergedProps.tweetUrl,
-            via: mergedProps.tweetVia,
-          })
+          fullPath = inject(useSymbol('layout', 'fullPath')),
+          intent = ref('')
+
+    onMounted(() => {
+      intent.value = toTweetIntent({
+        text,
+        hashtags: mergedProps.tweetHashtags,
+        url: mergedProps.tweetUrl === 'current' ? fullPath.value : mergedProps.tweetUrl,
+        via: mergedProps.tweetVia,
+      })
+    })
 
     return {
       intent,
