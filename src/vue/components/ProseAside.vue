@@ -31,9 +31,6 @@ export default {
     type: {
       type: String,
       // default: 'info',
-      validator: (value) => {
-        return ['info', 'warning', 'danger', 'success'].indexOf(value) !== -1;
-      }
     },
     classes: {
       type: String,
