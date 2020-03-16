@@ -1,3 +1,4 @@
+// TODO: useListenable
 export default function(getters, setters) {
   const { focused, columns, rows, grid, currentRow, currentColumn } = getters,
         { setFocused } = setters
