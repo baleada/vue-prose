@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, inject, onMounted } from '@vue/composition-api'
+import { ref, getCurrentInstance, inject, onMounted } from '@vue/composition-api'
 
 import { SimpleTwitter } from '@baleada/icons/vue'
 
@@ -68,7 +68,7 @@ export default {
       intent.value = toTweetIntent({
         text,
         hashtags: mergedProps.tweetHashtags,
-        url: mergedProps.tweetUrl === 'current' ? fullPath.value : mergedProps.tweetUrl,
+        url: mergedProps.tweetUrl === 'current' ? `${window.origin}${fullPath.value}` : mergedProps.tweetUrl,
         via: mergedProps.tweetVia,
       })
     })
