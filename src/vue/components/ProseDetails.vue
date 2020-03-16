@@ -3,11 +3,12 @@
     ref="prose"
     class="baleada-prose-details"
     :class="[mergedProps.classes]"
-    :open="isOpen"
     @click="handleClick"
   >
-    <EvaChevronRight />
-    <summary v-if="summary">{{ summary }}</summary>
+    <summary v-if="summary">
+      <EvaChevronRight />
+      <span>{{ summary }}</span>
+    </summary>
     <section class="contents">
       <slot />
     </section>
@@ -41,16 +42,25 @@ export default {
           mergedProps = mergeProps({ props, component: 'details' })
 
     /* Manage open state */
-    const isOpen = ref(false),
-          toggleOpen = () => isOpen.value = !isOpen.value,
-          open = () => isOpen.value = true,
-          close = () => isOpen.value = false,
-          handleClick = toggleOpen
+    // const status = ref('closed'),
+    //       open = () => status.value = 'open',
+    //       close = () => status.value = 'closed',
+    //       handleClick = () => {
+    //         switch (status.value) {
+    //         case 'open':
+    //           close()
+    //           break
+    //         case 'closed':
+    //           open()
+    //           break
+    //         }
+    //         console.log(status.value)
+    //       }
 
     return {
       prose,
-      isOpen,
-      handleClick,
+      // status,
+      // handleClick,
       mergedProps,
     }
   },
