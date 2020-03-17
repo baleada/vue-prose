@@ -1,5 +1,5 @@
 <template>
-  <main ref="prose" class="baleada-prose-layout">
+  <main ref="baleada" class="baleada-prose-layout">
     <slot />
   </main>
 </template>

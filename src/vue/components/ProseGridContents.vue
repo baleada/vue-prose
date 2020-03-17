@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-grid-contents"
     role="grid"
   >

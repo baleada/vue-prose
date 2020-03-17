@@ -1,6 +1,6 @@
 <template>
   <section
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-codeblock"
     :class="[mergedProps.classes]"
   >
@@ -50,10 +50,10 @@ export default {
     }
   },
   setup (props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'codeblock' }),
           copyable = useCopyable(''),
-          code = computed(() => prose.value ? prose.value.textContent : '')
+          code = computed(() => baleada.value ? baleada.value.textContent : '')
 
     watch(code, () => copyable.value.setString(code.value))
 
@@ -67,7 +67,7 @@ export default {
     }
 
     return {
-      prose,
+      baleada,
       handleClick,
       lineNumbers,
       mergedProps,

@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-columnheader"
     role="columnheader"
     tabindex="-1"
@@ -32,7 +32,7 @@ export default {
     },
   },
   setup(props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           focused = inject(useSymbol('grid', 'focused')),
           isFocused = computed(() => {
             const { rowgroup, row, gridcell } = focused.value
@@ -41,7 +41,7 @@ export default {
 
     watch(() => {
       if (isFocused.value) {
-        prose.value.focus()
+        baleada.value.focus()
       }
     })
 
@@ -51,7 +51,7 @@ export default {
     }
 
     return {
-      prose,
+      baleada,
       handleClick,
     }
   },

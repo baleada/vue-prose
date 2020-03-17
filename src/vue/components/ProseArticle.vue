@@ -1,6 +1,6 @@
 <template>
   <article
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-article"
     :class="[mergedProps.classes]"
   >
@@ -45,8 +45,8 @@ export default {
     })
 
     /* Scroll to heading */
-    const prose = ref(null),
-          container = mergedProps.scrollableContainerGetter || (() => prose.value)
+    const baleada = ref(null),
+          container = mergedProps.scrollableContainerGetter || (() => baleada.value)
           
     onMounted(() => {
       scrollToHeading(fullPath.value, { container })
@@ -72,7 +72,7 @@ export default {
     provide(useSymbol('article', 'filePath'), filePath)
 
     return {
-      prose,
+      baleada,
       mergedProps
     }
   },

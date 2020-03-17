@@ -1,6 +1,6 @@
 <template>
   <section
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-list"
     :class="[mergedProps.classes]"
   >
@@ -62,7 +62,7 @@ export default {
     },
   },
   setup(props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'list' })
 
     /* Get messages */
@@ -90,7 +90,7 @@ export default {
     // TODO: pagination feature
 
     return {
-      prose,
+      baleada,
       messages,
       filterQuery,
       handleFilterQueryInput,

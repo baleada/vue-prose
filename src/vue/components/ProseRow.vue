@@ -1,7 +1,7 @@
 <template>
   <transition name="baleada-prose-row">
     <div
-      ref="prose"
+      ref="baleada"
       v-show="!isFiltered"
       class="baleada-prose-row"
       role="row"
@@ -29,10 +29,10 @@ export default {
     },
   },
   setup (props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           canFilterByQuery = inject(useSymbol('grid', 'canFilterByQuery')),
           isFiltered = ref(false),
-          text = computed(() => prose.value ? prose.value.textContent : '')
+          text = computed(() => baleada.value ? baleada.value.textContent : '')
 
     let filterQuery, filterIsCaseSensitive, setRowIsFiltered
     if (canFilterByQuery && props.rowgroup !== 0) {
@@ -51,7 +51,7 @@ export default {
     }
 
     return {
-      prose,
+      baleada,
       isFiltered
     }
   }

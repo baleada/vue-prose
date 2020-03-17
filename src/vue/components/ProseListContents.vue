@@ -1,6 +1,6 @@
 <template>
   <component
-    ref="prose"
+    ref="baleada"
     :is="isOrdered ? 'ol' : 'ul'"
     class="baleada-prose-list-contents"
   >
@@ -20,10 +20,10 @@ export default {
     }
   },
   setup() {
-    const prose = ref(null)
+    const baleada = ref(null)
 
     return {
-      prose,
+      baleada,
     }
   },
 }

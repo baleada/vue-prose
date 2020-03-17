@@ -1,6 +1,6 @@
 <template>
   <details
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-details"
     :class="[mergedProps.classes]"
     @click="handleClick"
@@ -38,7 +38,7 @@ export default {
     },
   },
   setup (props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'details' })
 
     /* Manage open state */
@@ -58,7 +58,7 @@ export default {
     //       }
 
     return {
-      prose,
+      baleada,
       // status,
       // handleClick,
       mergedProps,

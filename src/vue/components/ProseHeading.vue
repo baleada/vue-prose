@@ -1,6 +1,6 @@
 <template>
   <component
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-heading"
     :class="[mergedProps.classes]"
     :is="`h${level}`"
@@ -14,7 +14,7 @@
     </a>
     <button
       v-if="mergedProps.canCopy"
-      aria-label="Copy link to heading"
+      name="Copy link to heading"
       @click="handleClick"
     >
       <EvaLink />
@@ -52,7 +52,7 @@ export default {
     },
   },
   setup (props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'heading' }),
           defaultSlots = getCurrentInstance().$slots.default,
           text = defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
@@ -73,7 +73,7 @@ export default {
     }
 
     return {
-      prose,
+      baleada,
       slug,
       handleClick,
       mergedProps

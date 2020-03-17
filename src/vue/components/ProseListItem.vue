@@ -1,7 +1,7 @@
 <template>
   <transition name="baleada-prose-list-item">
     <li
-      ref="prose"
+      ref="baleada"
       v-show="!isFiltered"
       class="baleada-prose-list-item"
     >
@@ -24,10 +24,10 @@ export default {
     }
   },
   setup (props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           canFilterByQuery = inject(useSymbol('list', 'canFilterByQuery')),
           isFiltered = ref(false),
-          text = computed(() => prose.value ? prose.value.textContent : '')
+          text = computed(() => baleada.value ? baleada.value.textContent : '')
 
     let filterQuery, filterIsCaseSensitive, setListItemIsFiltered
     if (canFilterByQuery) {
@@ -46,7 +46,7 @@ export default {
     }
 
     return {
-      prose,
+      baleada,
       isFiltered,
     }
   }

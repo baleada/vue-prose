@@ -1,6 +1,6 @@
 <template>
   <aside
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-aside"
     :class="[`baleada-prose-aside-${mergedProps.type}`, mergedProps.classes]"
   >

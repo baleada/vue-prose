@@ -1,6 +1,6 @@
 <template>
   <section
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-grid"
     :class="[mergedProps.classes]"
   >
@@ -78,7 +78,7 @@ export default {
     },
   },
   setup(props) {
-    const prose = ref(null),
+    const baleada = ref(null),
           contents = ref(null),
           mergedProps = mergeProps({ props, component: 'grid' })
 
@@ -166,7 +166,7 @@ export default {
     // TODO: pagination feature
 
     return {
-      prose,
+      baleada,
       contents,
       messages,
       filterQuery,

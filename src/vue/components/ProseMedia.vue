@@ -1,7 +1,7 @@
 <template>
   <section
     class="baleada-prose-media"
-    ref="prose"
+    ref="baleada"
     :class="[mergedProps.classes]"
   >
     <section class="contents">
@@ -40,7 +40,7 @@ export default {
     }
   },
   setup({ type, src }) {
-    const prose = ref(null),
+    const baleada = ref(null),
           addMedia = inject(useSymbol('layout', 'addMedia')),
           mergedProps = mergeProps({ props, component: 'media' })
 

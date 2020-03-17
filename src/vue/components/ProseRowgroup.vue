@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="prose"
+    ref="baleada"
     class="baleada-prose-rowgroup"
     role="rowgroup"
   >
@@ -20,10 +20,10 @@ export default {
     }
   },
   setup(props) {
-    const prose = ref(null)
+    const baleada = ref(null)
 
     return {
-      prose
+      baleada,
     }
   },
 }
