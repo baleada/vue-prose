@@ -12,30 +12,32 @@
     >
       <slot />
     </a>
-    <button
+    <InterfaceButton
       v-if="mergedProps.canCopy"
       name="Copy link to heading"
       @click="handleClick"
+      v-bind="interfaceButtonProps"
     >
       <EvaLink />
-    </button>
+    </InterfaceButton>
   </component>
 </template>
 
 <script>
-import { ref, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
-
-import { useCopyable } from '@baleada/composition/vue'
+import { ref, computed, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
 
 import { useSymbol } from '../composition'
 import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
+import { useCopyable } from '@baleada/composition/vue'
+import { InterfaceButton } from '@baleada/interface/vue'
 import { EvaLink } from '@baleada/icons/vue'
 
 export default {
   name: 'ProseHeading',
   components: {
-    EvaLink
+    EvaLink,
+    InterfaceButton,
   },
   props: {
     level: {
@@ -72,11 +74,14 @@ export default {
       copyable.value.copy()
     }
 
+    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.button) // TODO: when is reactivity necessary?
+
     return {
       baleada,
       slug,
       handleClick,
-      mergedProps
+      mergedProps,
+      interfaceButtonProps,
     }
   },
 }
