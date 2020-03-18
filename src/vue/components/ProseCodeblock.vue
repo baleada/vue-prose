@@ -9,28 +9,32 @@
       <slot />
     </section>
     <!-- Copy button -->
-    <button
+    <InterfaceButton
       v-if="mergedProps.canCopy"
       name="Copy code"
       @click="handleClick"
+      v-bind="interfaceButtonProps"
     >
       <EvaCopy />
-    </button>
+    </InterfaceButton>
   </section>
 </template>
 
 <script>
-import { ref, computed, watch } from '@vue/composition-api'
-import { useCopyable } from '@baleada/composition/vue'
+import { ref, computed, watch, inject } from '@vue/composition-api'
 
 import { mergeProps } from '../util'
+import { useSymbol } from '../composition'
 
+import { useCopyable } from '@baleada/composition/vue'
 import { EvaCopy } from '@baleada/icons/vue'
+import { InterfaceButton } from '@baleada/interface/vue'
 
 export default {
   name: 'ProseCodeblock',
   components: {
     EvaCopy,
+    InterfaceButton,
   },
   props: {
     lines: {
@@ -66,11 +70,14 @@ export default {
       lineNumbers += `${i}\n`
     }
 
+    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.button) // TODO: when is reactivity necessary?
+
     return {
       baleada,
       handleClick,
       lineNumbers,
       mergedProps,
+      interfaceButtonProps,
     }
   },
 }

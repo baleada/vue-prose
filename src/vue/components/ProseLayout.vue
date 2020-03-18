@@ -11,7 +11,11 @@ import { useSymbol } from '../composition'
 
 import { mergeProps } from '../util'
 
-import { defaultMessages as defaultMessagesStub, defaultProps as defaultPropsStub } from '../stubs'
+import {
+  defaultMessages as defaultMessagesStub,
+  defaultProps as defaultPropsStub,
+  defaultInterfaceProps as defaultInterfacePropsStub
+} from '../stubs'
 
 function formatAsRef (object) {
   return isRef(object)
@@ -45,6 +49,9 @@ export default {
     defaultPropsInjectKey: {
       type: [Symbol, String],
     },
+    interfacePropsInjectKey: {
+      type: [Symbol, String],
+    },
   },
   setup (props) {
     const fullPath = inject(props.fullPathInjectKey),
@@ -59,7 +66,14 @@ export default {
           injectedDefaultProps = props.defaultPropsInjectKey
             ? formatAsRef(inject(props.defaultPropsInjectKey))
             : emptyRefStub,
-          defaultProps = computed(() => mergeWithDefaultProps(injectedDefaultProps))
+          defaultProps = computed(() => mergeWithDefaultProps(injectedDefaultProps)),
+          injectedInterfaceProps = props.interfacePropsInjectKey
+            ? formatAsRef(inject(props.interfacePropsInjectKey))
+            : emptyRefStub,
+          interfaceProps = computed(() => ({
+            ...defaultInterfacePropsStub,
+            ...injectedInterfaceProps.value,
+          }))
 
     /* Provide reactive messages for i18n */
     provide(useSymbol('layout', 'messages'), messages)
@@ -67,8 +81,12 @@ export default {
     /* Provide reactive default prop values for all components */
     provide(useSymbol('layout', 'defaultProps'), defaultProps)
 
+    /* Provide reactive Baleada Interface prop values for all components */
+    provide(useSymbol('layout', 'interfaceProps'), interfaceProps)
+
     /* Provide reactive full path for ProseArticle */
     provide(useSymbol('layout', 'fullPath'), fullPath)
+
 
     /* Track article headings */
     const headings = ref([]),

@@ -5,6 +5,7 @@ const symbols = {
     setHeadings: Symbol('setHeadings'),
     headings: Symbol('headings'),
     defaultProps: Symbol('defaultProps'),
+    interfaceProps: Symbol('interfaceProps'),
   },
   article: {
     addHeading: Symbol('addHeading'),
