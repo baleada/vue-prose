@@ -3,7 +3,6 @@
     ref="baleada"
     class="baleada-prose-details"
     :class="[mergedProps.classes]"
-    @click="handleClick"
   >
     <summary v-if="summary">
       <EvaChevronRight />
@@ -41,26 +40,8 @@ export default {
     const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'details' })
 
-    /* Manage open state */
-    // const status = ref('closed'),
-    //       open = () => status.value = 'open',
-    //       close = () => status.value = 'closed',
-    //       handleClick = () => {
-    //         switch (status.value) {
-    //         case 'open':
-    //           close()
-    //           break
-    //         case 'closed':
-    //           open()
-    //           break
-    //         }
-    //         console.log(status.value)
-    //       }
-
     return {
       baleada,
-      // status,
-      // handleClick,
       mergedProps,
     }
   },
