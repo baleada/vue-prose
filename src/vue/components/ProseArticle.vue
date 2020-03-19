@@ -54,19 +54,13 @@ export default {
     }, { lazy: true })
 
     /* Collect frontMatter and stats from loaders */
-    const stats = ref({}),
-          setStats = newStats => (stats.value = newStats)
-    provide(useSymbol('article', 'setStats'), setStats)
+    const stats = ref({})
     provide(useSymbol('article', 'stats'), stats)
 
-    const frontMatter = ref({}),
-          setFrontMatter = newFrontMatter => (frontMatter.value = newFrontMatter)
-    provide(useSymbol('article', 'setFrontMatter'), setFrontMatter)
+    const frontMatter = ref({})
     provide(useSymbol('article', 'frontMatter'), frontMatter)
 
-    const filePath = ref(''),
-          setFilePath = newFilePath => (filePath.value = newFilePath)
-    provide(useSymbol('article', 'setFilePath'), setFilePath)
+    const filePath = ref('')
     provide(useSymbol('article', 'filePath'), filePath)
 
     return {
