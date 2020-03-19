@@ -59,9 +59,9 @@ export default {
           defaultSlots = getCurrentInstance().$slots.default,
           text = defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           slug = simpleSlugify(text).toLowerCase(),
-          addHeading = inject(useSymbol('article', 'addHeading'))
+          headings = inject(useSymbol('article', 'headings'))
 
-    addHeading({ level: props.level, slug, text })
+    headings.value.push({ level: props.level, slug, text })
 
     /* Copy link */
     const copyable = useCopyable('')

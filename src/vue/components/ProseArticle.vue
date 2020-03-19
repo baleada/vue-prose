@@ -34,14 +34,12 @@ export default {
 
     /* Manage headings */
     const headings = ref([]),
-          addHeading = heading => headings.value.push(heading),
-          setHeadings = inject(useSymbol('layout', 'setHeadings'))
-
-    provide(useSymbol('article', 'addHeading'), addHeading)
+          layoutHeadings = inject(useSymbol('layout', 'headings'))
+          
     provide(useSymbol('article', 'headings'), headings)
 
     watch(headings, () => {
-      setHeadings(headings.value)
+      layoutHeadings.value = headings.value
     })
 
     /* Scroll to heading */

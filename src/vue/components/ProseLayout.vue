@@ -89,9 +89,7 @@ export default {
 
 
     /* Track article headings */
-    const headings = ref([]),
-          setHeadings = newHeadings => headings.value = newHeadings
-    provide(useSymbol('layout', 'setHeadings'), setHeadings)
+    const headings = ref([])
     provide(useSymbol('layout', 'headings'), headings)
 
     return {}
