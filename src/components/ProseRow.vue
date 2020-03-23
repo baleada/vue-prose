@@ -14,7 +14,7 @@
 <script>
 import { ref, computed, watch, inject } from '@vue/composition-api'
 
-import useSymbol from './useSymbol'
+import { useSymbol } from '../symbols'
 
 export default {
   name: 'ProseRow',

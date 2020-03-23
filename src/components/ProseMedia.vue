@@ -15,9 +15,9 @@ import { ref, onMounted, inject } from '@vue/composition-api'
 
 import { EvaImage } from '@baleada/icons-vue'
 
-import useSymbol from './useSymbol'
+import { useSymbol } from '../symbols'
 
-import { mergeProps } from './util'
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseMedia',

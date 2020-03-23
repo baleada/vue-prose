@@ -23,8 +23,8 @@ import { ref, getCurrentInstance, inject, onMounted } from '@vue/composition-api
 
 import { SimpleTwitter } from '@baleada/icons-vue'
 
-import { mergeProps, toTweetIntent, toTextContent } from './util'
-import useSymbol from './useSymbol'
+import { mergeProps, toTweetIntent, toTextContent } from '../util'
+import { useSymbol } from '../symbols'
 
 export default {
   name: 'ProseBlockquote',

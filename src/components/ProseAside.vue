@@ -17,7 +17,7 @@
 <script>
 import { EvaInfo, EvaAlertTriangle, EvaFlash, EvaAward } from '@baleada/icons-vue'
 
-import { mergeProps } from './util'
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseAside',

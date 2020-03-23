@@ -1,5 +1,5 @@
 import { inject } from '@vue/composition-api'
-import useSymbol from './useSymbol'
+import { useSymbol } from '../symbols'
 
 export default function mergeProps({ props, component }) {
   const defaultProps = inject(useSymbol('layout', 'defaultProps')).value[component],

@@ -37,7 +37,9 @@
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@baleada/prepare": "^0.1.1"
+  },
   "peerDependencies": {
     "@baleada/composition-vue": "0.x",
     "@baleada/icons-vue": "0.x",

@@ -23,8 +23,8 @@
 <script>
 import { ref, computed, watch, inject } from '@vue/composition-api'
 
-import { mergeProps } from './util'
-import useSymbol from './useSymbol'
+import { mergeProps } from '../util'
+import { useSymbol } from '../symbols'
 
 import { useCopyable } from '@baleada/composition-vue'
 import { EvaCopy } from '@baleada/icons-vue'

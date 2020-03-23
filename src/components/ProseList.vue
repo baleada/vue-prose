@@ -33,9 +33,9 @@
 <script>
 import { ref, watch, computed, provide, inject } from '@vue/composition-api'
 
-import useSymbol from './useSymbol'
+import { useSymbol } from '../symbols'
 
-import { mergeProps } from './util'
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseList',

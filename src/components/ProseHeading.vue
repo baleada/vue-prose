@@ -26,8 +26,8 @@
 <script>
 import { ref, computed, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
 
-import useSymbol from './useSymbol'
-import { mergeProps, simpleSlugify, toTextContent } from './util'
+import { useSymbol } from '../symbols'
+import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/composition-vue'
 import { InterfaceButton } from '@baleada/interface-vue'

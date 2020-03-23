@@ -19,7 +19,7 @@ import { ref } from '@vue/composition-api'
 
 import { EvaChevronRight } from '@baleada/icons-vue'
 
-import { mergeProps } from './util'
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseDetails',

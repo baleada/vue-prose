@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mergeProps } from './util'
+import { mergeProps } from '../util'
 
 export default {
   name: 'ProseSection',

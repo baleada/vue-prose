@@ -1,8 +1,8 @@
 <template>
   <div
     ref="baleada"
-    class="baleada-prose-gridcell"
-    role="gridcell"
+    class="baleada-prose-columnheader"
+    role="columnheader"
     tabindex="-1"
     @click="handleClick"
   >
@@ -13,10 +13,10 @@
 <script>
 import { ref, computed, watch, inject } from '@vue/composition-api'
 
-import useSymbol from './useSymbol'
+import { useSymbol } from '../symbols'
 
 export default {
-  name: 'ProseGridcell',
+  name: 'ProseColumnheader',
   props: {
     rowgroup: {
       type: Number,
