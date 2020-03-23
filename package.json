@@ -39,8 +39,10 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@baleada/composition": "0.x",
-    "@baleada/icons": "0.x",
-    "@baleada/interface": "0.x"
+    "@baleada/composition-vue": "0.x",
+    "@baleada/icons-vue": "0.x",
+    "@baleada/interface-vue": "0.x",
+    "vue": "2.x",
+    "@vue/composition-api": "0.x"
   }
 }
