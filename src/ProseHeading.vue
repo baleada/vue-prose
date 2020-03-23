@@ -26,12 +26,12 @@
 <script>
 import { ref, computed, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
 
-import { useSymbol } from '../composition'
-import { mergeProps, simpleSlugify, toTextContent } from '../util'
+import useSymbol from './useSymbol'
+import { mergeProps, simpleSlugify, toTextContent } from './util'
 
-import { useCopyable } from '@baleada/composition/vue'
-import { InterfaceButton } from '@baleada/interface/vue'
-import { EvaLink } from '@baleada/icons/vue'
+import { useCopyable } from '@baleada/composition-vue'
+import { InterfaceButton } from '@baleada/interface-vue'
+import { EvaLink } from '@baleada/icons-vue'
 
 export default {
   name: 'ProseHeading',

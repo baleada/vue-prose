@@ -13,11 +13,11 @@
 <script>
 import { ref, onMounted, inject } from '@vue/composition-api'
 
-import { EvaImage } from '@baleada/icons/vue'
+import { EvaImage } from '@baleada/icons-vue'
 
-import { useSymbol } from '../composition'
+import useSymbol from './useSymbol'
 
-import { mergeProps } from '../util'
+import { mergeProps } from './util'
 
 export default {
   name: 'ProseMedia',

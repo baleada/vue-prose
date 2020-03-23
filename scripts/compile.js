@@ -1,9 +1,6 @@
-const vueLoader = require('vue-loader')
+const { exec, empty } = require('@baleada/prepare')
 
-function compileVue (source) {
-  console.log(vueLoader(source))
-}
-
-module.exports = {
-  compileVue
+module.exports = function() {
+  empty('./lib')
+  exec('rollup --config rollup.config.js')
 }

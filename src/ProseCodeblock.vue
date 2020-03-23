@@ -23,12 +23,12 @@
 <script>
 import { ref, computed, watch, inject } from '@vue/composition-api'
 
-import { mergeProps } from '../util'
-import { useSymbol } from '../composition'
+import { mergeProps } from './util'
+import useSymbol from './useSymbol'
 
-import { useCopyable } from '@baleada/composition/vue'
-import { EvaCopy } from '@baleada/icons/vue'
-import { InterfaceButton } from '@baleada/interface/vue'
+import { useCopyable } from '@baleada/composition-vue'
+import { EvaCopy } from '@baleada/icons-vue'
+import { InterfaceButton } from '@baleada/interface-vue'
 
 export default {
   name: 'ProseCodeblock',

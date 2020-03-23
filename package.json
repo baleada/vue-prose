@@ -1,26 +1,27 @@
 {
-  "name": "@baleada/prose",
-  "version": "0.6.8",
-  "description": "Components that enhance prose for the Baleada toolkit",
-  "main": "index.js",
+  "name": "@baleada/prose-vue",
+  "version": "0.7.0",
+  "description": "Vue components that enhance prose for the Baleada toolkit",
+  "main": "lib/index.js",
   "scripts": {
     "prepare": "node scripts/prepare.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/baleada/prose.git"
+    "url": "git+https://gitlab.com/baleada/prose-vue.git"
   },
   "keywords": [
     "baleada",
     "prose",
     "markdown",
     "components",
-    "accessible"
+    "accessible",
+    "vue"
   ],
   "author": "Alex Vipond",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/baleada/prose/issues"
+    "url": "https://gitlab.com/baleada/prose-vue/issues"
   },
   "homepage": "https://baleada.netlify.com",
   "sideEffects": false,

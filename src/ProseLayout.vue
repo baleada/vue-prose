@@ -7,15 +7,15 @@
 <script>
 import { ref, isRef, computed, provide, inject } from '@vue/composition-api'
 
-import { useSymbol } from '../composition'
+import useSymbol from './useSymbol'
 
-import { mergeProps } from '../util'
+import { mergeProps } from './util'
 
 import {
   defaultMessages as defaultMessagesStub,
   defaultProps as defaultPropsStub,
   defaultInterfaceProps as defaultInterfacePropsStub
-} from '../stubs'
+} from './stubs'
 
 function formatAsRef (object) {
   return isRef(object)

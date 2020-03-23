@@ -13,7 +13,7 @@
 <script>
 import { ref, computed, watch, inject } from '@vue/composition-api'
 
-import { useSymbol } from '../composition'
+import useSymbol from './useSymbol'
 
 export default {
   name: 'ProseListItem',

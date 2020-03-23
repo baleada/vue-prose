@@ -1,7 +1,8 @@
 const fs = require('fs')
 
+sfcRegexp = /\.vue$/
 module.exports = function (framework) {
-  const components = getFiles(`./src/vue/components`).filter(({ name }) => name !== 'ProseLayout'),
+  const components = getFiles(`./src`).filter(({ name, path }) => name !== 'ProseLayout' && sfcRegexp.test(path)),
         propsInterfaces = components.map(({ path, name }) => {
           const contents = fs.readFileSync(path, 'utf8'),
                 propsMatch = contents.match(/props: {(.|\r?\n)*?\n\s\s}/)
@@ -28,7 +29,7 @@ module.exports = function (framework) {
         })
 
   fs.writeFileSync(
-    `./src/${framework}/propsInterfaces.js`,
+    `./src/propsInterfaces.js`,
     `export default ${JSON.stringify(propsInterfaces, null, 2)}`,
     'utf8'
   )

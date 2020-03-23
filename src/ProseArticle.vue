@@ -11,9 +11,9 @@
 <script>
 import { ref, isRef, computed, watch, onMounted, provide, inject } from '@vue/composition-api'
 
-import { useSymbol } from '../composition'
+import useSymbol from './useSymbol'
 
-import { mergeProps, scrollToHeading } from '../util'
+import { mergeProps, scrollToHeading } from './util'
 
 export default {
   name: 'ProseArticle',

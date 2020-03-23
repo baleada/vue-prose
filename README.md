@@ -1,3 +1,3 @@
-# `@baleada/prose`
+# `@baleada/prose-vue`
 
-Components that enhance prose for the Baleada toolkit.
+Vue components that enhance prose for the Baleada toolkit.

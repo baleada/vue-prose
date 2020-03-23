@@ -1,5 +1,0 @@
-export { default as mergeProps } from './mergeProps.js'
-export { default as scrollToHeading } from './scrollToHeading.js'
-export { default as simpleSlugify } from './simpleSlugify.js'
-export { default as toTextContent } from './toTextContent.js'
-export { default as toTweetIntent } from './toTweetIntent.js'
