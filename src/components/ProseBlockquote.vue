@@ -21,7 +21,7 @@
 <script>
 import { ref, getCurrentInstance, inject, onMounted } from '@vue/composition-api'
 
-import SimpleTwitter from '@baleada/icons-vue/lib/SimpleTwitter'
+import { SimpleTwitter } from '@baleada/icons-vue/simple-icons'
 
 import { mergeProps, toTweetIntent, toTextContent } from '../util'
 import { useSymbol } from '../symbols'

@@ -27,7 +27,7 @@ import { mergeProps } from '../util'
 import { useSymbol } from '../symbols'
 
 import { useCopyable } from '@baleada/composition-vue'
-import EvaCopy from '@baleada/icons-vue/lib/EvaCopy'
+import { EvaCopy } from '@baleada/icons-vue/eva-icons'
 import { InterfaceButton } from '@baleada/interface-vue'
 
 export default {
