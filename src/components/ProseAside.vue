@@ -15,7 +15,10 @@
 </template>
 
 <script>
-import { EvaInfo, EvaAlertTriangle, EvaFlash, EvaAward } from '@baleada/icons-vue'
+import EvaInfo from '@baleada/icons-vue/lib/EvaInfo'
+import EvaAlertTriangle from '@baleada/icons-vue/lib/EvaAlertTriangle'
+import EvaFlash from '@baleada/icons-vue/lib/EvaFlash'
+import EvaAward from '@baleada/icons-vue/lib/EvaAward'
 
 import { mergeProps } from '../util'
 

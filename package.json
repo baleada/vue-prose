@@ -32,7 +32,6 @@
     "@rollup/plugin-node-resolve": "^6.0.0",
     "fast-async": "^6.3.8",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-vue": "^5.1.2",
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10"

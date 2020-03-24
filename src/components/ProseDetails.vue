@@ -17,7 +17,7 @@
 <script>
 import { ref } from '@vue/composition-api'
 
-import { EvaChevronRight } from '@baleada/icons-vue'
+import EvaChevronRight from '@baleada/icons-vue/lib/EvaChevronRight'
 
 import { mergeProps } from '../util'
 

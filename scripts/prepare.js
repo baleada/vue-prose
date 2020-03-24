@@ -5,7 +5,7 @@ const { generateIndex } = require('@baleada/prepare'),
 function prepare () {
   /* Index all */
   generateIndex('./src')
-  generateIndex('./src/components')
+  generateIndex('./src/components', { extensions: ['vue'] })
   generateIndex('./src/composition')
   generateIndex('./src/symbols')
   generateIndex('./src/stubs')

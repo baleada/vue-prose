@@ -31,7 +31,7 @@ import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/composition-vue'
 import { InterfaceButton } from '@baleada/interface-vue'
-import { EvaLink } from '@baleada/icons-vue'
+import EvaLink from '@baleada/icons-vue/lib/EvaLink'
 
 export default {
   name: 'ProseHeading',
