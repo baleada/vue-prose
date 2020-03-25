@@ -18,7 +18,7 @@
       @click="handleClick"
       v-bind="interfaceButtonProps"
     >
-      <EvaLink />
+      <HeroiconsLink />
     </InterfaceButton>
   </component>
 </template>
@@ -31,12 +31,12 @@ import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/composition-vue'
 import { InterfaceButton } from '@baleada/interface-vue'
-import { EvaLink } from '@baleada/icons-vue/eva-icons'
+import { HeroiconsLink } from '@baleada/icons-vue/heroicons'
 
 export default {
   name: 'ProseHeading',
   components: {
-    EvaLink,
+    HeroiconsLink,
     InterfaceButton,
   },
   props: {

@@ -4,10 +4,10 @@
     class="baleada-prose-aside"
     :class="[`baleada-prose-aside-${mergedProps.type}`, mergedProps.classes]"
   >
-    <EvaInfo v-if="mergedProps.type === 'info'"/>
-    <EvaAlertTriangle v-if="mergedProps.type === 'warning'"/>
-    <EvaFlash v-if="mergedProps.type === 'danger'"/>
-    <EvaAward v-if="mergedProps.type === 'success'"/>
+    <HeroiconsInformationCircle v-if="mergedProps.type === 'info'"/>
+    <HeroiconsExclamation v-if="mergedProps.type === 'warning'"/>
+    <HeroiconsLightningBolt v-if="mergedProps.type === 'danger'"/>
+    <HeroiconsSparkles v-if="mergedProps.type === 'success'"/>
     <section class="contents">
       <slot />
     </section>
@@ -15,17 +15,17 @@
 </template>
 
 <script>
-import { EvaInfo, EvaAlertTriangle, EvaFlash, EvaAward } from '@baleada/icons-vue/eva-icons'
+import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBolt, HeroiconsSparkles } from '@baleada/icons-vue/heroicons'
 
 import { mergeProps } from '../util'
 
 export default {
   name: 'ProseAside',
   components: {
-    EvaInfo,
-    EvaAlertTriangle,
-    EvaFlash,
-    EvaAward,
+    HeroiconsInformationCircle,
+    HeroiconsExclamation,
+    HeroiconsLightningBolt,
+    HeroiconsSparkles,
   },
   props: {
     type: {

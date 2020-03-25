@@ -15,7 +15,7 @@
       @click="handleClick"
       v-bind="interfaceButtonProps"
     >
-      <EvaCopy />
+      <HeroiconsClipboardCopy />
     </InterfaceButton>
   </section>
 </template>
@@ -27,13 +27,13 @@ import { mergeProps } from '../util'
 import { useSymbol } from '../symbols'
 
 import { useCopyable } from '@baleada/composition-vue'
-import { EvaCopy } from '@baleada/icons-vue/eva-icons'
+import { HeroiconsClipboardCopy } from '@baleada/icons-vue/heroicons'
 import { InterfaceButton } from '@baleada/interface-vue'
 
 export default {
   name: 'ProseCodeblock',
   components: {
-    EvaCopy,
+    HeroiconsClipboardCopy,
     InterfaceButton,
   },
   props: {
