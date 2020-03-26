@@ -9,6 +9,7 @@
       :id="slug"
       :href="`#${slug}`"
       class="contents"
+      :class="mergedProps.descendant1Classes"
     >
       <slot />
     </a>
@@ -17,8 +18,9 @@
       name="Copy link to heading"
       @click="handleClick"
       v-bind="interfaceButtonProps"
+      :class="mergedProps.descendant2Classes"
     >
-      <HeroiconsLink />
+      <HeroiconsLink :class="mergedProps.descendant3Classes" />
     </InterfaceButton>
   </component>
 </template>
@@ -50,7 +52,19 @@ export default {
     },
     classes: {
       type: String,
-      default: '',
+      // default: '',
+    },
+    descendant1Classes: {
+      type: String,
+      // default: '',
+    },
+    descendant2Classes: {
+      type: String,
+      // default: '',
+    },
+    descendant3Classes: {
+      type: String,
+      // default: '',
     },
   },
   setup (props) {

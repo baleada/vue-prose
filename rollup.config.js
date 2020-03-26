@@ -6,6 +6,8 @@ export default {
   external: [
     '@vue/composition-api',
     '@baleada/icons-vue',
+    '@baleada/icons-vue/heroicons',
+    '@baleada/icons-vue/simple-icons',
     '@baleada/interface-vue',
     '@baleada/composition-vue',
     'vue',

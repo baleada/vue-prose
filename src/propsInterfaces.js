@@ -77,7 +77,10 @@ export default [
     "interface": {
       "level": "number",
       "canCopy": "boolean",
-      "classes": "string"
+      "classes": "string",
+      "descendant1Classes": "string",
+      "descendant2Classes": "string",
+      "descendant3Classes": "string"
     }
   },
   {

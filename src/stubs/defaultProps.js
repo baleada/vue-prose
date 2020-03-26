@@ -32,6 +32,9 @@ export default {
   },
   heading: {
     classes: '',
+    descendant1Classes: '',
+    descendant2Classes: '',
+    descendant3Classes: '',
     canCopy: false,
   },
   list: {
