@@ -13,7 +13,7 @@
     >
       <slot />
     </a>
-    <InterfaceButton
+    <InterfaceClick
       v-if="mergedProps.canCopy"
       name="Copy link to heading"
       @click="handleClick"
@@ -21,7 +21,7 @@
       :class="mergedProps.descendant2Classes"
     >
       <HeroiconsLink :class="mergedProps.descendant3Classes" />
-    </InterfaceButton>
+    </InterfaceClick>
   </component>
 </template>
 
@@ -32,14 +32,14 @@ import { useSymbol } from '../symbols'
 import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/composition-vue'
-import { InterfaceButton } from '@baleada/interface-vue'
+import { InterfaceClick } from '@baleada/interface-vue'
 import { HeroiconsLink } from '@baleada/icons-vue/heroicons'
 
 export default {
   name: 'ProseHeading',
   components: {
     HeroiconsLink,
-    InterfaceButton,
+    InterfaceClick,
   },
   props: {
     level: {

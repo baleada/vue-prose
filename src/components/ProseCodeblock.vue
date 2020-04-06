@@ -9,14 +9,14 @@
       <slot />
     </section>
     <!-- Copy button -->
-    <InterfaceButton
+    <InterfaceClick
       v-if="mergedProps.canCopy"
       name="Copy code"
       @click="handleClick"
       v-bind="interfaceButtonProps"
     >
       <HeroiconsClipboardCopy />
-    </InterfaceButton>
+    </InterfaceClick>
   </section>
 </template>
 
@@ -28,13 +28,13 @@ import { useSymbol } from '../symbols'
 
 import { useCopyable } from '@baleada/composition-vue'
 import { HeroiconsClipboardCopy } from '@baleada/icons-vue/heroicons'
-import { InterfaceButton } from '@baleada/interface-vue'
+import { InterfaceClick } from '@baleada/interface-vue'
 
 export default {
   name: 'ProseCodeblock',
   components: {
     HeroiconsClipboardCopy,
-    InterfaceButton,
+    InterfaceClick,
   },
   props: {
     lines: {
