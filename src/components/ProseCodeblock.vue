@@ -26,9 +26,9 @@ import { ref, computed, watch, inject } from '@vue/composition-api'
 import { mergeProps } from '../util'
 import { useSymbol } from '../symbols'
 
-import { useCopyable } from '@baleada/composition-vue'
-import { HeroiconsClipboardCopy } from '@baleada/icons-vue/heroicons'
-import { InterfaceClick } from '@baleada/interface-vue'
+import { useCopyable } from '@baleada/vue-composition'
+import { HeroiconsClipboardCopy } from '@baleada/vue-icons/heroicons'
+import { InterfaceClick } from '@baleada/vue-interface'
 
 export default {
   name: 'ProseCodeblock',

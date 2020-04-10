@@ -17,7 +17,7 @@
 <script>
 import { ref } from '@vue/composition-api'
 
-import { HeroiconsCheveronRight } from '@baleada/icons-vue/heroicons'
+import { HeroiconsCheveronRight } from '@baleada/vue-icons/heroicons'
 
 import { mergeProps } from '../util'
 

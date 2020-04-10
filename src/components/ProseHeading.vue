@@ -31,9 +31,9 @@ import { ref, computed, onMounted, inject, getCurrentInstance } from '@vue/compo
 import { useSymbol } from '../symbols'
 import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
-import { useCopyable } from '@baleada/composition-vue'
-import { InterfaceClick } from '@baleada/interface-vue'
-import { HeroiconsLink } from '@baleada/icons-vue/heroicons'
+import { useCopyable } from '@baleada/vue-composition'
+import { InterfaceClick } from '@baleada/vue-interface'
+import { HeroiconsLink } from '@baleada/vue-icons/heroicons'
 
 export default {
   name: 'ProseHeading',

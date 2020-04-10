@@ -13,7 +13,7 @@
 <script>
 import { ref, onMounted, inject } from '@vue/composition-api'
 
-// import { EvaImage } from '@baleada/icons-vue/heroicons'
+// import { EvaImage } from '@baleada/vue-icons/heroicons'
 
 import { useSymbol } from '../symbols'
 
