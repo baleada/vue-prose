@@ -1,6 +1,6 @@
 {
   "name": "@baleada/vue-prose",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Vue components that enhance prose for the Baleada toolkit",
   "main": "lib/index.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
+    "@baleada/prepare": "^0.1.1",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "fast-async": "^6.3.8",
     "rollup-plugin-babel": "^4.3.3",
@@ -36,9 +37,7 @@
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10"
   },
-  "dependencies": {
-    "@baleada/prepare": "^0.1.1"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@baleada/vue-composition": "0.x",
     "@baleada/vue-icons": "0.x",

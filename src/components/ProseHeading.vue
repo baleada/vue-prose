@@ -88,7 +88,7 @@ export default {
       copyable.value.copy()
     }
 
-    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.button) // TODO: when is reactivity necessary?
+    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
 
     return {
       baleada,
