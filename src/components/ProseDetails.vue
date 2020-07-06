@@ -5,7 +5,7 @@
     :class="[mergedProps.classes]"
   >
     <summary v-if="summary">
-      <HeroiconsCheveronRight />
+      <HeroiconsChevronRight />
       <span>{{ summary }}</span>
     </summary>
     <section class="contents">
@@ -17,14 +17,14 @@
 <script>
 import { ref } from '@vue/composition-api'
 
-import { HeroiconsCheveronRight } from '@baleada/vue-icons/heroicons'
+import { HeroiconsChevronRight } from '@baleada/vue-icons/heroicons'
 
 import { mergeProps } from '../util'
 
 export default {
   name: 'ProseDetails',
   components: {
-    HeroiconsCheveronRight,
+    HeroiconsChevronRight,
   },
   props: {
     summary: {

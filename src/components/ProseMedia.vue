@@ -5,7 +5,7 @@
     :class="[mergedProps.classes]"
   >
     <section class="contents">
-      <component :is="type" :src="src" />
+      <component :is="type === 'image' ? 'img' : type" :src="src" />
     </section>
   </section>
 </template>
@@ -28,7 +28,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: value => ['img', 'audio', 'video'].includes(value)
+      validator: value => ['image', 'audio', 'video'].includes(value)
     },
     src: {
       type: String,
