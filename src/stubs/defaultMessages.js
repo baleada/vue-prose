@@ -1,10 +1,10 @@
 export default {
-  grid: {
-    filterByQueryPlaceholder: 'Type to filter...',
-    changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
+  table: {
+    searchByQueryPlaceholder: 'Search',
+    changeSearchCaseSensitivityLabel: 'Search is case sensitive',
   },
   list: {
-    filterByQueryPlaceholder: 'Type to filter...',
-    changeFilterCaseSensitivityLabel: 'Filter is case sensitive',
+    searchByQueryPlaceholder: 'Search',
+    changeSearchCaseSensitivityLabel: 'Search is case sensitive',
   },
 }

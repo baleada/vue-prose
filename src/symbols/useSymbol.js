@@ -1,9 +1,10 @@
 const symbols = {
-  layout: {
+  context: {
     messages: Symbol('messages'),
     fullPath: Symbol('fullPath'),
     setHeadings: Symbol('setHeadings'),
     headings: Symbol('headings'),
+    media: Symbol('media'),
     defaultProps: Symbol('defaultProps'),
     interfaceProps: Symbol('interfaceProps'),
   },

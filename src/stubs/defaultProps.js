@@ -9,7 +9,7 @@ export default {
   },
   blockquote: {
     classes: '',
-    canTweet: false,
+    readerCanTweet: false,
     tweetText: '',
     tweetUrl: '',
     tweetVia: '',
@@ -17,28 +17,34 @@ export default {
   },
   codeblock: {
     classes: '',
-    canCopy: false,
-    hasLineNumbers: false,
+    readerCanCopy: false,
+    codeblockHasLang: false,
+    codeblockHasLineNumbers: false,
   },
   details: {
     classes: '',
     summary: '',
   },
-  grid: {
+  table: {
     classes: '',
-    canFilterByQuery: false,
-    filterIsCaseSensitive: false,
-    canChangeFilterCaseSensitivity: false,
+    readerCanSearchByQuery: false,
+    searchIgnoresQueryCase: true,
+    readerCanChangeSearchCaseSensitivity: false,
+    minimumSearchScore: 1,
   },
   heading: {
     classes: '',
     descendant1Classes: '',
     descendant2Classes: '',
     descendant3Classes: '',
-    canCopy: false,
+    readerCanCopy: false,
   },
   list: {
     classes: '',
+    readerCanSearchByQuery: false,
+    searchIgnoresQueryCase: true,
+    readerCanChangeSearchCaseSensitivity: false,
+    minimumSearchScore: 1,
   },
   media: {
     classes: '',

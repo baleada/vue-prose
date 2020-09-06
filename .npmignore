@@ -3,3 +3,6 @@
 
 # Except these files
 !lib/**/*.js
+!plugin/**/*.js
+!propsInterfaces/**/*.js
+!loopedIdPrefix/**/*.js

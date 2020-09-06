@@ -1,8 +1,8 @@
-import { inject } from '@vue/composition-api'
+import { inject } from 'vue'
 import { useSymbol } from '../symbols'
 
 export default function mergeProps({ props, component }) {
-  const defaultProps = inject(useSymbol('layout', 'defaultProps')).value[component],
+  const defaultProps = inject(useSymbol('context', 'defaultProps')).value[component],
         mergedProps = {}
 
   // This for...in loop allows mergedProps to directly reference the original props object, retaining prop reactivity

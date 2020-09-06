@@ -1,14 +1,10 @@
 <template>
-  <main ref="baleada" class="baleada-prose-layout">
-    <slot />
-  </main>
+  <slot />
 </template>
 
 <script>
-import { ref, isRef, computed, provide, inject } from '@vue/composition-api'
-
+import { ref, isRef, computed, provide, inject } from 'vue'
 import { useSymbol } from '../symbols'
-
 import { mergeProps } from '../util'
 
 import {
@@ -17,7 +13,7 @@ import {
   defaultInterfaceProps as defaultInterfacePropsStub
 } from '../stubs'
 
-function formatAsRef (object) {
+function ensureRef (object) {
   return isRef(object)
     ? object
     : ref(object)
@@ -37,7 +33,7 @@ function mergeWithDefaultProps (injectedDefaultProps) {
 }
 
 export default {
-  name: 'ProseLayout',
+  name: 'ProseContext',
   props: {
     fullPathInjectKey: {
       type: [Symbol, String],
@@ -57,18 +53,18 @@ export default {
     const fullPath = inject(props.fullPathInjectKey),
           emptyRefStub = { value: {} },
           injectedMessages = props.messagesInjectKey
-            ? formatAsRef(inject(props.messagesInjectKey))
+            ? ensureRef(inject(props.messagesInjectKey))
             : emptyRefStub,
           messages = computed(() => ({
             ...defaultMessagesStub,
             ...injectedMessages.value,
           })),
           injectedDefaultProps = props.defaultPropsInjectKey
-            ? formatAsRef(inject(props.defaultPropsInjectKey))
+            ? ensureRef(inject(props.defaultPropsInjectKey))
             : emptyRefStub,
           defaultProps = computed(() => mergeWithDefaultProps(injectedDefaultProps)),
           injectedInterfaceProps = props.interfacePropsInjectKey
-            ? formatAsRef(inject(props.interfacePropsInjectKey))
+            ? ensureRef(inject(props.interfacePropsInjectKey))
             : emptyRefStub,
           interfaceProps = computed(() => ({
             ...defaultInterfacePropsStub,
@@ -76,21 +72,24 @@ export default {
           }))
 
     /* Provide reactive messages for i18n */
-    provide(useSymbol('layout', 'messages'), messages)
+    provide(useSymbol('context', 'messages'), messages)
 
     /* Provide reactive default prop values for all components */
-    provide(useSymbol('layout', 'defaultProps'), defaultProps)
+    provide(useSymbol('context', 'defaultProps'), defaultProps)
 
     /* Provide reactive Baleada Interface prop values for all components */
-    provide(useSymbol('layout', 'interfaceProps'), interfaceProps)
+    provide(useSymbol('context', 'interfaceProps'), interfaceProps)
 
     /* Provide reactive full path for ProseArticle */
-    provide(useSymbol('layout', 'fullPath'), fullPath)
-
+    provide(useSymbol('context', 'fullPath'), fullPath)
 
     /* Track article headings */
     const headings = ref([])
-    provide(useSymbol('layout', 'headings'), headings)
+    provide(useSymbol('context', 'headings'), headings)
+
+    /* Track media */
+    const media = ref([])
+    provide(useSymbol('context', 'media'), media)
 
     return {}
   },

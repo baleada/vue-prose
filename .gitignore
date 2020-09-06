@@ -88,3 +88,6 @@ sw.*
 
 # Published version
 lib
+plugin
+propsInterfaces
+loopedIdPrefix

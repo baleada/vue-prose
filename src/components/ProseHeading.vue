@@ -5,35 +5,36 @@
     :class="[mergedProps.classes]"
     :is="`h${level}`"
   >
-    <a
+    <InterfaceClick
+      tag="a"
       :id="slug"
       :href="`#${slug}`"
       class="contents"
-      :class="mergedProps.descendant1Classes"
+      :class="mergedProps.contentsClasses"
+      v-bind="interfaceClickProps"
     >
       <slot />
-    </a>
+    </InterfaceClick>
     <InterfaceClick
-      v-if="mergedProps.canCopy"
+      v-if="mergedProps.readerCanCopy"
       name="Copy link to heading"
       @click="handleClick"
-      v-bind="interfaceButtonProps"
-      :class="mergedProps.descendant2Classes"
+      v-bind="interfaceClickProps"
     >
-      <HeroiconsLink :class="mergedProps.descendant3Classes" />
+      <HeroiconsLink :class="mergedProps.interfacContentsClasses" />
     </InterfaceClick>
   </component>
 </template>
 
 <script>
-import { ref, computed, onMounted, inject, getCurrentInstance } from '@vue/composition-api'
+import { ref, computed, onMounted, inject, getCurrentInstance } from 'vue'
 
 import { useSymbol } from '../symbols'
 import { mergeProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/vue-composition'
 import { InterfaceClick } from '@baleada/vue-interface'
-import { HeroiconsLink } from '@baleada/vue-icons/heroicons'
+import { HeroiconsLink } from '@baleada/vue-heroicons'
 
 export default {
   name: 'ProseHeading',
@@ -46,7 +47,7 @@ export default {
       type: Number,
       required: true,
     },
-    canCopy: {
+    readerCanCopy: {
       // type: Boolean,
       // default: false,
     },
@@ -54,15 +55,15 @@ export default {
       type: String,
       // default: '',
     },
-    descendant1Classes: {
+    contentsClasses: {
       type: String,
       // default: '',
     },
-    descendant2Classes: {
+    interfaceClasses: {
       type: String,
       // default: '',
     },
-    descendant3Classes: {
+    interfaceContentsClasses: {
       type: String,
       // default: '',
     },
@@ -70,8 +71,8 @@ export default {
   setup (props) {
     const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'heading' }),
-          defaultSlots = getCurrentInstance().$slots.default,
-          text = defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
+          defaultSlot = getCurrentInstance().$slots.default,
+          text = defaultSlot.reduce((text, slot) => text + toTextContent(slot), ''),
           slug = simpleSlugify(text).toLowerCase(),
           headings = inject(useSymbol('article', 'headings'))
 
@@ -88,14 +89,14 @@ export default {
       copyable.value.copy()
     }
 
-    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
+    const interfaceClickProps = computed(() => inject(useSymbol('context', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
 
     return {
       baleada,
       slug,
       handleClick,
       mergedProps,
-      interfaceButtonProps,
+      interfaceClickProps,
     }
   },
 }

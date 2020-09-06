@@ -5,15 +5,16 @@
     :class="[mergedProps.classes]"
   >
     <section class="contents">
+      <pre v-if="mergedProps.hasLang"><code>{{ lang }}</code></pre>
       <pre v-if="mergedProps.hasLineNumbers"><code>{{ lineNumbers }}</code></pre>
       <slot />
     </section>
     <!-- Copy button -->
     <InterfaceClick
-      v-if="mergedProps.canCopy"
+      v-if="mergedProps.readerCanCopy"
       name="Copy code"
       @click="handleClick"
-      v-bind="interfaceButtonProps"
+      v-bind="interfaceClickProps"
     >
       <HeroiconsClipboardCopy />
     </InterfaceClick>
@@ -21,13 +22,13 @@
 </template>
 
 <script>
-import { ref, computed, watch, inject } from '@vue/composition-api'
+import { ref, computed, watch, inject, getCurrentInstance } from 'vue'
 
 import { mergeProps } from '../util'
 import { useSymbol } from '../symbols'
 
 import { useCopyable } from '@baleada/vue-composition'
-import { HeroiconsClipboardCopy } from '@baleada/vue-icons/heroicons'
+import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { InterfaceClick } from '@baleada/vue-interface'
 
 export default {
@@ -40,11 +41,18 @@ export default {
     lines: {
       type: Number,
     },
-    canCopy: {
+    lang: {
+      type: String,
+    },
+    readerCanCopy: {
       // type: Boolean,
       // default: false,
     },
-    hasLineNumbers: {
+    codeblockHasLang: {
+      // type: Boolean,
+      // deafult: false,
+    },
+    codeblockHasLineNumbers: {
       // type: Boolean,
       // default: false,
     },
@@ -57,9 +65,10 @@ export default {
     const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'codeblock' }),
           copyable = useCopyable(''),
-          code = computed(() => baleada.value ? baleada.value.textContent : '')
+          defaultSlot = getCurrentInstance().$slots.default,
+          code = defaultSlot.reduce((text, slot) => text + toTextContent(slot), '')
 
-    watch(code, () => copyable.value.setString(code.value))
+    copyable.value.setString(code.value)
 
     function handleClick () {
       copyable.value.copy()
@@ -70,14 +79,14 @@ export default {
       lineNumbers += `${i}\n`
     }
 
-    const interfaceButtonProps = computed(() => inject(useSymbol('layout', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
+    const interfaceClickProps = computed(() => inject(useSymbol('context', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
 
     return {
       baleada,
       handleClick,
       lineNumbers,
       mergedProps,
-      interfaceButtonProps,
+      interfaceClickProps,
     }
   },
 }

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBolt, HeroiconsSparkles } from '@baleada/vue-icons/heroicons'
+import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBolt, HeroiconsSparkles } from '@baleada/vue-heroicons'
 
 import { mergeProps } from '../util'
 

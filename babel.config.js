@@ -12,6 +12,8 @@ const presets = [
       ],
       plugins = [
         'module:fast-async',
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-transform-runtime',
       ]
 
 module.exports = { presets, plugins }

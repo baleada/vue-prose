@@ -6,22 +6,23 @@
     <section class="contents">
       <slot />
     </section>
-    <a
-      v-if="mergedProps.canTweet"
+    <InterfaceClick
+      tag="a"
+      v-if="mergedProps.readerCanTweet"
       :href="intent"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Tweet blockquote"
     >
       <SimpleTwitter />
-    </a>
+    </InterfaceClick>
   </section>
 </template>
 
 <script>
-import { ref, getCurrentInstance, inject, onMounted } from '@vue/composition-api'
+import { ref, getCurrentInstance, inject, onMounted } from 'vue'
 
-import { SimpleTwitter } from '@baleada/vue-icons/simple-icons'
+import { SimpleTwitter } from '@baleada/vue-simple-icons'
 
 import { mergeProps, toTweetIntent, toTextContent } from '../util'
 import { useSymbol } from '../symbols'
@@ -32,7 +33,7 @@ export default {
     SimpleTwitter,
   },
   props: {
-    canTweet: {
+    readerCanTweet: {
       // type: Boolean,
       // default: false,
     },
@@ -61,7 +62,7 @@ export default {
     const mergedProps = mergeProps({ props, component: 'blockquote' }),
           defaultSlots = getCurrentInstance().$slots.default,
           text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
-          fullPath = inject(useSymbol('layout', 'fullPath')),
+          fullPath = inject(useSymbol('context', 'fullPath')),
           intent = ref('')
 
     onMounted(() => {

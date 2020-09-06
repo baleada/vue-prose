@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ref, isRef, computed, watch, onMounted, provide, inject } from '@vue/composition-api'
+import { ref, isRef, computed, watch, onMounted, provide, inject } from 'vue'
 
 import { useSymbol } from '../symbols'
 
@@ -22,7 +22,7 @@ export default {
       type: String,
       // default: '',
     },
-    scrollableContainerGetter: {
+    getScrollableContainer: {
       type: Function,
     }
   },
@@ -30,11 +30,11 @@ export default {
     const mergedProps = mergeProps({ props, component: 'article' })
 
     /* Track route */
-    const fullPath = inject(useSymbol('layout', 'fullPath'))
+    const fullPath = inject(useSymbol('context', 'fullPath'))
 
     /* Manage headings */
     const headings = ref([]),
-          layoutHeadings = inject(useSymbol('layout', 'headings'))
+          layoutHeadings = inject(useSymbol('context', 'headings'))
           
     provide(useSymbol('article', 'headings'), headings)
 
@@ -44,7 +44,7 @@ export default {
 
     /* Scroll to heading */
     const baleada = ref(null),
-          container = mergedProps.scrollableContainerGetter || (() => baleada.value)
+          container = mergedProps.getScrollableContainer || (() => baleada.value)
           
     onMounted(() => {
       scrollToHeading(fullPath.value, { container })
@@ -53,7 +53,7 @@ export default {
       scrollToHeading(fullPath.value, { container })
     }, { lazy: true })
 
-    /* Collect frontMatter and stats from loaders */
+    /* Collect frontMatter, stats, and file path from loaders */
     const stats = ref({})
     provide(useSymbol('article', 'stats'), stats)
 

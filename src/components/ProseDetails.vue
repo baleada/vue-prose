@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { ref } from '@vue/composition-api'
+import { ref } from 'vue'
 
-import { HeroiconsChevronRight } from '@baleada/vue-icons/heroicons'
+import { HeroiconsChevronRight } from '@baleada/vue-heroicons'
 
 import { mergeProps } from '../util'
 

@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import { ref, onMounted, inject } from '@vue/composition-api'
+import { ref, onMounted, inject } from 'vue'
 
-// import { EvaImage } from '@baleada/vue-icons/heroicons'
+// import { EvaImage } from '@baleada/vue-heroicons'
 
 import { useSymbol } from '../symbols'
 
@@ -41,11 +41,11 @@ export default {
   },
   setup({ type, src }) {
     const baleada = ref(null),
-          addMedia = inject(useSymbol('layout', 'addMedia')),
-          mergedProps = mergeProps({ props, component: 'media' })
+          mergedProps = mergeProps({ props, component: 'media' }),
+          media = inject(useSymbol('article', 'media'))
 
-    addMedia({ type, src }) // TODO: Maybe include ref here if it allows to avoid double loading
-
+    headings.value.push({ type, src })
+    
     // download
     // play/pause
     // speed

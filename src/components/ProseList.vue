@@ -4,51 +4,66 @@
     class="baleada-prose-list"
     :class="[mergedProps.classes]"
   >
-    <div v-if="mergedProps.canFilterByQuery">
+    <div v-if="mergedProps.readerCanSearch">
       <input
-        :placeholder="messages.list.filterByQueryPlaceholder"
-        name="Filter by query"
+        :ref="list.queryInput.ref"
+        :placeholder="messages.list.searchByQueryPlaceholder"
+        name="Search by query"
         type="text"
-        :value="filterQuery"
-        @input="handleFilterQueryInput"
       />
     </div>
-    <div v-if="mergedProps.canFilterByQuery && mergedProps.canChangeFilterCaseSensitivity">
+    <div v-if="mergedProps.readerCanSearch && mergedProps.readerCanChangeSearchCaseSensitivity">
       <input
-        name="Change filter case sensitivity"
+        :ref="list.ignoreQueryCaseCheckbox.ref"
+        name="Change search case sensitivity"
         type="checkbox"
-        :checked="computedFilterIsCaseSensitive"
-        @change="handleCaseSensitivityChange"
       />
       <label>
-        {{ messages.list.changeFilterCaseSensitivityLabel }}
+        {{ messages.list.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
     <section class="contents">
-      <slot />
+      <component
+        :ref="list.root.ref"
+        :is="tag"
+      >
+        <slot
+          :ref="list.items.ref"
+          v-for="{ id } in list.items.metadata"
+          :key="id"
+          :name="id"
+        />
+      </component>
     </section>
   </section>
 </template>
 
 <script>
-import { ref, watch, computed, provide, inject } from '@vue/composition-api'
-
+import { ref, inject } from 'vue'
+import { useList } from '../composition'
 import { useSymbol } from '../symbols'
-
 import { mergeProps } from '../util'
 
 export default {
   name: 'ProseList',
   props: {
-    canFilterByQuery: {
+    tag: {
+      type: String,
+      validator: value => ['ol', 'ul'].includes(value),
+    },
+    totalItems: {
+      type: Number,
+      required: true,
+    },
+    readerCanSearch: {
       // type: Boolean,
       // default: false,
     },
-    filterIsCaseSensitive: {
+    searchIgnoresQueryCase: {
       // type: Boolean,
       // default: false,
     },
-    canChangeFilterCaseSensitivity: {
+    readerCanChangeSearchCaseSensitivity: {
       // type: Boolean,
       // default: false,
     },
@@ -56,46 +71,28 @@ export default {
       type: String,
       // default: '',
     },
-    listItems: {
-      type: Array,
-      required: true,
-    },
   },
   setup(props) {
     const baleada = ref(null),
           mergedProps = mergeProps({ props, component: 'list' })
 
     /* Get messages */
-    const messages = inject(useSymbol('layout', 'messages'))
+    const messages = inject(useSymbol('context', 'messages'))
 
-    /* Filtering */
-    provide(useSymbol('list', 'canFilterByQuery'), mergedProps.canFilterByQuery)
-
-    const filterQuery = mergedProps.canFilterByQuery ? ref('') : {},
-          computedFilterIsCaseSensitive = mergedProps.canFilterByQuery ? ref(mergedProps.filterIsCaseSensitive) : {},
-          handleCaseSensitivityChange = () => (computedFilterIsCaseSensitive.value = !computedFilterIsCaseSensitive.value),
-          handleFilterQueryInput = evt => (filterQuery.value = evt.target.value)
-    let filterableListItems, setListItemIsFiltered
-    if (mergedProps.canFilterByQuery) {
-      filterableListItems = ref(
-        props.listItems.map(({ listItem }) => ({ listItem, isFiltered: false }))
-      ),
-      setListItemIsFiltered = ({ listItem, isFiltered }) => (filterableListItems.value[listItem].isFiltered = isFiltered)
-
-      provide(useSymbol('list', 'filterQuery'), filterQuery)
-      provide(useSymbol('list', 'filterIsCaseSensitive'), computedFilterIsCaseSensitive)
-      provide(useSymbol('list', 'setListItemIsFiltered'), setListItemIsFiltered)
-    }
-
-    // TODO: pagination feature
+    /* Connect UI logic */
+    const list = useList(
+      {
+        totalItems: props.totalItems,
+        searchIgnoresQueryCase: props.searchIgnoresQueryCase,
+        minimumSearchScore: props.minimumSearchScore,
+      },
+      {}
+    )
 
     return {
       baleada,
       messages,
-      filterQuery,
-      handleFilterQueryInput,
-      computedFilterIsCaseSensitive,
-      handleCaseSensitivityChange,
+      list,
       mergedProps,
     }
   },
