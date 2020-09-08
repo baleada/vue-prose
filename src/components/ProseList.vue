@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import { ref, inject } from 'vue'
+import { ref } from 'vue'
 import { useList } from '../composition'
-import { useSymbol } from '../symbols'
-import { mergeProps } from '../util'
+import { useContext } from '../api'
+import { toMergedProps } from '../util'
 
 export default {
   name: 'ProseList',
@@ -74,12 +74,13 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'list' })
+          mergedProps = toMergedProps({ props, component: 'list' })
 
-    /* Get messages */
-    const messages = inject(useSymbol('context', 'messages'))
+    // Access messages
+    const { messagesByComponent } = useContext(),
+          messages = messagesByComponent.list
 
-    /* Connect UI logic */
+    // Connect UI logic
     const list = useList(
       {
         totalItems: props.totalItems,

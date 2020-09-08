@@ -30,7 +30,7 @@ module.exports = function () {
         })
 
   writeFileSync(
-    `./src/symbols/propsInterfaces.js`,
+    `./src/state/propsInterfaces.js`,
     `export default ${JSON.stringify(propsInterfaces, null, 2)}`,
     'utf8'
   )

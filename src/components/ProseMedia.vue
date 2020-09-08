@@ -11,13 +11,9 @@
 </template>
 
 <script>
-import { ref, onMounted, inject } from 'vue'
+import { ref } from 'vue'
 
-// import { EvaImage } from '@baleada/vue-heroicons'
-
-import { useSymbol } from '../symbols'
-
-import { mergeProps } from '../util'
+import { toMergedProps } from '../util'
 
 export default {
   name: 'ProseMedia',
@@ -39,12 +35,12 @@ export default {
       // default: '',
     }
   },
-  setup({ type, src }) {
+  setup(props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'media' }),
-          media = inject(useSymbol('article', 'media'))
+          mergedProps = toMergedProps({ props, component: 'media' }),
+          { article } = useContext()
 
-    headings.value.push({ type, src })
+    article.media = [...article.media, { type: props.type, src: props.src }]
     
     // download
     // play/pause

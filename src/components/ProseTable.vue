@@ -74,12 +74,10 @@
 </template>
 
 <script>
-import { ref, inject } from 'vue'
-import { useGridKeyboardAccesibility } from '../composition'
-
-import { useSymbol } from '../symbols'
-
-import { mergeProps } from '../util'
+import { ref } from 'vue'
+import { useTable } from '../composition'
+import { useContext } from '../api'
+import { toMergedProps } from '../util'
 
 export default {
   name: 'ProseTable',
@@ -119,12 +117,13 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'table' })
+          mergedProps = toMergedProps({ props, component: 'table' })
 
-    /* Get messages */
-    const messages = inject(useSymbol('context', 'messages'))
+    // Access messages
+    const { messagesByComponent } = useContext(),
+          messages = messagesByComponent.table
 
-    /* Connect UI logic */
+    // Connect UI logic
     const table = useTable(
       {
         totalBodyRows: props.totalBodyRows,

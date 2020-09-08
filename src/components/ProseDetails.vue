@@ -16,10 +16,8 @@
 
 <script>
 import { ref } from 'vue'
-
 import { HeroiconsChevronRight } from '@baleada/vue-heroicons'
-
-import { mergeProps } from '../util'
+import { toMergedProps } from '../util'
 
 export default {
   name: 'ProseDetails',
@@ -38,7 +36,7 @@ export default {
   },
   setup (props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'details' })
+          mergedProps = toMergedProps({ props, component: 'details' })
 
     return {
       baleada,

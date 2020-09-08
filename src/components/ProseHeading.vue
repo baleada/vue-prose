@@ -18,7 +18,7 @@
     <InterfaceClick
       v-if="mergedProps.readerCanCopy"
       name="Copy link to heading"
-      @click="handleClick"
+      @click="clickHandle"
       v-bind="interfaceClickProps"
     >
       <HeroiconsLink :class="mergedProps.interfacContentsClasses" />
@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, inject, getCurrentInstance } from 'vue'
+import { ref, computed, onMounted, getCurrentInstance } from 'vue'
 
-import { useSymbol } from '../symbols'
-import { mergeProps, simpleSlugify, toTextContent } from '../util'
+import { useContext } from '../api'
+import { toMergedProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/vue-composition'
 import { InterfaceClick } from '@baleada/vue-interface'
@@ -70,31 +70,36 @@ export default {
   },
   setup (props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'heading' }),
-          defaultSlot = getCurrentInstance().$slots.default,
+          mergedProps = toMergedProps({ props, component: 'heading' })
+
+    // Get slug for various features
+    const defaultSlot = getCurrentInstance().$slots.default,
           text = defaultSlot.reduce((text, slot) => text + toTextContent(slot), ''),
-          slug = simpleSlugify(text).toLowerCase(),
-          headings = inject(useSymbol('article', 'headings'))
+          slug = simpleSlugify(text).toLowerCase()
+    
+    // Register heading in context
+    const { article } = useContext()
+    article.headings = [...article.headings, { level: props.level, slug, text }]
 
-    headings.value.push({ level: props.level, slug, text })
-
-    /* Copy link */
+    // Set up copy link feature
     const copyable = useCopyable('')
 
     onMounted(() => {
       copyable.value.setString(`${window.location.origin}${window.location.pathname}#${slug}`)
     })
 
-    function handleClick () {
+    function clickHandle () {
       copyable.value.copy()
     }
 
-    const interfaceClickProps = computed(() => inject(useSymbol('context', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
+    // Access InterfaceClick props
+    const { interfacePropsByComponent } = useContext(),
+          interfaceClickProps = interfacePropsByComponent.click // TODO: when is reactivity necessary?
 
     return {
       baleada,
       slug,
-      handleClick,
+      clickHandle,
       mergedProps,
       interfaceClickProps,
     }

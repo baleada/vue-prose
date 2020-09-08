@@ -13,7 +13,7 @@
     <InterfaceClick
       v-if="mergedProps.readerCanCopy"
       name="Copy code"
-      @click="handleClick"
+      @click="clickHandle"
       v-bind="interfaceClickProps"
     >
       <HeroiconsClipboardCopy />
@@ -22,14 +22,12 @@
 </template>
 
 <script>
-import { ref, computed, watch, inject, getCurrentInstance } from 'vue'
-
-import { mergeProps } from '../util'
-import { useSymbol } from '../symbols'
-
+import { ref, computed, getCurrentInstance } from 'vue'
 import { useCopyable } from '@baleada/vue-composition'
 import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { InterfaceClick } from '@baleada/vue-interface'
+import { toMergedProps } from '../util'
+import { useContext } from '../api'
 
 export default {
   name: 'ProseCodeblock',
@@ -38,7 +36,7 @@ export default {
     InterfaceClick,
   },
   props: {
-    lines: {
+    totalLines: {
       type: Number,
     },
     lang: {
@@ -63,27 +61,35 @@ export default {
   },
   setup (props) {
     const baleada = ref(null),
-          mergedProps = mergeProps({ props, component: 'codeblock' }),
-          copyable = useCopyable(''),
+          mergedProps = toMergedProps({ props, component: 'codeblock' })
+
+    // Set up copy code to clipboard feature
+    const copyable = useCopyable(''),
           defaultSlot = getCurrentInstance().$slots.default,
           code = defaultSlot.reduce((text, slot) => text + toTextContent(slot), '')
 
     copyable.value.setString(code.value)
 
-    function handleClick () {
+    function clickHandle () {
       copyable.value.copy()
     }
 
-    let lineNumbers = ''
-    for (let i = 1; i <= props.lines; i++) {
-      lineNumbers += `${i}\n`
-    }
-
-    const interfaceClickProps = computed(() => inject(useSymbol('context', 'interfaceProps')).value.click) // TODO: when is reactivity necessary?
+    // Compute line numbers
+    const lineNumbers = (() => {
+      let lineNumbers = ''
+      for (let i = 1; i <= props.totalLines; i++) {
+        lineNumbers += `${i}\n`
+      }
+      return lineNumbers
+    })()
+    
+    // Access InterfaceClick props
+    const { interfacePropsByComponent } = useContext(),
+          interfaceClickProps = interfacePropsByComponent.click // TODO: when is reactivity necessary?
 
     return {
       baleada,
-      handleClick,
+      clickHandle,
       lineNumbers,
       mergedProps,
       interfaceClickProps,

@@ -31,16 +31,14 @@ export default [
     input: 'src/index.js',
     output: { dir: 'lib' },
   }),
+
+  // These next two are exported primarily for use in Markdown renderer plugins
   withSharedConfig({
-    input: 'src/plugin.js',
-    output: { dir: 'plugin' },
-  }),
-  withSharedConfig({
-    input: 'src/symbols/propsInterfaces.js',
+    input: 'src/state/propsInterfaces.js',
     output: { dir: 'propsInterfaces' },
   }),
   withSharedConfig({
-    input: 'src/symbols/loopedIdPrefix.js',
+    input: 'src/state/loopedIdPrefix.js',
     output: { dir: 'loopedIdPrefix' },
   }),  
 ]

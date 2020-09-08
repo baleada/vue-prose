@@ -1,7 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/util'
 import { useSearchable } from '@baleada/vue-composition'
-import { loopedIdPrefix } from '../symbols'
+import { loopedIdPrefix } from '../state'
 
 export default function useList ({ totalItems, searchIgnoresQueryCase: rawSearchIgnoresQueryCase, minimumSearchScore }, { searchable: searchableOptions }) {
   /* Set up DOM refs, including static attribute binding */

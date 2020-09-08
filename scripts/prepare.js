@@ -4,17 +4,16 @@ const { generateIndex } = require('@baleada/prepare'),
 
 function prepare () {
   /* Index all */
-  generateIndex('./src')
+  generateIndex('./src/api')
   generateIndex('./src/components', { extensions: ['vue'] })
   generateIndex('./src/composition')
-  generateIndex('./src/symbols')
-  generateIndex('./src/stubs')
+  generateIndex('./src/state')
   generateIndex('./src/util')
 
-  /* Top level index */
+  // plugin is stored at top level of src instead of in src/api to avoid circular dependencies
   generateIndex(
-    ['src/components', 'src/symbols'],
-    { outfile: 'src/index', extensions: ['js', 'vue'] }
+    ['src/api', 'src'],
+    { outfile: 'src/index' }
   )
 
   /* Props Interfaces */

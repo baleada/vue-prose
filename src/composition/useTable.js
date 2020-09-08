@@ -1,7 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/util'
 import { useSearchable } from '@baleada/vue-composition'
-import { loopedIdPrefix } from '../symbols'
+import { loopedIdPrefix } from '../state'
 
 
 // TODO: aria-rowindex

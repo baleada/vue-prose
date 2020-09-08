@@ -27,7 +27,7 @@ export default [
   {
     "name": "ProseCodeblock",
     "interface": {
-      "lines": "number",
+      "totalLines": "number",
       "lang": "string",
       "readerCanCopy": "boolean",
       "codeblockHasLang": "boolean",
