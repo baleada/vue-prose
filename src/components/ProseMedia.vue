@@ -37,10 +37,10 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'media' }),
-          { article } = useContext()
+          mergedProps = toMergedProps({ props, component: 'media' })
 
-    article.media = [...article.media, { type: props.type, src: props.src }]
+    // Register media in context
+    useContext(context => context.article.media = [...context.article.media, { type: props.type, src: props.src }])
     
     // download
     // play/pause

@@ -28,25 +28,25 @@ export default {
     const mergedProps = toMergedProps({ props, component: 'article' })
 
     // Reset article-specific state
-    const context = useContext()
-    context.article = {
-      headings: [],
-      media: [],
-      file: {
-        stats: {},
-        frontMatter: {},
-        relativePath: '',
+    useContext(context => {
+      context.article = {
+        headings: [],
+        media: [],
+        file: {
+          stats: {},
+          frontMatter: {},
+          relativePath: '',
+        }
       }
-    }
+    })
 
     /* Scroll to heading */
     const baleada = ref(null),
           getScrollableContainer = mergedProps.getScrollableContainer || (() => baleada.value)
 
-    const { fullPath } = useContext()
     onMounted(() => {
       watchEffect(() => {
-        scrollToHeading(fullPath, { getScrollableContainer })
+        scrollToHeading(useContext().fullPath, { getScrollableContainer })
       })
     })
 

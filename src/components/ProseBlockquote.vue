@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { InterfaceClick } from '@baleada/vue-interface'
 import { SimpleTwitter } from '@baleada/vue-simple-icons'
 import { toMergedProps, toTweetIntent, toTextContent } from '../util'
 import { useContext } from '../api'
@@ -28,6 +29,7 @@ import { useContext } from '../api'
 export default {
   name: 'ProseBlockquote',
   components: {
+    InterfaceClick,
     SimpleTwitter,
   },
   props: {
@@ -56,9 +58,9 @@ export default {
       // default: '',
     },
   },
-  setup (props) {
+  setup (props, { slots }) {
     const mergedProps = toMergedProps({ props, component: 'blockquote' }),
-          defaultSlots = getCurrentInstance().$slots.default,
+          defaultSlots = slots.default(),
           text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           { fullPath } = useContext(),
           intent = ref('')

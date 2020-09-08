@@ -26,7 +26,7 @@ export default function useList ({
   const headerRowGroupEl = ref(null),
         { 0: headerRowGroup } = toMetadata({
           length: 1,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
                   metadatum = { id, el }
@@ -42,7 +42,7 @@ export default function useList ({
         headerRowEl = ref(null),
         { 0: headerRow } = toMetadata({
           length: 1,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
                   metadatum = { id, el }
@@ -58,7 +58,7 @@ export default function useList ({
         headerCellEls = ref([]), // When attached to the element with v-for, this will become an array of DOM elements 
         headerCells = toMetadata({
           length: totalColumns,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = computed(() => headerCellEls.value[index]),
                   metadatum = { id, el }
@@ -78,7 +78,7 @@ export default function useList ({
   const bodyRowGroupEl = ref(null),
         { 0: bodyRowGroup } = toMetadata({
           length: 1,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
                   metadatum = { id, el }
@@ -94,7 +94,7 @@ export default function useList ({
         bodyRowEls = ref([]), // When attached to the element with v-for, this will become an array of DOM elements
         bodyRows = toMetadata({
           length: totalBodyRows,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
                   textContent = computed(() => el.value.textContent),
@@ -119,7 +119,7 @@ export default function useList ({
         }), {}),
         bodyCells = toMetadata({
           length: totalBodyRows * totalColumns,
-          fromIndex: index => {
+          fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   rowIndex = Math.floor(index / totalColumns),
                   indexInRow = index % totalColumns,
@@ -227,4 +227,8 @@ export default function useList ({
     searchIgnoresQueryCase,
     searchable,
   }
+}
+
+function toMetadata ({ length, fromIndexToMetadatum }) {
+  return Array(length).fill().map((_, index) => fromIndexToMetadatum(index))
 }

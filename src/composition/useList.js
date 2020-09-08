@@ -12,29 +12,27 @@ export default function useList ({ totalItems, searchIgnoresQueryCase: rawSearch
 
   // Set up list item metadata
   const itemEls = ref([]), // When attached to the element with v-for, this will become an array of DOM elements
-        items = []
-  for (let index = 0; index < totalItems; index++) {
-    const id = `${loopedIdPrefix}-${index}`,
-          el = computed(() => itemEls.value[index]),
-          textContent = computed(() => el.value.textContent),
-          searchResult = computed(() => searchable.value.results.find(({ item }) => item === textContent.value) || null),
-          item = { id, el, searchResult }
+        items = Array(totalItems)
+          .fill()
+          .map((_, index) => {
+            const id = `${loopedIdPrefix}-${index}`,
+            el = computed(() => itemEls.value[index]),
+            textContent = computed(() => el.value.textContent),
+            searchResult = computed(() => searchable.value.results.find(({ item }) => item === textContent.value) || null),
+            item = { id, el, searchResult }
 
-    useBindings({
-      target: el,
-      bindings: { role: 'listitem' }
-    })
+            useBindings({
+              target: el,
+              bindings: { role: 'listitem' }
+            })
 
-    useConditionalDisplay({
-      target: el,
-      condition: computed(() => query.value === '' || searchResult.value?.score > minimumSearchScore)
-    })
+            useConditionalDisplay({
+              target: el,
+              condition: computed(() => query.value === '' || searchResult.value?.score > minimumSearchScore)
+            })
 
-    items = [
-      ...items,
-      item,
-    ]
-  }
+            return item
+          })
 
   /* Initialize searchable */
   let searchable

@@ -22,8 +22,8 @@ const withSharedConfig = ({ input, output }) => ({
   ],
   input,
   output: [
-    { file: `${output.dir}/index.js`, format: 'cjs' },
-    { file: `${output.dir}/index.esm.js`, format: 'esm' }
+    { file: `${output.dir}/index.js`, format: 'cjs', exports: output.exports },
+    { file: `${output.dir}/index.esm.js`, format: 'esm', exports: output.exports }
   ],
 })
 export default [
@@ -35,10 +35,10 @@ export default [
   // These next two are exported primarily for use in Markdown renderer plugins
   withSharedConfig({
     input: 'src/state/propsInterfaces.js',
-    output: { dir: 'propsInterfaces' },
+    output: { dir: 'propsInterfaces', exports: 'default' },
   }),
   withSharedConfig({
     input: 'src/state/loopedIdPrefix.js',
-    output: { dir: 'loopedIdPrefix' },
+    output: { dir: 'loopedIdPrefix', exports: 'default' },
   }),  
 ]

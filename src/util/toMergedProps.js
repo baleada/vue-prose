@@ -1,3 +1,5 @@
+import { useContext } from '../api'
+
 export default function toMergedProps ({ props, component }) {
   const { defaultPropsByComponent } = useContext(),
         mergedProps = {}

@@ -22,11 +22,11 @@
 </template>
 
 <script>
-import { ref, computed, getCurrentInstance } from 'vue'
+import { ref, computed } from 'vue'
 import { useCopyable } from '@baleada/vue-composition'
 import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { InterfaceClick } from '@baleada/vue-interface'
-import { toMergedProps } from '../util'
+import { toMergedProps, toTextContent } from '../util'
 import { useContext } from '../api'
 
 export default {
@@ -59,33 +59,28 @@ export default {
       // default: '',
     }
   },
-  setup (props) {
+  setup (props, { slots }) {
     const baleada = ref(null),
           mergedProps = toMergedProps({ props, component: 'codeblock' })
 
     // Set up copy code to clipboard feature
     const copyable = useCopyable(''),
-          defaultSlot = getCurrentInstance().$slots.default,
+          defaultSlot = slots.default(),
           code = defaultSlot.reduce((text, slot) => text + toTextContent(slot), '')
 
-    copyable.value.setString(code.value)
+    copyable.value.setString(code)
 
     function clickHandle () {
       copyable.value.copy()
     }
 
     // Compute line numbers
-    const lineNumbers = (() => {
-      let lineNumbers = ''
-      for (let i = 1; i <= props.totalLines; i++) {
-        lineNumbers += `${i}\n`
-      }
-      return lineNumbers
-    })()
+    const lineNumbers = Array(props.totalLines)
+      .fill()
+      .reduce((lineNumbers, _, index) => `${lineNumbers}${index + 1}\n`, '')
     
     // Access InterfaceClick props
-    const { interfacePropsByComponent } = useContext(),
-          interfaceClickProps = interfacePropsByComponent.click // TODO: when is reactivity necessary?
+    const interfaceClickProps = useContext().interfacePropsByComponent.click // TODO: when is reactivity necessary?
 
     return {
       baleada,

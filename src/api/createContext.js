@@ -24,11 +24,11 @@ export default function createProseContext ({ fullPath }, {
         }))
 
   // Merge default props
-  const defaultProps = ensureRef(rawDefaultProps)
+  const defaultProps = ensureRef(rawDefaultProps),
         mergedDefaultProps = computed(() => toMergedDefaultProps(defaultProps))
 
   // Merge Baleada Interface props
-  const interfaceProps = ensureRef(rawInterfaceProps)
+  const interfaceProps = ensureRef(rawInterfaceProps),
         mergedInterfaceProps = computed(() => ({
           ...defaultInterfacePropsStub,
           ...interfaceProps.value,

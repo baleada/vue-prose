@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, getCurrentInstance } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import { useContext } from '../api'
 import { toMergedProps, simpleSlugify, toTextContent } from '../util'
@@ -68,18 +68,17 @@ export default {
       // default: '',
     },
   },
-  setup (props) {
+  setup (props, { slots }) {
     const baleada = ref(null),
           mergedProps = toMergedProps({ props, component: 'heading' })
 
     // Get slug for various features
-    const defaultSlot = getCurrentInstance().$slots.default,
-          text = defaultSlot.reduce((text, slot) => text + toTextContent(slot), ''),
+    const defaultSlot = slots.default(),
+          text = defaultSlot.reduce((text, slot) => text + toTextContent(slot), '').trim(),
           slug = simpleSlugify(text).toLowerCase()
     
     // Register heading in context
-    const { article } = useContext()
-    article.headings = [...article.headings, { level: props.level, slug, text }]
+    useContext(context => context.article.headings = [...context.article.headings, { level: props.level, slug, text }])
 
     // Set up copy link feature
     const copyable = useCopyable('')
@@ -93,8 +92,7 @@ export default {
     }
 
     // Access InterfaceClick props
-    const { interfacePropsByComponent } = useContext(),
-          interfaceClickProps = interfacePropsByComponent.click // TODO: when is reactivity necessary?
+    const interfaceClickProps = useContext().interfacePropsByComponent.click // TODO: when is reactivity necessary?
 
     return {
       baleada,
