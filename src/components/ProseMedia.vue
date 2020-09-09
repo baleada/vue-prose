@@ -5,14 +5,14 @@
     :class="[mergedProps.classes]"
   >
     <section class="contents">
-      <component :is="type === 'image' ? 'img' : type" :src="src" />
+      <component :is="tag" :src="src" />
     </section>
   </section>
 </template>
 
 <script>
-import { ref } from 'vue'
-
+import { ref, computed } from 'vue'
+import { useContext } from '../api'
 import { toMergedProps } from '../util'
 
 export default {
@@ -24,7 +24,7 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: value => ['image', 'audio', 'video'].includes(value)
+      validator: value => ['image', 'img', 'audio', 'video', 'embed', 'iframe'].includes(value)
     },
     src: {
       type: String,
@@ -39,8 +39,26 @@ export default {
     const baleada = ref(null),
           mergedProps = toMergedProps({ props, component: 'media' })
 
+    // Compute tag
+    const tag = computed(() => {
+      switch (props.type) {
+        case 'image':
+        case 'img':
+          return 'img'
+        case 'audio':
+          return 'audio'
+        case 'video':
+          return 'video'
+        case 'embed':
+        case 'iframe':
+          return 'iframe'
+      }
+    })
+
     // Register media in context
-    useContext(context => context.article.media = [...context.article.media, { type: props.type, src: props.src }])
+    useContext(context => context.article.media = [...context.article.media, { type: props.type, tag: tag.value, src: props.src }])
+
+    
     
     // download
     // play/pause
@@ -53,6 +71,7 @@ export default {
 
     return {
       mergedProps,
+      tag,
     }
   },
 }
