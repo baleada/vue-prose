@@ -6,14 +6,17 @@ import { loopedIdPrefix } from '../state'
 
 // TODO: aria-rowindex
 
-export default function useList ({
+export default function useList (
+  {
     totalBodyRows,
     totalColumns,
-    searchIgnoresQueryCase: rawIgnoresQueryCase,
     ariaLabel,
+    searchIgnoresQueryCase: rawSearchIgnoresQueryCase,
     minimumSearchScore,
+    readerCanSearch,
+    readerCanChangeSearchCaseSensitivity,
   },
-  { searchable: searchableOptions}
+  { searchable: searchableOptions }
 ) {
   /* Set up DOM refs, including static attribute binding */
   const rootEl = ref(null),
@@ -23,161 +26,160 @@ export default function useList ({
 
 
   // Set up table header
-  const headerRowGroupEl = ref(null),
-        { 0: headerRowGroup } = toMetadata({
+  const   { 0: headerRowGroup } = toMetadata({
           length: 1,
           fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
-                  metadatum = { id, el }
+                  setEl = newEl => (el.value = newEl),
+                  headerRowGroup = { id, el, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'rowgroup' }
             })
 
-            return metadatum
+            return headerRowGroup
           }
-        }),
-        headerRowEl = ref(null),
+        }),        
         { 0: headerRow } = toMetadata({
           length: 1,
           fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
-                  metadatum = { id, el }
+                  setEl = newEl => (el.value = newEl),
+                  headerRow = { id, el, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'row', 'aria-rowindex': 1 }
             })
 
-            return metadatum
+            return headerRow
           }
         }),
-        headerCellEls = ref([]), // When attached to the element with v-for, this will become an array of DOM elements 
         headerCells = toMetadata({
           length: totalColumns,
           fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
-                  el = computed(() => headerCellEls.value[index]),
-                  metadatum = { id, el }
+                  el = ref(null),
+                  setEl = newEl => (el.value = newEl),
+                  headerCell = { id, el, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'columnheader' }
             })
 
-            return metadatum
+            return headerCell
           }
         })
         
-
-
   // Set up table body
-  const bodyRowGroupEl = ref(null),
-        { 0: bodyRowGroup } = toMetadata({
+  const { 0: bodyRowGroup } = toMetadata({
           length: 1,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
+            const id = `${loopedIdPrefix}-1`,
                   el = ref(null),
-                  metadatum = { id, el }
+                  setEl = newEl => (el.value = newEl),
+                  bodyRowGroup = { id, el, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'rowgroup' }
             })
 
-            return metadatum
+            return bodyRowGroup
           }
         }),
-        bodyRowEls = ref([]), // When attached to the element with v-for, this will become an array of DOM elements
         bodyRows = toMetadata({
           length: totalBodyRows,
           fromIndexToMetadatum: index => {
             const id = `${loopedIdPrefix}-${index}`,
                   el = ref(null),
+                  setEl = newEl => (el.value = newEl),
                   textContent = computed(() => el.value.textContent),
                   searchResult = computed(() => searchable.value.results.find(({ item }) => item === textContent.value) || null),
-                  metadatum = { id, el, searchResult }
+                  bodyRow = { id, el, textContent, searchResult, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'row', 'aria-rowindex': index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
             })
+
             useConditionalDisplay({
               target: el,
-              condition: computed(() => query.value === '' || searchResult.value?.score > minimumSearchScore)
+              condition: computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
             })
 
-            return metadatum
+            return bodyRow
           }
         }),
-        bodyCellElsByRow = bodyRows.reduce((bodyCellElsByRow, bodyRow, index) => ({
-          ...bodyCellElsByRow,
-          [index]: ref([]), // When attached to the slot with v-for, this will become an array of DOM elements
-        }), {}),
         bodyCells = toMetadata({
           length: totalBodyRows * totalColumns,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
-                  rowIndex = Math.floor(index / totalColumns),
-                  indexInRow = index % totalColumns,
-                  el = computed(() => bodyCellElsByRow[rowIndex].value[indexInRow]),
-                  metadatum = { id, el }
+            const indexInRow = index % totalColumns,
+                  id = `${loopedIdPrefix}-${indexInRow}`,
+                  el = ref(null),
+                  setEl = newEl => (el.value = newEl),
+                  bodyCell = { id, el, ref: setEl }
 
             useBindings({
               target: el,
               bindings: { role: 'cell' }
             })
 
-            return metadatum
+            return bodyCell
           }
         }),
-        bodyCellsByRow = bodyRows.reduce((bodyCellsByRow, bodyRow, index) => ({
+        bodyCellsByRow = bodyRows.reduce((bodyCellsByRow, _, index) => ({
           ...bodyCellsByRow,
-          [index]: bodyCells.slice(index * totalBodyRows, (index + 1) * totalBodyRows)
+          [index]: bodyCells.slice(index * totalColumns, (index + 1) * totalColumns)
         }), {})
 
-  /* Initialize searchable */
-  let searchable
+  // Initialize searchable
+  const searchable = useSearchable([], searchableOptions)
   onMounted(() => {
     const candidates = bodyRows.map(({ textContent }) => textContent.value)
-    searchable = useSearchable(candidates, searchableOptions)
+    searchable.value.setCandidates(candidates)
   })
 
-  /* Manage query case sensitivity */
-  const searchIgnoresQueryCase = ref(rawIgnoresQueryCase)
-  useBindings({
-    target: searchIgnoresQueryCaseCheckboxEl,
-    bindings: { checked: computed(() => searchIgnoresQueryCase.value ? 'true' : '') }
-  })
-  useListeners({
-    target: searchIgnoresQueryCaseCheckboxEl,
-    listeners: {
-      change ({ target: { checked } }) {
-        searchIgnoresQueryCase.value = checked
+  // Manage query case sensitivity
+  const searchIgnoresQueryCase = ref(rawSearchIgnoresQueryCase)
+  if (readerCanChangeSearchCaseSensitivity) {
+    useBindings({
+      target: searchIgnoresQueryCaseCheckboxEl,
+      bindings: { checked: computed(() => searchIgnoresQueryCase.value ? 'true' : '') }
+    })
+    useListeners({
+      target: searchIgnoresQueryCaseCheckboxEl,
+      listeners: {
+        change ({ target: { checked } }) {
+          searchIgnoresQueryCase.value = checked
+        }
       }
-    }
-  })
-
-  /* Manage query */
+    })
+  }
+  
+  // Manage query
   const query = ref('')
-  useBindings({
-    target: queryInputEl,
-    bindings: { value: query }
-  })
-  useListeners({
-    target: queryInputEl,
-    listeners: {
-      input ({ target: { value } }) {
-        query.value = value
-
-        /* EFFECT: Search for matches */
-        searchable.value.search(query.value, { ignoreCase: searchIgnoresQueryCase.value })
+  if (readerCanSearch) {
+    useBindings({
+      target: queryInputEl,
+      bindings: { value: query }
+    })
+    useListeners({
+      target: queryInputEl,
+      listeners: {
+        input ({ target: { value } }) {
+          query.value = value
+  
+          // EFFECT: Search for matches
+          searchable.value.search(query.value, { ignoreCase: searchIgnoresQueryCase.value, returnMatchData: true })
+        }
       }
-    }
-  })
+    })
+  }
 
   // TODO: pagination feature
 
@@ -186,36 +188,14 @@ export default function useList ({
       ref: el => (rootEl.value = el),
     },
     header: {
-      rowGroup: {
-        ref: headerRowGroupEl,
-        metadata: headerRowGroup,
-      },
-      row: {
-        ref: headerRowEl,
-        metadata: {
-          ...headerRow,
-          cells: {
-            ref: el => (headerCellEls.value = [...headerCellEls.value, el]),
-            metadata: headerCells
-          },
-        }
-      }
+      rowGroup: headerRowGroup,
+      row: headerRow,
+      cells: headerCells,
     },
     body: {
-      rowGroup: {
-        ref: bodyRowGroupEl,
-        metadata: bodyRowGroup,
-      },
-      rows: {
-        ref: bodyRowEls,
-        metadata: bodyRows.map((row, index) => ({
-          ...row,
-          cells: {
-            ref: el => (bodyCellElsByRow[index].value = [...bodyCellElsByRow[index].value, el]),
-            metadata: bodyCellsByRow[index],
-          }
-        }))
-      }
+      rowGroup: bodyRowGroup,
+      rows: bodyRows,
+      cellsByRow: bodyCellsByRow,
     },
     queryInput: {
       ref: el => (queryInputEl.value = el),

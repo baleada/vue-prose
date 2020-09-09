@@ -7,19 +7,19 @@
     <div v-if="mergedProps.readerCanSearch">
       <input
         :ref="list.queryInput.ref"
-        :placeholder="messages.list.searchByQueryPlaceholder"
+        :placeholder="messages.searchByQueryPlaceholder"
         name="Search by query"
         type="text"
       />
     </div>
     <div v-if="mergedProps.readerCanSearch && mergedProps.readerCanChangeSearchCaseSensitivity">
       <input
-        :ref="list.ignoreQueryCaseCheckbox.ref"
+        :ref="list.searchIgnoresQueryCaseCheckbox.ref"
         name="Change search case sensitivity"
         type="checkbox"
       />
       <label>
-        {{ messages.list.changeSearchCaseSensitivityLabel }}
+        {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
     <section class="contents">
@@ -28,8 +28,8 @@
         :is="tag"
       >
         <slot
-          :ref="list.items.ref"
-          v-for="{ id } in list.items.metadata"
+          v-for="{ id, ref } in list.items"
+          :ref="ref"
           :key="id"
           :name="id"
         />
@@ -77,15 +77,16 @@ export default {
           mergedProps = toMergedProps({ props, component: 'list' })
 
     // Access messages
-    const { messagesByComponent } = useContext(),
-          messages = messagesByComponent.list
+    const messages = useContext().messagesByComponent.list
 
     // Connect UI logic
     const list = useList(
       {
         totalItems: props.totalItems,
-        searchIgnoresQueryCase: props.searchIgnoresQueryCase,
-        minimumSearchScore: props.minimumSearchScore,
+        searchIgnoresQueryCase: mergedProps.searchIgnoresQueryCase,
+        minimumSearchScore: mergedProps.minimumSearchScore,
+        readerCanSearch: mergedProps.readerCanSearch,
+        readerCanChangeSearchCaseSensitivity: mergedProps.readerCanChangeSearchCaseSensitivity,
       },
       {}
     )

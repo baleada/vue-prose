@@ -6,5 +6,6 @@ export default function useContext (writeCallback) {
     return context.data
   }
   
+  // Not sure why this is needed but it works
   nextTick(() => writeCallback(context.data))
 }

@@ -7,32 +7,25 @@
     <div v-if="mergedProps.readerCanSearch">
       <input
         :ref="table.queryInput.ref"
-        :placeholder="messages.table.searchByQueryPlaceholder"
+        :placeholder="messages.searchByQueryPlaceholder"
         name="Search by query"
         type="text"
       />
     </div>
     <div v-if="mergedProps.readerCanSearch && mergedProps.readerCanChangeSearchCaseSensitivity">
       <input
-        :ref="table.ignoreQueryCaseCheckbox.ref"
+        :ref="table.searchIgnoresQueryCaseCheckbox.ref"
         name="Change search case sensitivity"
         type="checkbox"
       />
       <label>
-        {{ messages.table.changeSearchCaseSensitivityLabel }}
+        {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
-    <section
-      class="contents"
-      :aria-label="ariaLabel"
-      @keydown="handleKeydown"
-      @focus="handleFocus"
-      ref="contents"
-    >
+    <section class="contents">
       <div
         :ref="table.root.ref"
       >
-        <!-- Table header -->
         <div
           :ref="table.header.rowGroup.ref"
         >
@@ -40,31 +33,26 @@
             :ref="table.header.row.ref"
           >
             <slot
-              :ref="table.header.row.metadata.cells.ref"
-              v-for="{ id: cellId } in table.header.row.metadata.cells.metadata"
-              :key="cellId"
-              :name="`${table.header.rowGroup.metadata.id}-${table.header.row.metadata.id}-${cellId}`"
+              v-for="{ id, ref } in table.header.cells"
+              :ref="ref"
+              :key="id"
+              :name="`${table.header.rowGroup.id}-${table.header.row.id}-${id}`"
             />
           </div>
         </div>
-        <!-- Table body -->
         <div
           :ref="table.body.rowGroup.ref"
         >
-          <!-- Rows -->
           <div
-            :ref="table.body.rows.ref"
-            v-for="{ id: rowId, cells, searchResult } in table.body.rows.metadata"
+            v-for="({ id: rowId, ref: rowRef }, rowIndex) in table.body.rows"
+            :ref="rowRef"
             :key="rowId"
-            v-show="table.query === '' || searchResult.score > mergedProps.minimumSearchScore"
           >
-            <!-- Cells -->
             <slot
-              :ref="cells.ref"
-              v-for="{ id: cellId } in cells.metadata"
+              v-for="{ id: cellId, ref: cellRef } in table.body.cellsByRow[rowIndex]"
+              :ref="cellRef"
               :key="cellId"
-              :name="`${table.body.rowGroup.metadata.id}-${rowId}-${cellId}`"
-              :query="table.query"
+              :name="`${table.body.rowGroup.id}-${rowId}-${cellId}`"
             />
           </div>
         </div>
@@ -120,8 +108,7 @@ export default {
           mergedProps = toMergedProps({ props, component: 'table' })
 
     // Access messages
-    const { messagesByComponent } = useContext(),
-          messages = messagesByComponent.table
+    const messages = useContext().messagesByComponent.table
 
     // Connect UI logic
     const table = useTable(
@@ -129,8 +116,10 @@ export default {
         totalBodyRows: props.totalBodyRows,
         totalColumns: props.totalColumns,
         ariaLabel: props.ariaLabel,
-        searchIgnoresQueryCase: props.searchIgnoresQueryCase,
-        minimumSearchScore: props.minimumSearchScore,
+        searchIgnoresQueryCase: mergedProps.searchIgnoresQueryCase,
+        minimumSearchScore: mergedProps.minimumSearchScore,
+        readerCanSearch: mergedProps.readerCanSearch,
+        readerCanChangeSearchCaseSensitivity: mergedProps.readerCanChangeSearchCaseSensitivity,
       },
       {}
     )
