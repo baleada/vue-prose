@@ -16,7 +16,7 @@
 
 <script>
 import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBolt, HeroiconsSparkles } from '@baleada/vue-heroicons'
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseAside',
@@ -38,7 +38,7 @@ export default {
     },
   },
   setup (props) {
-    const mergedProps = toMergedProps({ props, component: 'aside' })
+    const mergedProps = getMergedProps({ props, component: 'aside' })
 
     return {
       mergedProps

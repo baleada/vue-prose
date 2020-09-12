@@ -65,7 +65,7 @@
 import { ref } from 'vue'
 import { useTable } from '../composition'
 import { useContext } from '../api'
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseTable',
@@ -105,7 +105,7 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'table' })
+          mergedProps = getMergedProps({ props, component: 'table' })
 
     // Access messages
     const messages = useContext().messagesByComponent.table

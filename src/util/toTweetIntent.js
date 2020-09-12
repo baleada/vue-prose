@@ -1,13 +1,12 @@
-export default function toTweetIntent (options = {}) {
-  options = {
-    text: '',
-    url: '',
-    hashtags: [],
-    via: '',
-    ...options
-  }
+const defaultOptions = {
+  text: '',
+  url: '',
+  hashtags: [],
+  via: '',
+}
 
-  const { text, url, hashtags, via } = options,
+export default function toTweetIntent (options = {}) {
+  const { text, url, hashtags, via } = { ...defaultOptions, options },
         encodedText = text ? encodeURIComponent(text) : text,
         encodedHashtags = hashtags.join(','),
         params = [

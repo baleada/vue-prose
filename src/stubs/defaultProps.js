@@ -18,8 +18,8 @@ export default {
   codeblock: {
     classes: '',
     readerCanCopy: false,
-    codeblockHasLang: false,
-    codeblockHasLineNumbers: false,
+    hasLang: false,
+    hasLineNumbers: false,
   },
   details: {
     classes: '',

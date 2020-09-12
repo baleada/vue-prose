@@ -11,7 +11,7 @@
 <script>
 import { ref, watchEffect, onMounted } from 'vue'
 import { useContext } from '../api'
-import { toMergedProps, scrollToHeading } from '../util'
+import { getMergedProps, scrollToHeading } from '../util'
 
 export default {
   name: 'ProseArticle',
@@ -25,7 +25,7 @@ export default {
     }
   },
   setup (props) {    
-    const mergedProps = toMergedProps({ props, component: 'article' })
+    const mergedProps = getMergedProps({ props, component: 'article' })
 
     // Reset article-specific state
     useContext(context => {

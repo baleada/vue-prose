@@ -30,7 +30,7 @@
 import { ref, computed, onMounted } from 'vue'
 
 import { useContext } from '../api'
-import { toMergedProps, simpleSlugify, toTextContent } from '../util'
+import { getMergedProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/vue-composition'
 import { InterfaceClick } from '@baleada/vue-interface'
@@ -70,7 +70,7 @@ export default {
   },
   setup (props, { slots }) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'heading' })
+          mergedProps = getMergedProps({ props, component: 'heading' })
 
     // Get slug for various features
     const defaultSlot = slots.default(),

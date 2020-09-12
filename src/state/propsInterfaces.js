@@ -30,8 +30,8 @@ export default [
       "totalLines": "number",
       "lang": "string",
       "readerCanCopy": "boolean",
-      "codeblockHasLang": "boolean",
-      "codeblockHasLineNumbers": "boolean",
+      "hasLang": "boolean",
+      "hasLineNumbers": "boolean",
       "classes": "string"
     }
   },

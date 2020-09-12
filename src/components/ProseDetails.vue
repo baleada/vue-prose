@@ -17,7 +17,7 @@
 <script>
 import { ref } from 'vue'
 import { HeroiconsChevronRight } from '@baleada/vue-heroicons'
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseDetails',
@@ -27,7 +27,7 @@ export default {
   props: {
     summary: {
       type: String,
-      // default: ''
+      required: true,
     },
     classes: {
       type: String,
@@ -36,7 +36,7 @@ export default {
   },
   setup (props) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'details' })
+          mergedProps = getMergedProps({ props, component: 'details' })
 
     return {
       baleada,

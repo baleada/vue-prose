@@ -26,7 +26,7 @@ import { ref, computed } from 'vue'
 import { useCopyable } from '@baleada/vue-composition'
 import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { InterfaceClick } from '@baleada/vue-interface'
-import { toMergedProps, toTextContent } from '../util'
+import { getMergedProps, toTextContent } from '../util'
 import { useContext } from '../api'
 
 export default {
@@ -46,11 +46,11 @@ export default {
       // type: Boolean,
       // default: false,
     },
-    codeblockHasLang: {
+    hasLang: {
       // type: Boolean,
-      // deafult: false,
+      // default: false,
     },
-    codeblockHasLineNumbers: {
+    hasLineNumbers: {
       // type: Boolean,
       // default: false,
     },
@@ -61,7 +61,7 @@ export default {
   },
   setup (props, { slots }) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'codeblock' })
+          mergedProps = getMergedProps({ props, component: 'codeblock' })
 
     // Set up copy code to clipboard feature
     const copyable = useCopyable(''),

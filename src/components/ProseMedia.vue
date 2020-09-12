@@ -13,7 +13,7 @@
 <script>
 import { ref, computed } from 'vue'
 import { useContext } from '../api'
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseMedia',
@@ -37,7 +37,7 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'media' })
+          mergedProps = getMergedProps({ props, component: 'media' })
 
     // Compute tag
     const tag = computed(() => {

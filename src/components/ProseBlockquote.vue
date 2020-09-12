@@ -23,7 +23,7 @@
 import { ref, onMounted } from 'vue'
 import { InterfaceClick } from '@baleada/vue-interface'
 import { SimpleTwitter } from '@baleada/vue-simple-icons'
-import { toMergedProps, toTweetIntent, toTextContent } from '../util'
+import { getMergedProps, toTweetIntent, toTextContent } from '../util'
 import { useContext } from '../api'
 
 export default {
@@ -59,7 +59,7 @@ export default {
     },
   },
   setup (props, { slots }) {
-    const mergedProps = toMergedProps({ props, component: 'blockquote' }),
+    const mergedProps = getMergedProps({ props, component: 'blockquote' }),
           defaultSlots = slots.default(),
           text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           { fullPath } = useContext(),

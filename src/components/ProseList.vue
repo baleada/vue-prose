@@ -42,7 +42,7 @@
 import { ref } from 'vue'
 import { useList } from '../composition'
 import { useContext } from '../api'
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseList',
@@ -74,7 +74,7 @@ export default {
   },
   setup(props) {
     const baleada = ref(null),
-          mergedProps = toMergedProps({ props, component: 'list' })
+          mergedProps = getMergedProps({ props, component: 'list' })
 
     // Access messages
     const messages = useContext().messagesByComponent.list

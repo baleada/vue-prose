@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { toMergedProps } from '../util'
+import { getMergedProps } from '../util'
 
 export default {
   name: 'ProseSection',
@@ -21,7 +21,7 @@ export default {
     },
   },
   setup (props) {
-    const mergedProps = toMergedProps({ props, component: 'section' })
+    const mergedProps = getMergedProps({ props, component: 'section' })
 
     return {
       mergedProps,
