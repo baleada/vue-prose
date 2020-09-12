@@ -22,7 +22,7 @@
         {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
-    <section class="contents">
+    <section>
       <div
         :ref="table.root.ref"
       >

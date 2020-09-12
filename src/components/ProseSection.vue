@@ -3,7 +3,7 @@
     class="baleada-prose-section"
     :class="[mergedProps.classes]"
   >
-    <section class="contents">
+    <section>
       <slot />
     </section>
   </section>

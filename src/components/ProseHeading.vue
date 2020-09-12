@@ -9,7 +9,7 @@
       tag="a"
       :id="slug"
       :href="`#${slug}`"
-      class="contents"
+     
       :class="mergedProps.contentsClasses"
       v-bind="interfaceClickProps"
     >

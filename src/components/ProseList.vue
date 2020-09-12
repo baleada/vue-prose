@@ -22,7 +22,7 @@
         {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
-    <section class="contents">
+    <section>
       <component
         :ref="list.root.ref"
         :is="tag"

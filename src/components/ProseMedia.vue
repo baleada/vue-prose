@@ -4,7 +4,7 @@
     ref="baleada"
     :class="[mergedProps.classes]"
   >
-    <section class="contents">
+    <section>
       <component :is="tag" :src="src" />
     </section>
   </section>

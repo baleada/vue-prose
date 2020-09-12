@@ -3,7 +3,7 @@
     class="baleada-prose-blockquote"
     :class="[mergedProps.classes]"
   >
-    <section class="contents">
+    <section>
       <slot />
     </section>
     <InterfaceClick

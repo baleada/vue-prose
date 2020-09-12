@@ -8,7 +8,7 @@
       <HeroiconsChevronRight />
       <span>{{ summary }}</span>
     </summary>
-    <section class="contents">
+    <section>
       <slot />
     </section>
   </details>
