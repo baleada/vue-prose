@@ -9,7 +9,7 @@
       tag="a"
       :id="slug"
       :href="`#${slug}`"
-     
+      class="baleada-prose-contents"
       :class="mergedProps.contentsClasses"
       v-bind="interfaceClickProps"
     >
@@ -21,7 +21,7 @@
       @click="clickHandle"
       v-bind="interfaceClickProps"
     >
-      <HeroiconsLink :class="mergedProps.interfacContentsClasses" />
+      <HeroiconsLink :class="mergedProps.interfaceContentsClasses" />
     </InterfaceClick>
   </component>
 </template>

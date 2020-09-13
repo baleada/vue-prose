@@ -8,7 +8,7 @@
     <HeroiconsExclamation v-if="mergedProps.type === 'warning'"/>
     <HeroiconsLightningBolt v-if="mergedProps.type === 'danger'"/>
     <HeroiconsSparkles v-if="mergedProps.type === 'success'"/>
-    <section>
+    <section class="baleada-prose-contents">
       <slot />
     </section>
   </aside>

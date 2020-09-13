@@ -22,7 +22,7 @@
         {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
-    <section>
+    <section class="baleada-prose-contents">
       <component
         :ref="list.root.ref"
         :is="tag"
@@ -83,10 +83,10 @@ export default {
     const list = useList(
       {
         totalItems: props.totalItems,
-        searchIgnoresQueryCase: mergedProps.searchIgnoresQueryCase,
-        minimumSearchScore: mergedProps.minimumSearchScore,
-        readerCanSearch: mergedProps.readerCanSearch,
-        readerCanChangeSearchCaseSensitivity: mergedProps.readerCanChangeSearchCaseSensitivity,
+        searchIgnoresQueryCase: mergedProps.value.searchIgnoresQueryCase,
+        minimumSearchScore: mergedProps.value.minimumSearchScore,
+        readerCanSearch: mergedProps.value.readerCanSearch,
+        readerCanChangeSearchCaseSensitivity: mergedProps.value.readerCanChangeSearchCaseSensitivity,
       },
       {}
     )

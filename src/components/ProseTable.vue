@@ -116,10 +116,10 @@ export default {
         totalBodyRows: props.totalBodyRows,
         totalColumns: props.totalColumns,
         ariaLabel: props.ariaLabel,
-        searchIgnoresQueryCase: mergedProps.searchIgnoresQueryCase,
-        minimumSearchScore: mergedProps.minimumSearchScore,
-        readerCanSearch: mergedProps.readerCanSearch,
-        readerCanChangeSearchCaseSensitivity: mergedProps.readerCanChangeSearchCaseSensitivity,
+        searchIgnoresQueryCase: mergedProps.value.searchIgnoresQueryCase,
+        minimumSearchScore: mergedProps.value.minimumSearchScore,
+        readerCanSearch: mergedProps.value.readerCanSearch,
+        readerCanChangeSearchCaseSensitivity: mergedProps.value.readerCanChangeSearchCaseSensitivity,
       },
       {}
     )

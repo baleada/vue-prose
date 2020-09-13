@@ -4,7 +4,7 @@
     class="baleada-prose-codeblock"
     :class="[mergedProps.classes]"
   >
-    <section>
+    <section class="baleada-prose-contents">
       <pre v-if="mergedProps.hasLang"><code>{{ lang }}</code></pre>
       <pre v-if="mergedProps.hasLineNumbers"><code>{{ lineNumbers }}</code></pre>
       <slot />

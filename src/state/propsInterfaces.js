@@ -69,6 +69,7 @@ export default [
     "interface": {
       "type": "string",
       "src": "string",
+      "ariaLabel": "string",
       "classes": "string"
     }
   },

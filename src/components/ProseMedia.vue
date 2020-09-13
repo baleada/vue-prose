@@ -4,8 +4,8 @@
     ref="baleada"
     :class="[mergedProps.classes]"
   >
-    <section>
-      <component :is="tag" :src="src" />
+    <section class="baleada-prose-contents">
+      <component :aria-label="mergedProps.ariaLabel" :is="tag" :src="src" />
     </section>
   </section>
 </template>
@@ -29,6 +29,10 @@ export default {
     src: {
       type: String,
       required: true,
+    },
+    ariaLabel: {
+      type: String,
+      required: true, // TODO: provide warning/error tooling for markdown-only users
     },
     classes: {
       type: String,
@@ -56,7 +60,7 @@ export default {
     })
 
     // Register media in context
-    useContext(context => context.article.media = [...context.article.media, { type: props.type, tag: tag.value, src: props.src }])
+    useContext(context => context.article.media = [...context.article.media, { type: props.type, tag: tag.value, src: props.src, ariaLabel: mergedProps.value.ariaLabel }])
 
     
     

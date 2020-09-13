@@ -8,7 +8,7 @@
       <HeroiconsChevronRight />
       <span>{{ summary }}</span>
     </summary>
-    <section>
+    <section class="baleada-prose-contents">
       <slot />
     </section>
   </details>
