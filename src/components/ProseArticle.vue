@@ -33,7 +33,7 @@ export default {
         headings: [],
         media: [],
         file: {
-          stats: {},
+          log: [],
           frontMatter: {},
           relativePath: '',
         }

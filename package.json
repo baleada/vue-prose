@@ -47,6 +47,7 @@
   "devDependencies": {
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.7.2",
+    "@babel/helpers": "^7.10.4",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.7.1",
@@ -61,13 +62,12 @@
     "vue": "^3.0.0-rc.10",
     "vue-loader": "^15.7.2"
   },
-  "dependencies": {
-    "@babel/helpers": "^7.10.4"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@baleada/vue-composition": ">=0.8.1",
     "@baleada/vue-heroicons": ">=0.0.2",
     "@baleada/vue-interface": ">=0.6.3",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "@babel/runtime": ">=7.11.2"
   }
 }
