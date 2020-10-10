@@ -32,14 +32,6 @@ export default {
       context.article = {
         headings: [],
         media: [],
-<<<<<<< HEAD
-=======
-        file: {
-          log: [],
-          frontMatter: {},
-          relativePath: '',
-        }
->>>>>>> 8e9d61d3f79e432764669e08eed8d49d6c64ece3
       }
     })
 
