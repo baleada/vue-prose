@@ -27,16 +27,11 @@ export default {
   setup (props) {    
     const mergedProps = getMergedProps({ props, component: 'article' })
 
-    // Reset article-specific state
+    // Reset article-provided state
     useContext(context => {
       context.article = {
         headings: [],
         media: [],
-        file: {
-          stats: {},
-          frontMatter: {},
-          relativePath: '',
-        }
       }
     })
 

@@ -23,7 +23,8 @@
     }
   },
   "scripts": {
-    "prepare": "node scripts/prepare.js"
+    "prepare": "node scripts/prepare.js",
+    "link": "npm link @baleada/vue-composition @baleada/vue-heroicons @baleada/vue-interface"
   },
   "repository": {
     "type": "git",
@@ -68,6 +69,6 @@
     "@baleada/vue-composition": ">=0.8.1",
     "@baleada/vue-heroicons": ">=0.0.2",
     "@baleada/vue-interface": ">=0.6.3",
-    "vue": "^3.0.0"
+    "vue": ">=3.0.0"
   }
 }

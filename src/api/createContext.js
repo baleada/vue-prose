@@ -7,7 +7,7 @@ import {
   defaultInterfaceProps as defaultInterfacePropsStub
 } from '../stubs'
 
-export default function createProseContext ({ fullPath }, {
+export default function createContext ({ fullPath }, {
   messages: rawMessages,
   defaultProps: rawDefaultProps,
   interfaceProps: rawInterfaceProps,

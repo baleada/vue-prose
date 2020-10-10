@@ -22,7 +22,7 @@
         {{ messages.changeSearchCaseSensitivityLabel }}
       </label>
     </div>
-    <section>
+    <section class="baleada-prose-contents">
       <div
         :ref="table.root.ref"
       >

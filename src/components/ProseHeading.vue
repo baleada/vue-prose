@@ -7,7 +7,7 @@
   >
     <InterfaceClick
       tag="a"
-      :id="slug"
+      :name="slug"
       :href="`#${slug}`"
       class="baleada-prose-contents"
       :class="mergedProps.contentsClasses"
