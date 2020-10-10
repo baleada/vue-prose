@@ -1,6 +1,6 @@
 {
   "name": "@baleada/vue-prose",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Vue components that enhance prose for the Baleada toolkit",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
