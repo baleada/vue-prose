@@ -19,7 +19,7 @@ export default function scrollToHeading (fullPath, options) {
             .split('#')[1] // Get end of URL
             .split('.')[0] // Remove file extension
             .toLowerCase(),
-          anchor = getScrollableContainer().querySelector(`#${slug}`),
+          anchor = getScrollableContainer().querySelector(`[name=${slug}]`),
           heading = anchor ? anchor.parentNode : undefined
 
     if (heading !== undefined) heading.scrollIntoView(scrollIntoView)
