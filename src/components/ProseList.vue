@@ -41,7 +41,7 @@
 <script>
 import { ref } from 'vue'
 import { useList } from '../composition'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 import { getMergedProps } from '../util'
 
 export default {

@@ -1,6 +1,5 @@
 const { readFileSync, writeFileSync, statSync, readdirSync } = require('fs'),
-      { parse } = require('path'),
-      { clipable } = require('@baleada/logic')
+      { parse } = require('path')
 
 module.exports = function () {
   const components = getFiles(`./src/components`).filter(({ name, path }) => name !== 'ProseContext' && parse(path).ext === '.vue'),
@@ -15,10 +14,10 @@ module.exports = function () {
           const propsString = propsMatch[0],
                 props = propsString
                   .match(/(\w+): {/g).slice(1)
-                  .map(str => `${clipable(str).clip(/: {/g)}`),
+                  .map(str => str.replace(/: {/g, '')),
                 propTypes = propsString
                   .match(/type: (\w+)/g)
-                  .map(str => `${clipable(str).clip(/type: /g)}`.toLowerCase()),
+                  .map(str => str.replace(/type: /g, '').toLowerCase()),
                 propsInterface = props.reduce((propsInterface, prop, i) => {
                   return {
                     ...propsInterface,
@@ -34,6 +33,8 @@ module.exports = function () {
     `export default ${JSON.stringify(propsInterfaces, null, 2)}`,
     'utf8'
   )
+
+  console.log(`Generated ${propsInterfaces.length} props interfaces`)
 }
 
 function getFiles(dirPath) {

@@ -7,11 +7,14 @@ import {
   defaultInterfaceProps as defaultInterfacePropsStub
 } from '../stubs'
 
-export default function createContext ({ fullPath }, {
-  messages: rawMessages,
-  defaultProps: rawDefaultProps,
-  interfaceProps: rawInterfaceProps,
-}) {
+export default function useContextCreator (
+  { fullPath },
+  {
+    messages: rawMessages,
+    defaultProps: rawDefaultProps,
+    interfaceProps: rawInterfaceProps,
+  }
+) {
   if (context.status === 'created') {
     return useContext()
   }

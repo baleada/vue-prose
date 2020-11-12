@@ -23,8 +23,7 @@
     }
   },
   "scripts": {
-    "prepare": "node scripts/prepare.js",
-    "link": "npm link @baleada/vue-composition @baleada/vue-heroicons @baleada/vue-interface"
+    "prepare": "node scripts/prepare.js && rollup --config rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -52,23 +51,23 @@
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.7.1",
-    "@baleada/logic": "^0.15.19",
+    "@baleada/logic": "^0.15.20",
     "@baleada/prepare": "^0.1.1",
+    "@baleada/rollup-plugin-virtual": "^0.0.5",
+    "@baleada/source-transform-files-to-index": "^0.2.2",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-node-resolve": "^6.0.0",
-    "@vue/compiler-sfc": "^3.0.0-rc.10",
+    "@vue/compiler-sfc": "^3.0.2",
     "eslint-plugin-vue": "^7.0.0-beta.3",
     "fast-async": "^6.3.8",
     "rollup-plugin-vue": "^6.0.0-beta.10",
-    "vue": "^3.0.0-rc.10",
     "vue-loader": "^15.7.2"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "@baleada/vue-composition": ">=0.8.1",
-    "@baleada/vue-heroicons": ">=0.0.2",
-    "@baleada/vue-interface": ">=0.6.3",
-    "vue": ">=3.0.0",
-    "@babel/runtime": ">=7.11.2"
+  "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@baleada/vue-composition": "^0.8.4",
+    "@baleada/vue-heroicons": "^0.0.2",
+    "@baleada/vue-interface": "^0.7.0",
+    "vue": "^3.0.2"
   }
 }

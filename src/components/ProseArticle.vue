@@ -10,7 +10,7 @@
 
 <script>
 import { ref, watchEffect, onMounted } from 'vue'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 import { getMergedProps, scrollToHeading } from '../util'
 
 export default {

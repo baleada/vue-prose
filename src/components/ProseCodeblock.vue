@@ -27,7 +27,7 @@ import { useCopyable } from '@baleada/vue-composition'
 import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { InterfaceClick } from '@baleada/vue-interface'
 import { getMergedProps, toTextContent } from '../util'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 
 export default {
   name: 'ProseCodeblock',

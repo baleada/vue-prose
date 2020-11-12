@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 
 export default function getMergedProps ({ props, component }) {
   const { defaultPropsByComponent } = useContext(),

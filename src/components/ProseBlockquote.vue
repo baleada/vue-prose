@@ -24,7 +24,7 @@ import { ref, onMounted } from 'vue'
 import { InterfaceClick } from '@baleada/vue-interface'
 import { SimpleTwitter } from '@baleada/vue-simple-icons'
 import { getMergedProps, toTweetIntent, toTextContent } from '../util'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 
 export default {
   name: 'ProseBlockquote',

@@ -13,7 +13,6 @@ export default function scrollToHeading (fullPath, options) {
 
   if (!isAnchored(fullPath)) {
     getScrollableContainer().scrollTop = 0
-    // top().scrollIntoView(scrollIntoView)
   } else {
     const slug = fullPath
             .split('#')[1] // Get end of URL

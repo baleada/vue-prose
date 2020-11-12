@@ -12,7 +12,7 @@
 
 <script>
 import { ref, computed } from 'vue'
-import { useContext } from '../api'
+import { useContext } from '../composition'
 import { getMergedProps } from '../util'
 
 export default {

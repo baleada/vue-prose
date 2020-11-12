@@ -29,7 +29,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue'
 
-import { useContext } from '../api'
+import { useContext } from '../composition'
 import { getMergedProps, simpleSlugify, toTextContent } from '../util'
 
 import { useCopyable } from '@baleada/vue-composition'
