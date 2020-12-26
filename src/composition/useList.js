@@ -1,5 +1,5 @@
 import { ref, computed, onMounted, watchEffect } from 'vue'
-import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/util'
+import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/affordances'
 import { useSearchable } from '@baleada/vue-composition'
 import { loopedIdPrefix } from '../state'
 

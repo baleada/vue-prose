@@ -1,7 +1,7 @@
-const { readFileSync, writeFileSync, statSync, readdirSync } = require('fs'),
-      { parse } = require('path')
+import { readFileSync, statSync, readdirSync } from 'fs'
+import { parse } from 'path'
 
-module.exports = function () {
+export default function toPropsInterfaces () {
   const components = getFiles(`./src/components`).filter(({ name, path }) => name !== 'ProseContext' && parse(path).ext === '.vue'),
         propsInterfaces = components.map(({ path, name }) => {
           const contents = readFileSync(path, 'utf8'),
@@ -28,13 +28,9 @@ module.exports = function () {
           return { name, interface: propsInterface }
         })
 
-  writeFileSync(
-    `./src/state/propsInterfaces.js`,
-    `export default ${JSON.stringify(propsInterfaces, null, 2)}`,
-    'utf8'
-  )
-
   console.log(`Generated ${propsInterfaces.length} props interfaces`)
+
+  return `export default ${JSON.stringify(propsInterfaces, null, 2)}`
 }
 
 function getFiles(dirPath) {
