@@ -27,8 +27,8 @@ export default {
         )
         .configure()
     )
+    .includeDeps([
+      '@baleada/vue-features/affordances',
+    ])
     .configure(),
-  optimizeDeps: {
-    include: ['@baleada/vue-features/affordances'],
-  }
 }

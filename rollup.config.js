@@ -43,7 +43,7 @@ const shared = configureable('rollup')
         .esm({ file: 'propsInterfaces/index.js', target: 'node' })
         .configure(),
       propsInterfacesCjs = propsInterfacesShared
-        .cjs({ file: 'propsInterfaces/index.js' })
+        .cjs({ file: 'propsInterfaces/index.cjs' })
         .configure(),
       loopedIdPrefixShared = configureable('rollup')
         .input('src/state/loopedIdPrefix.js'),
@@ -52,7 +52,7 @@ const shared = configureable('rollup')
         .esm({ file: 'loopedIdPrefix/index.js', target: 'node' })
         .configure(),
       loopedIdPrefixCjs = loopedIdPrefixShared
-        .cjs({ file: 'loopedIdPrefix/index.js' })
+        .cjs({ file: 'loopedIdPrefix/index.cjs' })
         .configure()
 
 export default [
