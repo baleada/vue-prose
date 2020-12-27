@@ -26,6 +26,7 @@ const shared = configureable('rollup')
         .delete({ targets: 'lib/*', verbose: true })
         .input('src/index.js')
         .esm({ file: 'lib/index.js', target: 'browser' })
+        .analyze()
         .configure(),
       pluginEsm = shared
         .delete({ targets: 'plugin/*', verbose: true })

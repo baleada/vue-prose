@@ -5,4 +5,6 @@
 !lib/**/*.js
 !plugin/**/*.js
 !propsInterfaces/**/*.js
+!propsInterfaces/**/*.cjs
 !loopedIdPrefix/**/*.js
+!loopedIdPrefix/**/*.cjs
