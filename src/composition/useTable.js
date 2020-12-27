@@ -1,10 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
-import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/util'
+import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/affordances'
 import { useSearchable } from '@baleada/vue-composition'
 import { loopedIdPrefix } from '../state'
-
-
-// TODO: aria-rowindex
 
 export default function useList (
   {
@@ -22,7 +19,7 @@ export default function useList (
   const rootEl = ref(null),
         queryInputEl = ref(null),
         searchIgnoresQueryCaseCheckboxEl = ref(null)
-  useBindings({ target: rootEl, bindings: { role: 'table', 'aria-label': ariaLabel }})
+  useBindings({ target: rootEl, bindings: { role: 'table', ariaLabel, }})
 
 
   // Set up table header
@@ -52,7 +49,7 @@ export default function useList (
 
             useBindings({
               target: el,
-              bindings: { role: 'row', 'aria-rowindex': 1 }
+              bindings: { role: 'row', ariaRowindex: 1 }
             })
 
             return headerRow
@@ -104,7 +101,7 @@ export default function useList (
 
             useBindings({
               target: el,
-              bindings: { role: 'row', 'aria-rowindex': index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
+              bindings: { role: 'row', ariaRowindex: index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
             })
 
             useConditionalDisplay({

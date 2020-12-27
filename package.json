@@ -51,14 +51,16 @@
     "@vue/compiler-sfc": "^3.0.4",
     "rollup": "^2.33.1",
     "uvu": "^0.5.1",
-    "vite": "^1.0.0-rc.13"
+    "vite": "^1.0.0-rc.13",
+    "vue-router": "^4.0.1"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@baleada/vue-composition": "^0.8.4",
     "@baleada/vue-features": "^0.5.1",
     "@baleada/vue-heroicons": "^0.0.2",
-    "@baleada/vue-interface": "^0.7.0",
+    "@baleada/vue-interface": "^0.7.2",
+    "@baleada/vue-simple-icons": "^0.0.0",
     "vue": "^3.0.2"
   }
 }
