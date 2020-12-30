@@ -29,6 +29,7 @@ export default {
     )
     .includeDeps([
       '@baleada/vue-features/affordances',
+      '@baleada/vue-simple-icons/lite',
     ])
     .configure(),
 }

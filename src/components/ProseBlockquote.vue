@@ -22,7 +22,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import { InterfaceClick } from '@baleada/vue-interface'
-import { SimpleTwitter } from '@baleada/vue-simple-icons'
+import { SimpleTwitter } from '@baleada/vue-simple-icons/lite'
 import { getMergedProps, toTweetIntent, toTextContent } from '../util'
 import { useContext } from '../composition'
 
