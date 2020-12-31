@@ -12,7 +12,7 @@ const shared = configureable('rollup')
         ])
         .resolve()
         .vue()
-        .virtualIndex('src/index.js', { test: ({ id }) => /src\/(?:composition\/(?:useContextCreator|useContext).js|components\/[^\/]+.vue)$/.test(id) })
+        .virtualIndex('src/index.js', { test: ({ id }) => /src\/(?:composition\/(?:useContextCreator|useContext).js|components\/[^\/]+.vue|plugin\.js)$/.test(id) })
         .virtualIndex('src/components')
         .virtualIndex('src/composition')
         .virtualIndex('src/state')
@@ -27,11 +27,6 @@ const shared = configureable('rollup')
         .input('src/index.js')
         .esm({ file: 'lib/index.js', target: 'browser' })
         .analyze()
-        .configure(),
-      pluginEsm = shared
-        .delete({ targets: 'plugin/*', verbose: true })
-        .input('src/plugin.js')
-        .esm({ file: 'plugin/index.js', target: 'browser' })
         .configure(),
       propsInterfacesShared = configureable('rollup')
         .input('src/state/propsInterfaces.js')
@@ -58,7 +53,6 @@ const shared = configureable('rollup')
 
 export default [
   esm,
-  pluginEsm,
   
   // These next two are exported primarily for use in Markdown renderer plugins
   propsInterfacesEsm,

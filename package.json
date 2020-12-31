@@ -9,9 +9,6 @@
     ".": {
       "import": "./lib/index.js"
     },
-    "./plugin": {
-      "import": "./plugin/index.js"
-    },
     "./propsInterfaces": {
       "import": "./propsInterfaces/index.js",
       "require": "./propsInterfaces/index.cjs"
