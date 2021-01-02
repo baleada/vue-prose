@@ -61,16 +61,16 @@ export default {
   setup (props, { slots }) {
     const mergedProps = getMergedProps({ props, component: 'blockquote' }),
           defaultSlots = slots.default(),
-          text = mergedProps.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
+          text = mergedProps.value.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),
           { fullPath } = useContext(),
           intent = ref('')
 
     onMounted(() => {
       intent.value = toTweetIntent({
         text,
-        hashtags: mergedProps.tweetHashtags,
-        url: mergedProps.tweetUrl === 'current' ? `${window.origin}${fullPath}` : mergedProps.tweetUrl,
-        via: mergedProps.tweetVia,
+        hashtags: mergedProps.value.tweetHashtags,
+        url: mergedProps.value.tweetUrl === 'current' ? `${window.origin}${fullPath}` : mergedProps.value.tweetUrl,
+        via: mergedProps.value.tweetVia,
       })
     })
 

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { ref, watchEffect, onMounted } from 'vue'
+import { ref, watchEffect, onMounted, nextTick } from 'vue'
 import { useContext } from '../composition'
 import { getMergedProps, scrollToHeading } from '../util'
 
@@ -37,11 +37,11 @@ export default {
 
     /* Scroll to heading */
     const baleada = ref(null),
-          getScrollableContainer = mergedProps.getScrollableContainer || (() => baleada.value)
+          getScrollableContainer = mergedProps.value.getScrollableContainer || (() => baleada.value)
 
     onMounted(() => {
       watchEffect(() => {
-        scrollToHeading(useContext().fullPath, { getScrollableContainer })
+        nextTick(() => scrollToHeading(useContext().fullPath, { getScrollableContainer }))
       })
     })
 
