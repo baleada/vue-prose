@@ -3,6 +3,7 @@
     <section ref="prose">
       Prose
     </section>
+    <a name="stub">stub</a>
   </ProseArticle>
 </template>
 

@@ -1,8 +1,7 @@
 import { readFileSync, statSync, readdirSync } from 'fs'
-import { parse } from 'path'
 
 export default function toPropsInterfaces () {
-  const components = getFiles(`./src/components`).filter(({ name, path }) => name !== 'ProseContext' && parse(path).ext === '.vue'),
+  const components = getFiles(`./src/components`),
         propsInterfaces = components.map(({ path, name }) => {
           const contents = readFileSync(path, 'utf8'),
                 propsMatch = contents.match(/props: {(.|\r?\n)*?\n\s\s}/)

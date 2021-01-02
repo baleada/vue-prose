@@ -1,26 +1,28 @@
+import { computed } from 'vue'
+
 function isAnchored (route) {
-  return /#[\w-]+$/.test(route)
+  return /#.+$/.test(route)
 }
 
 export default function scrollToHeading (fullPath, options) {
   options = {
-    getScrollableContainer: () => document,
+    scrollableContainer: computed(() => document),
     scrollIntoView: { behavior: 'auto', block: 'start' },
     ...options
   }
 
-  const { getScrollableContainer, scrollIntoView } = options
+  const { scrollableContainer, scrollIntoView } = options
 
   if (!isAnchored(fullPath)) {
-    getScrollableContainer().scrollTop = 0
+    scrollableContainer.value.scrollTop = 0
   } else {
     const slug = fullPath
             .split('#')[1] // Get end of URL
             .split('.')[0] // Remove file extension
             .toLowerCase(),
-          anchor = getScrollableContainer().querySelector(`[name=${slug}]`),
-          heading = anchor ? anchor.parentNode : undefined
+          anchor = document.getElementById(`${slug}`),
+          heading = anchor?.parentNode
 
-    if (heading !== undefined) heading.scrollIntoView(scrollIntoView)
+    if (!!heading) heading.scrollIntoView(scrollIntoView)
   }
 }
