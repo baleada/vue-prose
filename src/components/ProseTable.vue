@@ -78,7 +78,7 @@ export default {
       type: Number,
       required: true,
     },
-    readerCanSearchByQuery: {
+    readerCanSearch: {
       // type: Boolean,
       // default: false,
     },
