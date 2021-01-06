@@ -6,7 +6,7 @@ const defaultOptions = {
 }
 
 export default function toTweetIntent (options = {}) {
-  const { text, url, hashtags, via } = { ...defaultOptions, options },
+  const { text, url, hashtags, via } = { ...defaultOptions, ...options },
         encodedText = text ? encodeURIComponent(text) : text,
         encodedHashtags = hashtags.join(','),
         params = [

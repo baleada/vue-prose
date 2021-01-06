@@ -7,17 +7,16 @@ import {
   defaultInterfaceProps as defaultInterfacePropsStub
 } from '../stubs'
 
-export default function useContextCreator (
-  { fullPath },
-  {
-    messages: rawMessages,
-    defaultProps: rawDefaultProps,
-    interfaceProps: rawInterfaceProps,
-  }
-) {
+export default function useContextCreator ({ fullPath }, options = {}) {
   if (context.status === 'created') {
     return useContext()
   }
+
+  const {
+    messages: rawMessages,
+    defaultProps: rawDefaultProps,
+    interfaceProps: rawInterfaceProps,
+  } = options
 
   // Merge messages
   const messages = ensureRef(rawMessages),
