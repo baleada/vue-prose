@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useContextCreator } from '/@src/index.js'
+import { useContext } from '/@src/index.js'
 
 export default function createProseContext () {
   const route = useRoute(),
@@ -20,8 +20,7 @@ export default function createProseContext () {
           },
         }
 
-  useContextCreator(
-    { fullPath },
-    { defaultProps }
+  useContext(
+    { fullPath, defaultProps }
   )
 }
