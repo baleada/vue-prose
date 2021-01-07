@@ -60,7 +60,7 @@ export default function useContext (initOrWriteCallback) {
 
   context.status = 'created'
 
-  return context.data
+  return useContext()
 }
 
 const emptyRefStub = { value: {} }

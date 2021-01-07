@@ -28,13 +28,13 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue'
-
-import { useContext } from '../composition'
-import { getMergedProps, simpleSlugify, toTextContent } from '../util'
-
-import { useCopyable } from '@baleada/vue-composition'
+import { useCopyable, useSlugable } from '@baleada/vue-composition'
 import { InterfaceClick } from '@baleada/vue-interface'
 import { HeroiconsLink } from '@baleada/vue-heroicons'
+
+import { useContext } from '../composition'
+import { getMergedProps, toTextContent } from '../util'
+
 
 export default {
   name: 'ProseHeading',
@@ -75,7 +75,7 @@ export default {
     // Get slug for various features
     const defaultSlot = slots.default(),
           text = defaultSlot.reduce((text, slot) => text + toTextContent(slot), '').trim(),
-          slug = simpleSlugify(text).toLowerCase()
+          slug = `${useSlugable(text).value.slug()}`
     
     // Register heading in context
     useContext(context => context.article.headings = [...context.article.headings, { level: props.level, slug, text }])
