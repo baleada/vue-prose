@@ -26,6 +26,9 @@ export default {
       required: true,
       validator: value => ['image', 'img', 'audio', 'video', 'embed', 'iframe'].includes(value)
     },
+    isFirst: {
+      type: Boolean,
+    },
     src: {
       type: String,
       required: true,
@@ -42,6 +45,11 @@ export default {
   setup(props) {
     const baleada = ref(null),
           mergedProps = getMergedProps({ props, component: 'media' })
+
+    // Reset article-provided state
+    if (props.isFirst) {
+      useContext(context => (context.article.media = []))
+    }
 
     // Compute tag
     const tag = computed(() => {

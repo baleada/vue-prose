@@ -27,14 +27,6 @@ export default {
   setup (props) {    
     const mergedProps = getMergedProps({ props, component: 'article' })
 
-    // Reset article-provided state
-    useContext(context => {
-      context.article = {
-        headings: [],
-        media: [],
-      }
-    })
-
     /* Scroll to heading */
     const baleada = ref(null),
           scrollableContainer = computed(() => mergedProps.value.scrollableContainer || baleada.value)

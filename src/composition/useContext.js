@@ -8,7 +8,7 @@ import {
 
 export default function useContext (initOrWriteCallback) {
   if (context.status === 'created') {
-    // initOrWriteCallback must be the write callback when context is already created
+    // When context is already created, initOrWriteCallback must be the write callback 
     const writeCallback = initOrWriteCallback
 
     if (!writeCallback) {
@@ -21,13 +21,15 @@ export default function useContext (initOrWriteCallback) {
     return
   }
 
-  // initOrWriteCallback must be init when context is not created
+  // When context is not already created, initOrWriteCallback can be init, writeCallback, or undefined
   const {
     fullPath: rawFullPath,
     messages: rawMessages,
     defaultProps: rawDefaultProps,
     interfaceProps: rawInterfaceProps,
-  } = initOrWriteCallback || {}
+  } = typeof initOrWriteCallback === 'function'
+    ? {}
+    : (initOrWriteCallback || {})
 
   // Merge messages
   const messages = ensureRef(rawMessages),
@@ -59,6 +61,11 @@ export default function useContext (initOrWriteCallback) {
   }
 
   context.status = 'created'
+
+  if (typeof initOrWriteCallback === 'function') {
+    useContext(initOrWriteCallback)
+    return
+  }
 
   return useContext()
 }

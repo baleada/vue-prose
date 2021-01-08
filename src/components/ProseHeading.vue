@@ -47,6 +47,9 @@ export default {
       type: Number,
       required: true,
     },
+    isFirst: {
+      type: Boolean,
+    },
     readerCanCopy: {
       // type: Boolean,
       // default: false,
@@ -71,6 +74,11 @@ export default {
   setup (props, { slots }) {
     const baleada = ref(null),
           mergedProps = getMergedProps({ props, component: 'heading' })
+
+    // Reset article-provided state
+    if (props.isFirst) {
+      useContext(context => (context.article.headings = []))
+    }
 
     // Get slug for various features
     const defaultSlot = slots.default(),
