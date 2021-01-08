@@ -1,10 +1,10 @@
 export default {
   table: {
-    searchByQueryPlaceholder: 'Search',
+    searchPlaceholder: 'Search',
     changeSearchCaseSensitivityLabel: 'Search is case sensitive',
   },
   list: {
-    searchByQueryPlaceholder: 'Search',
+    searchPlaceholder: 'Search',
     changeSearchCaseSensitivityLabel: 'Search is case sensitive',
   },
 }

@@ -1,5 +1,6 @@
-import { ref, isRef, computed, nextTick } from 'vue'
+import { ref, isRef, computed, onMounted, watch, nextTick } from 'vue'
 import { context } from '../state'
+import { scrollToHeading } from '../util'
 import {
   defaultMessages as defaultMessagesStub,
   defaultProps as defaultPropsStub,
@@ -23,13 +24,17 @@ export default function useContext (initOrWriteCallback) {
 
   // When context is not already created, initOrWriteCallback can be init, writeCallback, or undefined
   const {
-    fullPath: rawFullPath,
-    messages: rawMessages,
-    defaultProps: rawDefaultProps,
-    interfaceProps: rawInterfaceProps,
+    fullPath: rawFullPath = computed(() => window.location.pathname),
+    messages: rawMessages = {},
+    defaultProps: rawDefaultProps = {},
+    interfaceProps: rawInterfaceProps = {},
+    scrollableContainer = ref(document),
   } = typeof initOrWriteCallback === 'function'
     ? {}
     : (initOrWriteCallback || {})
+
+  // Ensure fullPath
+  const fullPath = computed(() => rawFullPath?.value ?? rawFullPath)
 
   // Merge messages
   const messages = ensureRef(rawMessages),
@@ -49,11 +54,18 @@ export default function useContext (initOrWriteCallback) {
           ...interfaceProps.value,
         }))
 
+  // Handle scrolling
+  const scrollEffect = () => nextTick(() => scrollToHeading({ fullPath, scrollableContainer }))
+  onMounted(() => {
+    scrollEffect()
+    watch(fullPath, scrollEffect)
+  })
+
   // Initialize reactive reference to article-specific data
   const article = ref({})
 
   context.data = {
-    fullPath: rawFullPath || computed(() => window.location.pathname),
+    fullPath,
     messagesByComponent: mergedMessages,
     defaultPropsByComponent: mergedDefaultProps,
     interfacePropsByComponent: mergedInterfaceProps,

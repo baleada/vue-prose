@@ -2,7 +2,7 @@
   <ProseHeading :level="1" :isFirst="true">
     Prose 1
   </ProseHeading>
-  <ProseHeading :level="2">
+  <ProseHeading :level="2" style="margin-top: 150vh">
     Prose 2
   </ProseHeading>
 </template>

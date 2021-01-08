@@ -8,7 +8,7 @@ export default function useList (
     totalBodyRows,
     totalColumns,
     ariaLabel,
-    searchIgnoresQueryCase: rawSearchIgnoresQueryCase,
+    searchIgnoresCase: rawSearchIgnoresCase,
     minimumSearchScore,
     readerCanSearch,
     readerCanChangeSearchCaseSensitivity,
@@ -18,7 +18,7 @@ export default function useList (
   /* Set up DOM refs, including static attribute binding */
   const rootEl = ref(null),
         queryInputEl = ref(null),
-        searchIgnoresQueryCaseCheckboxEl = ref(null)
+        searchIgnoresCaseCheckboxEl = ref(null)
   useBindings({ target: rootEl, bindings: { role: 'table', ariaLabel, }})
 
 
@@ -142,17 +142,17 @@ export default function useList (
   })
 
   // Manage query case sensitivity
-  const searchIgnoresQueryCase = ref(rawSearchIgnoresQueryCase)
+  const searchIgnoresCase = ref(rawSearchIgnoresCase)
   if (readerCanChangeSearchCaseSensitivity) {
     useBindings({
-      target: searchIgnoresQueryCaseCheckboxEl,
-      bindings: { checked: computed(() => searchIgnoresQueryCase.value ? 'true' : '') }
+      target: searchIgnoresCaseCheckboxEl,
+      bindings: { checked: computed(() => searchIgnoresCase.value ? 'true' : '') }
     })
     useListeners({
-      target: searchIgnoresQueryCaseCheckboxEl,
+      target: searchIgnoresCaseCheckboxEl,
       listeners: {
         change ({ target: { checked } }) {
-          searchIgnoresQueryCase.value = checked
+          searchIgnoresCase.value = checked
         }
       }
     })
@@ -172,7 +172,7 @@ export default function useList (
           query.value = value
   
           // EFFECT: Search for matches
-          searchable.value.search(query.value, { ignoreCase: searchIgnoresQueryCase.value, returnMatchData: true })
+          searchable.value.search(query.value, { ignoreCase: searchIgnoresCase.value, returnMatchData: true })
         }
       }
     })
@@ -197,11 +197,11 @@ export default function useList (
     queryInput: {
       ref: el => (queryInputEl.value = el),
     },
-    searchIgnoresQueryCaseCheckbox: {
-      ref: el => (searchIgnoresQueryCaseCheckboxEl.value = el),
+    searchIgnoresCaseCheckbox: {
+      ref: el => (searchIgnoresCaseCheckboxEl.value = el),
     },
     query,
-    searchIgnoresQueryCase,
+    searchIgnoresCase,
     searchable,
   }
 }

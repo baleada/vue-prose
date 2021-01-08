@@ -1,8 +1,4 @@
 export default {
-  article: {
-    classes: '',
-    // scrollableContainer: undefined
-  },
   aside: {
     classes: '',
     type: 'info',
@@ -28,7 +24,7 @@ export default {
   table: {
     classes: '',
     readerCanSearch: false,
-    searchIgnoresQueryCase: true,
+    searchIgnoresCase: true,
     readerCanChangeSearchCaseSensitivity: false,
     minimumSearchScore: 1,
   },
@@ -42,7 +38,7 @@ export default {
   list: {
     classes: '',
     readerCanSearch: false,
-    searchIgnoresQueryCase: true,
+    searchIgnoresCase: true,
     readerCanChangeSearchCaseSensitivity: false,
     minimumSearchScore: 1,
   },
