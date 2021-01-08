@@ -1,19 +1,19 @@
 <template>
-  <ProseArticle>
-    <ProseHeading :level="1">
-      Prose
-    </ProseHeading>
-  </ProseArticle>
+  <ProseHeading :level="1" :isFirst="true">
+    Prose 1
+  </ProseHeading>
+  <ProseHeading :level="2">
+    Prose 2
+  </ProseHeading>
 </template>
 
 <script>
 import { ref } from 'vue'
-import { ProseArticle, ProseHeading, useContext } from '/@src/index.js'
+import { ProseHeading, useContext } from '/@src/index.js'
 import createProseContext from '../../functions/createProseContext.js'
 
 export default {
   components: {
-    ProseArticle,
     ProseHeading,
   },
   setup () {
