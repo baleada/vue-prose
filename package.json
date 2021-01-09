@@ -56,7 +56,7 @@
     "@baleada/vue-composition": "^0.8.13",
     "@baleada/vue-features": "^0.5.6",
     "@baleada/vue-heroicons": "^0.1.0",
-    "@baleada/vue-interface": "^0.7.5",
+    "@baleada/vue-interface": "^0.7.6",
     "@baleada/vue-simple-icons": "^0.1.0",
     "vue": "^3.0.2"
   }
