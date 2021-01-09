@@ -1,4 +1,4 @@
-import { ref, isRef, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, isRef, computed, onMounted, watch, nextTick, readonly } from 'vue'
 import { context } from '../state'
 import { scrollToHeading } from '../util'
 import {
@@ -13,7 +13,7 @@ export default function useContext (initOrWriteCallback) {
     const writeCallback = initOrWriteCallback
 
     if (!writeCallback) {
-      return context.data
+      return readonly(context.data)
     }
     
     // Not sure why this nextTick is needed but it works.
@@ -28,7 +28,7 @@ export default function useContext (initOrWriteCallback) {
     messages: rawMessages = {},
     defaultProps: rawDefaultProps = {},
     interfaceProps: rawInterfaceProps = {},
-    scrollableContainer = ref(document),
+    scrollableContainer = ref(document.body),
   } = typeof initOrWriteCallback === 'function'
     ? {}
     : (initOrWriteCallback || {})
