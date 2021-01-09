@@ -12,7 +12,7 @@ export default function useContext (initOrWriteCallback) {
     // When context is already created, initOrWriteCallback must be the write callback 
     const writeCallback = initOrWriteCallback
 
-    if (!writeCallback) {
+    if (typeof writeCallback !== 'function') {
       return readonly(context.data)
     }
     
