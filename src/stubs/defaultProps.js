@@ -24,7 +24,7 @@ export default {
   table: {
     classes: '',
     readerCanSearch: false,
-    searchIgnoresCase: true,
+    searchIsCaseSensitive: true,
     readerCanChangeSearchCaseSensitivity: false,
     minimumSearchScore: 1,
   },
@@ -38,7 +38,7 @@ export default {
   list: {
     classes: '',
     readerCanSearch: false,
-    searchIgnoresCase: true,
+    searchIsCaseSensitive: true,
     readerCanChangeSearchCaseSensitivity: false,
     minimumSearchScore: 1,
   },

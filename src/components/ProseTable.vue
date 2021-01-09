@@ -14,7 +14,7 @@
     </div>
     <div v-if="mergedProps.readerCanSearch && mergedProps.readerCanChangeSearchCaseSensitivity">
       <input
-        :ref="table.searchIgnoresCaseCheckbox.ref"
+        :ref="table.searchIsCaseSensitiveCheckbox.ref"
         name="Change search case sensitivity"
         type="checkbox"
       />
@@ -82,7 +82,7 @@ export default {
       // type: Boolean,
       // default: false,
     },
-    searchIgnoresCase: {
+    searchIsCaseSensitive: {
       // type: Boolean,
       // default: false,
     },
@@ -116,7 +116,7 @@ export default {
         totalBodyRows: props.totalBodyRows,
         totalColumns: props.totalColumns,
         ariaLabel: props.ariaLabel,
-        searchIgnoresCase: mergedProps.value.searchIgnoresCase,
+        searchIsCaseSensitive: mergedProps.value.searchIsCaseSensitive,
         minimumSearchScore: mergedProps.value.minimumSearchScore,
         readerCanSearch: mergedProps.value.readerCanSearch,
         readerCanChangeSearchCaseSensitivity: mergedProps.value.readerCanChangeSearchCaseSensitivity,

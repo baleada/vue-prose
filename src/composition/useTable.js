@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/affordances'
 import { useSearchable } from '@baleada/vue-composition'
 import { loopedIdPrefix } from '../state'
@@ -8,17 +8,16 @@ export default function useList (
     totalBodyRows,
     totalColumns,
     ariaLabel,
-    searchIgnoresCase: rawSearchIgnoresCase,
+    searchIsCaseSensitive: rawSearchIsCaseSensitive,
     minimumSearchScore,
     readerCanSearch,
     readerCanChangeSearchCaseSensitivity,
   },
-  { searchable: searchableOptions }
 ) {
   /* Set up DOM refs, including static attribute binding */
   const rootEl = ref(null),
         queryInputEl = ref(null),
-        searchIgnoresCaseCheckboxEl = ref(null)
+        searchIsCaseSensitiveCheckboxEl = ref(null)
   useBindings({ target: rootEl, bindings: { role: 'table', ariaLabel, }})
 
 
@@ -135,24 +134,30 @@ export default function useList (
         }), {})
 
   // Initialize searchable
-  const searchable = useSearchable([], searchableOptions)
+  const searchablesByIsCaseSensitive = new Map([
+          [false, useSearchable([], { ignoreCase: true, returnMatchData: true })],
+          [true, useSearchable([], { ignoreCase: false, returnMatchData: true })],
+        ]),
+        searchable = computed(() => searchablesByIsCaseSensitive.get(searchIsCaseSensitive.value).value),
+        searchEffect = () => searchable.value.search(query.value)
+
   onMounted(() => {
     const candidates = bodyRows.map(({ textContent }) => textContent.value)
-    searchable.value.setCandidates(candidates)
+    searchablesByIsCaseSensitive.forEach(searchable => searchable.value.setCandidates(candidates))
   })
 
   // Manage query case sensitivity
-  const searchIgnoresCase = ref(rawSearchIgnoresCase)
+  const searchIsCaseSensitive = ref(rawSearchIsCaseSensitive)
   if (readerCanChangeSearchCaseSensitivity) {
     useBindings({
-      target: searchIgnoresCaseCheckboxEl,
-      bindings: { checked: computed(() => searchIgnoresCase.value ? 'true' : '') }
+      target: searchIsCaseSensitiveCheckboxEl,
+      bindings: { checked: computed(() => searchIsCaseSensitive.value ? 'true' : '') }
     })
     useListeners({
-      target: searchIgnoresCaseCheckboxEl,
+      target: searchIsCaseSensitiveCheckboxEl,
       listeners: {
         change ({ target: { checked } }) {
-          searchIgnoresCase.value = checked
+          searchIsCaseSensitive.value = checked
         }
       }
     })
@@ -170,13 +175,15 @@ export default function useList (
       listeners: {
         input ({ target: { value } }) {
           query.value = value
-  
-          // EFFECT: Search for matches
-          searchable.value.search(query.value, { ignoreCase: searchIgnoresCase.value, returnMatchData: true })
         }
       }
     })
   }
+
+  watch(
+    [searchIsCaseSensitive, query],
+    searchEffect
+  )
 
   // TODO: pagination feature
 
@@ -197,11 +204,11 @@ export default function useList (
     queryInput: {
       ref: el => (queryInputEl.value = el),
     },
-    searchIgnoresCaseCheckbox: {
-      ref: el => (searchIgnoresCaseCheckboxEl.value = el),
+    searchIsCaseSensitiveCheckbox: {
+      ref: el => (searchIsCaseSensitiveCheckboxEl.value = el),
     },
     query,
-    searchIgnoresCase,
+    searchIsCaseSensitive,
     searchable,
   }
 }

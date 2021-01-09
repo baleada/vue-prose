@@ -14,7 +14,7 @@
     </div>
     <div v-if="mergedProps.readerCanSearch && mergedProps.readerCanChangeSearchCaseSensitivity">
       <input
-        :ref="list.searchIgnoresCaseCheckbox.ref"
+        :ref="list.searchIsCaseSensitiveCheckbox.ref"
         name="Change search case sensitivity"
         type="checkbox"
       />
@@ -59,7 +59,7 @@ export default {
       // type: Boolean,
       // default: false,
     },
-    searchIgnoresCase: {
+    searchIsCaseSensitive: {
       // type: Boolean,
       // default: false,
     },
@@ -83,7 +83,7 @@ export default {
     const list = useList(
       {
         totalItems: props.totalItems,
-        searchIgnoresCase: mergedProps.value.searchIgnoresCase,
+        searchIsCaseSensitive: mergedProps.value.searchIsCaseSensitive,
         minimumSearchScore: mergedProps.value.minimumSearchScore,
         readerCanSearch: mergedProps.value.readerCanSearch,
         readerCanChangeSearchCaseSensitivity: mergedProps.value.readerCanChangeSearchCaseSensitivity,
