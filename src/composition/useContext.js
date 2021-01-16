@@ -58,7 +58,7 @@ export default function useContext (initOrWriteCallback) {
   const scrollEffect = () => nextTick(() => scrollToHeading({ fullPath, scrollableContainer }))
   onMounted(() => {
     scrollEffect()
-    watch(fullPath, scrollEffect)
+    watch(fullPath, scrollEffect, { flush: 'post' })
   })
 
   // Initialize reactive reference to article-specific data
