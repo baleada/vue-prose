@@ -54,7 +54,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@baleada/vue-composition": "^0.8.13",
-    "@baleada/vue-features": "^0.5.6",
+    "@baleada/vue-features": "^0.5.7",
     "@baleada/vue-heroicons": "^0.1.2",
     "@baleada/vue-interface": "^0.7.6",
     "@baleada/vue-simple-icons": "^0.1.0",
