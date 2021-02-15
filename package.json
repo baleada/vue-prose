@@ -1,6 +1,6 @@
 {
   "name": "@baleada/vue-prose",
-  "version": "0.13.24",
+  "version": "0.13.25",
   "description": "Vue components that enhance prose for the Baleada toolkit",
   "type": "module",
   "main": "lib/index.cjs",
