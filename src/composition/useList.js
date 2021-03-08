@@ -1,5 +1,5 @@
 import { ref, computed, onMounted, watch } from 'vue'
-import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/affordances'
+import { bind, naiveOn as on, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { loopedIdPrefix } from '../state'
 
@@ -16,7 +16,7 @@ export default function useList (
   const rootEl = ref(null),
         queryInputEl = ref(null),
         searchIsCaseSensitiveCheckboxEl = ref(null)
-  useBindings({ target: rootEl, bindings: { role: 'list' }})
+  bind({ target: rootEl, keys: { role: 'list' }})
 
   // Set up list item metadata
   const items = Array(totalItems)
@@ -29,12 +29,12 @@ export default function useList (
       searchResult = computed(() => searchable.value.results.find(({ item }) => item === textContent.value)),
       item = { id, ref: setEl, textContent, searchResult }
 
-      useBindings({
+      bind({
         target: el,
-        bindings: { role: 'listitem' }
+        keys: { role: 'listitem' }
       })
 
-      useConditionalDisplay({
+      show({
         target: el,
         condition: computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
       })
@@ -59,13 +59,13 @@ export default function useList (
   // Manage query case sensitivity
   const searchIsCaseSensitive = ref(rawSearchIsCaseSensitive)
   if (readerCanChangeSearchCaseSensitivity) {
-    useBindings({
+    bind({
       target: searchIsCaseSensitiveCheckboxEl,
-      bindings: { checked: computed(() => searchIsCaseSensitive.value ? 'true' : '') }
+      keys: { checked: computed(() => searchIsCaseSensitive.value ? 'true' : '') }
     })
-    useListeners({
+    on({
       target: searchIsCaseSensitiveCheckboxEl,
-      listeners: {
+      events: {
         change ({ target: { checked } }) {
           searchIsCaseSensitive.value = checked
         }
@@ -76,13 +76,13 @@ export default function useList (
   // Manage query
   const query = ref('')
   if (readerCanSearch) {
-    useBindings({
+    bind({
       target: queryInputEl,
-      bindings: { value: query }
+      keys: { value: query }
     })
-    useListeners({
+    on({
       target: queryInputEl,
-      listeners: {
+      events: {
         input ({ target: { value } }) {
           query.value = value
         }

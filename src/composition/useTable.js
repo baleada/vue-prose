@@ -1,5 +1,5 @@
 import { ref, computed, onMounted, watch } from 'vue'
-import { useBindings, useListeners, useConditionalDisplay } from '@baleada/vue-features/affordances'
+import { bind, naiveOn as on, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { loopedIdPrefix } from '../state'
 
@@ -18,7 +18,7 @@ export default function useList (
   const rootEl = ref(null),
         queryInputEl = ref(null),
         searchIsCaseSensitiveCheckboxEl = ref(null)
-  useBindings({ target: rootEl, bindings: { role: 'table', ariaLabel, }})
+  bind({ target: rootEl, keys: { role: 'table', ariaLabel, }})
 
 
   // Set up table header
@@ -30,9 +30,9 @@ export default function useList (
                   setEl = newEl => (el.value = newEl),
                   headerRowGroup = { id, el, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'rowgroup' }
+              keys: { role: 'rowgroup' }
             })
 
             return headerRowGroup
@@ -46,9 +46,9 @@ export default function useList (
                   setEl = newEl => (el.value = newEl),
                   headerRow = { id, el, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'row', ariaRowindex: 1 }
+              keys: { role: 'row', ariaRowindex: 1 }
             })
 
             return headerRow
@@ -62,9 +62,9 @@ export default function useList (
                   setEl = newEl => (el.value = newEl),
                   headerCell = { id, el, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'columnheader' }
+              keys: { role: 'columnheader' }
             })
 
             return headerCell
@@ -80,9 +80,9 @@ export default function useList (
                   setEl = newEl => (el.value = newEl),
                   bodyRowGroup = { id, el, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'rowgroup' }
+              keys: { role: 'rowgroup' }
             })
 
             return bodyRowGroup
@@ -98,12 +98,12 @@ export default function useList (
                   searchResult = computed(() => searchable.value.results.find(({ item }) => item === textContent.value) || null),
                   bodyRow = { id, el, textContent, searchResult, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'row', ariaRowindex: index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
+              keys: { role: 'row', ariaRowindex: index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
             })
 
-            useConditionalDisplay({
+            show({
               target: el,
               condition: computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
             })
@@ -120,9 +120,9 @@ export default function useList (
                   setEl = newEl => (el.value = newEl),
                   bodyCell = { id, el, ref: setEl }
 
-            useBindings({
+            bind({
               target: el,
-              bindings: { role: 'cell' }
+              keys: { role: 'cell' }
             })
 
             return bodyCell
@@ -149,13 +149,13 @@ export default function useList (
   // Manage query case sensitivity
   const searchIsCaseSensitive = ref(rawSearchIsCaseSensitive)
   if (readerCanChangeSearchCaseSensitivity) {
-    useBindings({
+    bind({
       target: searchIsCaseSensitiveCheckboxEl,
-      bindings: { checked: computed(() => searchIsCaseSensitive.value ? 'true' : '') }
+      keys: { checked: computed(() => searchIsCaseSensitive.value ? 'true' : '') }
     })
-    useListeners({
+    on({
       target: searchIsCaseSensitiveCheckboxEl,
-      listeners: {
+      events: {
         change ({ target: { checked } }) {
           searchIsCaseSensitive.value = checked
         }
@@ -166,13 +166,13 @@ export default function useList (
   // Manage query
   const query = ref('')
   if (readerCanSearch) {
-    useBindings({
+    bind({
       target: queryInputEl,
-      bindings: { value: query }
+      keys: { value: query }
     })
-    useListeners({
+    on({
       target: queryInputEl,
-      listeners: {
+      events: {
         input ({ target: { value } }) {
           query.value = value
         }
