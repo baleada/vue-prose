@@ -1,4 +1,6 @@
-export default {
+import { StoreConfig } from "../state";
+
+export const defaultPropDefaults: StoreConfig['propDefaults'] = {
   aside: {
     classes: '',
     type: 'info',

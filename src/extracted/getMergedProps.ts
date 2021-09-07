@@ -1,8 +1,8 @@
 import { computed } from 'vue'
-import { useContext } from '../composition'
+import { useStore } from '../composition'
 
-export default function getMergedProps ({ props, component }) {
-  const { defaultPropsByComponent } = useContext(),
+export function getMergedProps ({ props, component }) {
+  const { defaultPropsByComponent } = useStore(),
         mergedProps = computed(() => ({
           ...defaultPropsByComponent[component],
           ...toWithoutExplicitUndefined(props),

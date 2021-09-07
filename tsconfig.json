@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "types": [
+      "vite/client",
+      "vite-plugin-pages/client",
+      "./types"
+    ],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "emitDeclarationOnly": true
+  },
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+}

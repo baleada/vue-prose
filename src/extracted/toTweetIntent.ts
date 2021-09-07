@@ -1,11 +1,18 @@
-const defaultOptions = {
+type Options = {
+  text?: string,
+  url?: string,
+  hashtags?: string[],
+  via?: string,
+}
+
+const defaultOptions: Options = {
   text: '',
   url: '',
   hashtags: [],
   via: '',
 }
 
-export default function toTweetIntent (options = {}) {
+export function toTweetIntent (options: Options = {}): `https://twitter.com/intent/tweet?${string}` {
   const { text, url, hashtags, via } = { ...defaultOptions, ...options },
         encodedText = text ? encodeURIComponent(text) : text,
         encodedHashtags = hashtags.join(','),
@@ -19,5 +26,5 @@ export default function toTweetIntent (options = {}) {
           .filter(param => param)
           .join('&')
 
-  return 'https://twitter.com/intent/tweet?' + encodedParams
+  return `https://twitter.com/intent/tweet?${encodedParams}`
 }
