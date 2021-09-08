@@ -5,7 +5,7 @@
     "types": [
       "vite/client",
       "vite-plugin-pages/client",
-      "./types"
+      "./shims"
     ],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
