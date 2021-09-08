@@ -20,7 +20,7 @@ import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBol
 import { createGetWithConfiguredDefaults } from '../extracted';
 
 const props = defineProps<{
-        type?: 'info' | 'warning' | 'danger' | 'success' | 'none',
+        type?: 'info' | 'warning' | 'danger' | 'success' | 'simple',
         classes?: string,
       }>(),
       withConfiguredDefaults = createGetWithConfiguredDefaults('aside')(props)

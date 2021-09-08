@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '../composition';
 import { createGetWithConfiguredDefaults } from '../extracted'
 
 const props = defineProps<{

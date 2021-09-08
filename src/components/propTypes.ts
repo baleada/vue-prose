@@ -2,7 +2,7 @@
 // TODO: Remove duplication in .vue files once Vue supports imported and complex types in `script setup`
 
 export type AsideOptional = {
-  type?: 'info' | 'warning' | 'danger' | 'success' | 'none',
+  type?: 'info' | 'warning' | 'danger' | 'success' | 'simple',
   classes?: string,
 }
 
