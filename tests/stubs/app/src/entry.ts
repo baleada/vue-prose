@@ -15,7 +15,12 @@ const app = createApp(App),
         createsPinia: true,
         getFullPath: 'vue-router',
         propDefaults: {
-
+          section: {
+            classes: 'hello'
+          },
+          aside: {
+            type: 'success',
+          }
         },
         messages: {
 

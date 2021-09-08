@@ -3,6 +3,7 @@
     :readerCanTweet="true"
   >
     <p>hello</p>
+    <p>world</p>
   </BaleadaProseBlockquote>
 </template>
 

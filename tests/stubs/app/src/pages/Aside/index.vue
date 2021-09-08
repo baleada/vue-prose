@@ -1,8 +1,7 @@
 <template>
-  <BaleadaProseSection>
+  <BaleadaProseAside>
     <p>hello</p>
-    <p>world</p>
-  </BaleadaProseSection>
+  </BaleadaProseAside>
 </template>
 
 <script setup lang="ts">
