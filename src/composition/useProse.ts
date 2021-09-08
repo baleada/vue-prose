@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, watchEffect } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
 import { config } from '../state'
 import { scrollToHeading } from '../extracted'
@@ -8,15 +8,13 @@ export function useEffects () {
   const store = useStore()
 
   // useRoute can only be called inside a `setup` function,
-  // which is where `useEffects` gets called. We take this opportunity
-  // to manually make `fullPath` reactive if needed.
+  // which is where `useEffects` gets called.
+  //
+  // We take this opportunity to manually make `fullPath`
+  // reactive if needed.
   if (store.fullPath === 'vue-router') {
-    const route = useRoute()
-    
-    watch(
-      () => route.fullPath,
-      () => store.fullPath = route.fullPath
-    )
+    const route = useRoute()    
+    watchEffect(() => store.setFullPath(route.fullPath))
   }
 
   const { fullPath, scrollableContainer } = storeToRefs(store),
@@ -43,13 +41,11 @@ export type Article = {
 }
 
 export const useStore = defineStore('Baleada Prose', () => {
-  const fullPath = ref((() => {
-          if (typeof config.getFullPath === 'function') {
-            return config.getFullPath()
-          }
-
-          return config.getFullPath
-        })()),
+  const vueRouterFullPath = ref('vue-router'),
+        setVueRouterFullPath = (fullPath: string) => vueRouterFullPath.value = fullPath,
+        fullPath = config.getFullPath === 'vue-router'
+          ? computed(() => vueRouterFullPath.value)
+          : computed(config.getFullPath),
         scrollableContainer = computed(config.getScrollableContainer),
         article = ref<Article>({
           headings: [],
@@ -60,6 +56,7 @@ export const useStore = defineStore('Baleada Prose', () => {
     fullPath,
     scrollableContainer,
     article,
+    setFullPath: setVueRouterFullPath,
   }
 })
 
