@@ -8,6 +8,7 @@ import { createAside } from './components/createAside'
 // import Blockquote from './components/BaleadaProseBlockquote.vue'
 import { createBlockquote } from './components/createBlockquote'
 // import Codeblock from './components/BaleadaProseCodeblock.vue'
+import { createCodeblock } from './components/createCodeblock'
 // import Details from './components/BaleadaProseDetails.vue'
 // import Heading from './components/BaleadaProseHeading.vue'
 // import List from './components/BaleadaProseList.vue'
@@ -54,6 +55,7 @@ export const createProse: (options?: PluginOptions) => Plugin = (options = {}) =
   // app.component('BaleadaProseBlockquote', Blockquote)
   app.component('BaleadaProseBlockquote', createBlockquote(config))
   // app.component('BaleadaProseCodeblock', Codeblock)
+  app.component('BaleadaProseCodeblock', createCodeblock(config))
   // app.component('BaleadaProseDetails', Details)
   // app.component('BaleadaProseHeading', Heading)
   // app.component('BaleadaProseList', List)

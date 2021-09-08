@@ -1,6 +1,6 @@
 import { createApp, nextTick } from 'vue'
 import App from './App.vue'
-import { createRouter, createWebHistory, useRoute } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { createProse } from '../../../../src/createProse'
 import routes from 'virtual:generated-pages'
 
@@ -20,6 +20,11 @@ const app = createApp(App),
           },
           aside: {
             type: 'success',
+          },
+          codeblock: {
+            showsLang: true,
+            showsLineNumbers: true,
+            readerCanCopy: true,
           }
         },
         messages: {

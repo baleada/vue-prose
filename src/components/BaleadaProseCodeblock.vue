@@ -13,7 +13,7 @@
     <button
       v-if="withConfiguredDefaults.readerCanCopy"
       name="Copy code"
-      @click="clickHandle"
+      @click="clickEffect"
     >
       <HeroiconsClipboardCopy />
     </button>
@@ -45,7 +45,7 @@ const copyable = useCopyable(''),
 
 copyable.value.setString(code)
 
-function clickHandle () {
+function clickEffect () {
   copyable.value.copy()
 }
 
