@@ -1,5 +1,5 @@
 <template>
-  <ProseTable
+  <BaleadaProseTable
     :totalBodyRows="4"
     :totalColumns="2"
     :readerCanSearch="true"
@@ -35,15 +35,9 @@
     <template #prose-looped-1-prose-looped-3-prose-looped-1="{ ref }">
       <div :ref="ref">Dog</div>
     </template>
-</ProseTable>
+</BaleadaProseTable>
 </template>
 
-<script>
-import { ProseTable } from '/@src/index.js'
+<script setup lang="ts">
 
-export default {
-  components: {
-    ProseTable
-  },
-}
 </script>

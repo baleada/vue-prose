@@ -1,6 +1,6 @@
 import { createApp, nextTick } from 'vue'
 import App from './App.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, useRoute } from 'vue-router'
 import { createProse } from '../../../../src/createProse'
 import routes from 'virtual:generated-pages'
 
@@ -10,11 +10,21 @@ const app = createApp(App),
         history,
         strict: true,
         routes,
+      }),
+      prose = createProse({
+        createsPinia: true,
+        getFullPath: 'vue-router',
+        propDefaults: {
+
+        },
+        messages: {
+
+        }
       })
 
 app
   .use(router)
-  .use(createProse({ createsPinia: true }))
+  .use(prose)
   .mount('#app')
 
 type WithGlobals = Window & {

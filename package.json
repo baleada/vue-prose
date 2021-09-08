@@ -2,16 +2,11 @@
   "name": "@baleada/vue-prose",
   "version": "0.13.26",
   "description": "Vue components that enhance prose for the Baleada toolkit",
-  "type": "module",
   "main": "lib/index.cjs",
   "module": "lib/index.js",
   "exports": {
     ".": {
       "import": "./lib/index.js"
-    },
-    "./propsInterfaces": {
-      "import": "./propsInterfaces/index.js",
-      "require": "./propsInterfaces/index.cjs"
     },
     "./loopedIdPrefix": {
       "import": "./loopedIdPrefix/index.js",
@@ -45,11 +40,12 @@
   "sideEffects": false,
   "devDependencies": {
     "@baleada/prepare": "^0.5.12",
-    "@vue/compiler-sfc": "^3.2.8",
+    "@vue/compiler-sfc": "^3.2.9",
     "rollup": "^2.56.3",
     "uvu": "^0.5.1",
     "vite": "^2.5.3",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vue-tsc": "^0.3.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
@@ -60,6 +56,6 @@
     "@baleada/vue-interface": "^0.8.0",
     "@baleada/vue-simple-icons": "^0.1.0",
     "pinia": "^2.0.0-rc.7",
-    "vue": "^3.2.8"
+    "vue": "^3.2.9"
   }
 }

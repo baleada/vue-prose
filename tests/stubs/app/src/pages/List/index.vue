@@ -1,5 +1,5 @@
 <template>
-  <ProseList
+  <BaleadaProseList
     tag="ol"
     :totalItems="3"
     :readerCanSearch="true"
@@ -11,15 +11,9 @@
     <template #prose-looped-1="{ ref }">
       <li :ref="ref">also list item</li>
     </template>
-  </ProseList>
+  </BaleadaProseList>
 </template>
 
-<script>
-import { ProseList } from '/@src/index.js'
+<script setup lang="ts">
 
-export default {
-  components: {
-    ProseList,
-  },
-}
 </script>

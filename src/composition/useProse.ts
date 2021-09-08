@@ -1,10 +1,25 @@
-import { ref, computed, onMounted, watch, shallowRef } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
-import { storeConfig } from '../state'
+import { config } from '../state'
 import { scrollToHeading } from '../extracted'
+import { useRoute } from 'vue-router'
 
 export function useEffects () {
-  const { fullPath, scrollableContainer } = storeToRefs(useStore()),
+  const store = useStore()
+
+  // useRoute can only be called inside a `setup` function,
+  // which is where `useEffects` gets called. We take this opportunity
+  // to manually make `fullPath` reactive if needed.
+  if (store.fullPath === 'vue-router') {
+    const route = useRoute()
+    
+    watch(
+      () => route.fullPath,
+      () => store.fullPath = route.fullPath
+    )
+  }
+
+  const { fullPath, scrollableContainer } = storeToRefs(store),
         scrollEffect = () => scrollToHeading({ fullPath, scrollableContainer })
 
   onMounted(() => {
@@ -13,17 +28,36 @@ export function useEffects () {
   })
 }
 
-export const useStore = defineStore(storeConfig.name, () => {
-  const fullPath = computed(storeConfig.getFullPath),
-        messages = shallowRef(storeConfig.messages),
-        propDefaults = shallowRef(storeConfig.propDefaults),
-        scrollableContainer = computed(storeConfig.getScrollableContainer),
-        article = ref({})
+export type Article = {
+  headings: {
+    level: number,
+    slug: string,
+    text: string,
+  }[],
+  media: {
+    type: 'image' | 'img' | 'audio' | 'video' | 'embed' | 'iframe',
+    tag: 'img' | 'audio' | 'video' | 'iframe',
+    src: string,
+    ariaLabel: string,
+  }[]
+}
+
+export const useStore = defineStore('Baleada Prose', () => {
+  const fullPath = ref((() => {
+          if (typeof config.getFullPath === 'function') {
+            return config.getFullPath()
+          }
+
+          return config.getFullPath
+        })()),
+        scrollableContainer = computed(config.getScrollableContainer),
+        article = ref<Article>({
+          headings: [],
+          media: [],
+        })
 
   return {
     fullPath,
-    messages,
-    propDefaults,
     scrollableContainer,
     article,
   }

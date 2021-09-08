@@ -1,6 +1,6 @@
-import type { StoreConfig } from '../state'
+import type { Config } from '../state'
 
-export const defaultMessages: StoreConfig['messages'] = {
+export const defaultMessages: Config['messages'] = {
   table: {
     searchPlaceholder: 'Search',
     changeSearchCaseSensitivityLabel: 'Search is case sensitive',

@@ -6,6 +6,7 @@ export default new configureable.Vite()
   ])
   .pages({
     pagesDir: 'tests/stubs/app/src/pages',
-    extensions: ['.vue'],
+    extensions: ['vue'],
   })
+  .vue()
   .configure()

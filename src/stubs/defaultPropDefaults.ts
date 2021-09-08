@@ -1,6 +1,16 @@
-import { StoreConfig } from "../state";
+import type { Config } from '../state'
 
-export const defaultPropDefaults: StoreConfig['propDefaults'] = {
+export const defaultPropDefaults: {
+  aside: Required<Config['propDefaults']['aside']>,
+  blockquote: Required<Config['propDefaults']['blockquote']>,
+  codeblock: Required<Config['propDefaults']['codeblock']>,
+  details: Required<Config['propDefaults']['details']>,
+  heading: Required<Config['propDefaults']['heading']>,
+  list: Required<Config['propDefaults']['list']>,
+  media: Required<Config['propDefaults']['media']>,
+  section: Required<Config['propDefaults']['section']>,
+  table: Required<Config['propDefaults']['table']>,
+} = {
   aside: {
     classes: '',
     type: 'info',
@@ -16,25 +26,14 @@ export const defaultPropDefaults: StoreConfig['propDefaults'] = {
   codeblock: {
     classes: '',
     readerCanCopy: false,
-    hasLang: false,
-    hasLineNumbers: false,
+    showsLang: false,
+    showsLineNumbers: false,
   },
   details: {
     classes: '',
-    summary: '',
-  },
-  table: {
-    classes: '',
-    readerCanSearch: false,
-    searchIsCaseSensitive: true,
-    readerCanChangeSearchCaseSensitivity: false,
-    minimumSearchScore: 1,
   },
   heading: {
     classes: '',
-    descendant1Classes: '',
-    descendant2Classes: '',
-    descendant3Classes: '',
     readerCanCopy: false,
   },
   list: {
@@ -49,5 +48,12 @@ export const defaultPropDefaults: StoreConfig['propDefaults'] = {
   },
   section: {
     classes: '',
+  },
+  table: {
+    classes: '',
+    readerCanSearch: false,
+    searchIsCaseSensitive: true,
+    readerCanChangeSearchCaseSensitivity: false,
+    minimumSearchScore: 1,
   },
 }

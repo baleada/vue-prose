@@ -1,4 +1,4 @@
-export { storeConfig } from './storeConfig'
-export type { StoreConfig } from './storeConfig'
+export { config } from './config'
+export type { Config } from './config'
 
 export { loopedIdPrefix } from './loopedIdPrefix'
