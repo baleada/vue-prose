@@ -3,7 +3,7 @@ import { createBlockquote } from './components/createBlockquote'
 import { createCodeblock } from './components/createCodeblock'
 import { createDetails } from './components/createDetails'
 import { createHeading } from './components/createHeading'
-// import { createList } from './components/createList'
+import { createList } from './components/createList'
 import { createMedia } from './components/createMedia'
 import { createSection } from './components/createSection'
 // import { createTable } from './components/createTable'
@@ -22,7 +22,7 @@ export {
   createCodeblock,
   createDetails,
   createHeading,
-  // createList,
+  createList,
   createMedia,
   createSection,
   // createTable,
@@ -35,7 +35,7 @@ export const components = [
   createCodeblock,
   createDetails,
   createHeading,
-  // createList,
+  createList,
   createMedia,
   createSection,
   // createTable,

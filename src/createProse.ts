@@ -12,7 +12,7 @@ import type { CreateBlockquote } from './components/createBlockquote'
 import type { CreateCodeblock } from './components/createCodeblock'
 import type { CreateDetails } from './components/createDetails'
 import type { CreateHeading } from './components/createHeading'
-// import type { CreateList } from './components/createList'
+import type { CreateList } from './components/createList'
 import type { CreateMedia } from './components/createMedia'
 import type { CreateSection } from './components/createSection'
 // import type { CreateTable } from './components/createTable'
@@ -23,7 +23,7 @@ export type CreateComponent =
   | CreateCodeblock
   | CreateDetails
   | CreateHeading
-  // | CreateList
+  | CreateList
   | CreateMedia
   | CreateSection
   // | CreateTable
