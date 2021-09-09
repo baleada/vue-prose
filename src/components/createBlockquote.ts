@@ -5,8 +5,10 @@ import { toTweetIntent, toTextContent, toClassList } from '../extracted'
 import { useStore } from '../composition'
 import type { Config } from '../state'
 
+export type CreateBlockquote = typeof createBlockquote
+
 export const createBlockquote = (config: Config) => defineComponent({
-  name: 'BaleadaProseBlockquote',
+  name: config.componentNames.blockquote,
   setup (props, { slots }) {
     const defaultSlots = slots.default(),
           text = props.tweetText || defaultSlots.reduce((text, slot) => text + toTextContent(slot), ''),

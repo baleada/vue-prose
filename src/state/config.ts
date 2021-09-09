@@ -31,6 +31,9 @@ export type Config = {
     media?: MediaOptional,
     section?: SectionOptional,
   },
+  componentNames?: {
+    [component in 'aside' | 'blockquote' | 'codeblock' | 'details' | 'table' | 'heading' | 'list' | 'media' | 'section']?: string
+  },
   getScrollableContainer?: () => HTMLElement,
 }
 

@@ -2,8 +2,10 @@ import { defineComponent, h } from 'vue'
 import { toClassList } from '../extracted'
 import type { Config } from '../state'
 
+export type CreateSection = typeof createSection
+
 export const createSection = (config: Config) => defineComponent({
-  name: 'BaleadaProseSection',
+  name: config.componentNames.section,
   setup (props, { slots }) {
     return () => h(
       'section',

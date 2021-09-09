@@ -4,8 +4,10 @@ import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBol
 import { toClassList } from '../extracted'
 import type { Config } from '../state'
 
+export type CreateAside = typeof createAside
+
 export const createAside = (config: Config) => defineComponent({
-  name: 'BaleadaProseAside',
+  name: config.componentNames.aside,
   setup (props, { slots }) {
     const Icon = (() => {
       switch (props.type) {

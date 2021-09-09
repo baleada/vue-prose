@@ -4,7 +4,7 @@
     class="baleada-prose-details"
     :class="[withConfiguredDefaults.classes]"
   >
-    <summary v-if="withConfiguredDefaults.summary">
+    <summary>
       <HeroiconsChevronRight />
       <span>{{ withConfiguredDefaults.summary }}</span>
     </summary>

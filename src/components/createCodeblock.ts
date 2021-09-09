@@ -6,8 +6,10 @@ import { toTextContent } from '../extracted'
 import { toClassList } from '../extracted'
 import type { Config } from '../state'
 
+export type CreateCodeblock = typeof createCodeblock
+
 export const createCodeblock = (config: Config) => defineComponent({
-  name: 'BaleadaProseCodeblock',
+  name: config.componentNames.codeblock,
   setup (props, { slots }) {
     const copyable = useCopyable(''),
           defaultSlots = slots.default(),
