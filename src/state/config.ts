@@ -1,12 +1,12 @@
-import type { AsideOptional } from '../components/propTypes'
-import type { BlockquoteOptional } from '../components/propTypes'
-import type { CodeblockOptional } from '../components/propTypes'
-import type { DetailsOptional } from '../components/propTypes'
-import type { HeadingOptional } from '../components/propTypes'
-import type { ListOptional } from '../components/propTypes'
-import type { MediaOptional } from '../components/propTypes'
-import type { SectionOptional } from '../components/propTypes'
-import type { TableOptional } from '../components/propTypes'
+import type { AsideOptional } from '../components/createAside'
+import type { BlockquoteOptional } from '../components/createBlockquote'
+import type { CodeblockOptional } from '../components/createCodeblock'
+import type { DetailsOptional } from '../components/createDetails'
+import type { HeadingOptional } from '../components/createHeading'
+import type { ListOptional } from '../components/createList'
+import type { MediaOptional } from '../components/createMedia'
+import type { SectionOptional } from '../components/createSection'
+import type { TableOptional } from '../components/createTable'
 
 export type Config = {
   getFullPath?: 'vue-router' | (() => string),
@@ -42,4 +42,3 @@ export type Config = {
 //
 // Import order matters here.
 export let config: Config = {}
-

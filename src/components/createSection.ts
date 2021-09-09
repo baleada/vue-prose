@@ -4,6 +4,12 @@ import type { Config } from '../state'
 
 export type CreateSection = typeof createSection
 
+export type SectionOptional = {
+  classes?: string,
+}
+
+export type SectionProps = SectionOptional
+
 export const createSection = (config: Config) => defineComponent({
   name: config.componentNames.section,
   setup (props, { slots }) {

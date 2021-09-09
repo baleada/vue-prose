@@ -10,6 +10,16 @@ import type { Config } from '../state'
 
 export type CreateHeading = typeof createHeading
 
+export type HeadingOptional = {
+  readerCanCopy?: boolean,
+  classes?: string,
+}
+
+export type HeadingProps = HeadingOptional & {
+  level: number,
+  isFirst: boolean,
+}
+
 export const createHeading = (config: Config) => defineComponent({
   name: config.componentNames.heading,
   setup (props, { slots }) {

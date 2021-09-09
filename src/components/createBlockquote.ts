@@ -7,6 +7,17 @@ import type { Config } from '../state'
 
 export type CreateBlockquote = typeof createBlockquote
 
+export type BlockquoteOptional = {
+  readerCanTweet?: boolean,
+  tweetText?: string,
+  tweetUrl?: string,
+  tweetVia?: string,
+  tweetHashtags?: string[],
+  classes?: string,
+}
+
+export type BlockquoteProps = BlockquoteOptional
+
 export const createBlockquote = (config: Config) => defineComponent({
   name: config.componentNames.blockquote,
   setup (props, { slots }) {

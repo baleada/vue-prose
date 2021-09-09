@@ -6,6 +6,19 @@ import type { Config } from '../state'
 
 export type CreateList = typeof createList
 
+export type ListOptional = {
+  readerCanSearch?: boolean,
+  searchIsCaseSensitive?: boolean,
+  readerCanChangeSearchCaseSensitivity?: boolean,
+  minimumSearchScore?: number,
+  classes?: string,
+}
+
+export type ListProps = ListOptional & {
+  tag: 'ol' | 'ul',
+  totalItems: number,
+}
+
 export const createList = (config: Config) => defineComponent({
   name: config.componentNames.list,
   setup (props, { slots }) {

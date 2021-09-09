@@ -6,6 +6,17 @@ import type { Config } from '../state'
 
 export type CreateMedia = typeof createMedia
 
+export type MediaOptional = {
+  classes?: string
+}
+
+export type MediaProps = MediaOptional & {
+  type: 'image' | 'img' | 'audio' | 'video' | 'embed' | 'iframe',
+  isFirst: boolean,
+  src: string,
+  ariaLabel: string,
+}
+
 export const createMedia = (config: Config) => defineComponent({
   name: config.componentNames.media,
   setup (props) {

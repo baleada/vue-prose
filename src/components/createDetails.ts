@@ -6,6 +6,14 @@ import type { Config } from '../state'
 
 export type CreateDetails = typeof createDetails
 
+export type DetailsOptional = {
+  classes?: string,
+}
+
+export type DetailsProps = DetailsOptional & {
+  summary: string,
+}
+
 export const createDetails = (config: Config) => defineComponent({
   name: config.componentNames.details,
   setup (props, { slots }) {

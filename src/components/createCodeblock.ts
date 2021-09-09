@@ -8,6 +8,18 @@ import type { Config } from '../state'
 
 export type CreateCodeblock = typeof createCodeblock
 
+export type CodeblockOptional = {
+  readerCanCopy?: boolean,
+  showsLang?: boolean,
+  showsLineNumbers?: boolean,
+  classes?: string,
+}
+
+export type CodeblockProps = CodeblockOptional & {
+  totalLines: number,
+  lang: string, 
+}
+
 export const createCodeblock = (config: Config) => defineComponent({
   name: config.componentNames.codeblock,
   setup (props, { slots }) {

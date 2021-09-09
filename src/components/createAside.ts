@@ -6,6 +6,13 @@ import type { Config } from '../state'
 
 export type CreateAside = typeof createAside
 
+export type AsideOptional = {
+  type?: 'info' | 'warning' | 'danger' | 'success' | 'simple',
+  classes?: string,
+}
+
+export type AsideProps = AsideOptional
+
 export const createAside = (config: Config) => defineComponent({
   name: config.componentNames.aside,
   setup (props, { slots }) {

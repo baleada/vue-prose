@@ -5,6 +5,20 @@ import type { Config } from '../state'
 
 export type CreateTable = typeof createTable
 
+export type TableOptional = {
+  readerCanSearch?: boolean,
+  searchIsCaseSensitive?: boolean,
+  minimumSearchScore?: number,
+  readerCanChangeSearchCaseSensitivity?: boolean,
+  classes?: string,
+}
+
+export type TableProps = TableOptional & {
+  totalBodyRows: number,
+  totalColumns: number,
+  ariaLabel: string,
+}
+
 export const createTable = (config: Config) => defineComponent({
   name: config.componentNames.table,
   setup (props, { slots }) {
