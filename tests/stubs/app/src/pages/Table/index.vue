@@ -4,6 +4,7 @@
     :totalColumns="2"
     :readerCanSearch="true"
     :readerCanChangeSearchCaseSensitivity="true"
+    ariaLabel="My table"
   >
     <template #prose-looped-0-prose-looped-0-prose-looped-0="{ ref }">
       <div :ref="ref">Letter</div>

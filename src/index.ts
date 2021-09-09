@@ -6,7 +6,7 @@ import { createHeading } from './components/createHeading'
 import { createList } from './components/createList'
 import { createMedia } from './components/createMedia'
 import { createSection } from './components/createSection'
-// import { createTable } from './components/createTable'
+import { createTable } from './components/createTable'
 import { createProse } from './createProse'
 import { useStore, useEffects } from './composition'
 
@@ -25,7 +25,7 @@ export {
   createList,
   createMedia,
   createSection,
-  // createTable,
+  createTable,
 }
 
 // Exported for ease of configuring all
@@ -38,5 +38,5 @@ export const components = [
   createList,
   createMedia,
   createSection,
-  // createTable,
+  createTable,
 ]

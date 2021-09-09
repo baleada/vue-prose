@@ -15,7 +15,7 @@ import type { CreateHeading } from './components/createHeading'
 import type { CreateList } from './components/createList'
 import type { CreateMedia } from './components/createMedia'
 import type { CreateSection } from './components/createSection'
-// import type { CreateTable } from './components/createTable'
+import type { CreateTable } from './components/createTable'
 
 export type CreateComponent = 
   CreateAside
@@ -26,7 +26,7 @@ export type CreateComponent =
   | CreateList
   | CreateMedia
   | CreateSection
-  // | CreateTable
+  | CreateTable
 
 export type PluginOptions = {
   createsPinia?: boolean,
