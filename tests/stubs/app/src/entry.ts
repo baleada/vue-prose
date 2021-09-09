@@ -1,7 +1,10 @@
 import { createApp, nextTick } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { createProse } from '../../../../src/createProse'
+import {
+  createProse,
+  components,
+} from '../../../../src'
 import routes from 'virtual:generated-pages'
 
 const app = createApp(App),
@@ -12,6 +15,7 @@ const app = createApp(App),
         routes,
       }),
       prose = createProse({
+        components,
         createsPinia: true,
         getFullPath: 'vue-router',
         propDefaults: {

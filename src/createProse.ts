@@ -1,25 +1,33 @@
-import type { Plugin } from 'vue'
+import type { DefineComponent, Plugin } from 'vue'
 import { createPinia } from 'pinia'
 import { config } from './state'
 import type { Config } from './state'
-import { defaultMessages, defaultPropDefaults } from './stubs'
-// import Aside from './components/BaleadaProseAside.vue'
-import { createAside } from './components/createAside'
-// import Blockquote from './components/BaleadaProseBlockquote.vue'
-import { createBlockquote } from './components/createBlockquote'
-// import Codeblock from './components/BaleadaProseCodeblock.vue'
-import { createCodeblock } from './components/createCodeblock'
-// import Details from './components/BaleadaProseDetails.vue'
-// import Heading from './components/BaleadaProseHeading.vue'
-// import List from './components/BaleadaProseList.vue'
-// import Media from './components/BaleadaProseMedia.vue'
-// import Section from './components/BaleadaProseSection.vue'
-import { createSection } from './components/createSection'
-// import Table from './components/BaleadaProseTable.vue'
+import {
+  defaultComponentNames,
+  defaultMessages,
+  defaultPropDefaults
+} from './stubs'
+import type { CreateAside } from './components/createAside'
+import type { CreateBlockquote } from './components/createBlockquote'
+import type { CreateCodeblock } from './components/createCodeblock'
+import type { CreateDetails } from './components/createDetails'
+import type { CreateSection } from './components/createSection'
 
-export type PluginOptions = { createsPinia?: boolean, componentPrefix?: string } & Config
+export type CreateComponent = 
+  CreateAside
+  | CreateBlockquote
+  | CreateCodeblock
+  | CreateDetails
+  | CreateSection
+
+export type PluginOptions = {
+  createsPinia?: boolean,
+  components?: CreateComponent[],
+} & Config
 
 const defaultOptions: PluginOptions = {
+  componentNames: defaultComponentNames,
+  components: [],
   getFullPath: () => window.location.pathname,
   propDefaults: defaultPropDefaults,
   messages: defaultMessages,
@@ -38,7 +46,7 @@ export const createProse: (options?: PluginOptions) => Plugin = (options = {}) =
       for (const component in defaultOptions[property]) {
         merged[component] = {
           ...defaultOptions[property][component],
-          ...options?.[property]?.[component]
+          ...(options?.[property]?.[component] || {})
         }
       }
 
@@ -47,20 +55,22 @@ export const createProse: (options?: PluginOptions) => Plugin = (options = {}) =
       continue
     }
 
+    if (property === 'componentNames') {
+      config[property] = {
+        ...defaultOptions[property],
+        ...(options?.[property] || {})
+      }
+
+      continue
+    }
+
     config[property] = options?.[property] || defaultOptions[property]
   }
 
-  // app.component('BaleadaProseAside', Aside)
-  app.component('BaleadaProseAside', createAside(config))
-  // app.component('BaleadaProseBlockquote', Blockquote)
-  app.component('BaleadaProseBlockquote', createBlockquote(config))
-  // app.component('BaleadaProseCodeblock', Codeblock)
-  app.component('BaleadaProseCodeblock', createCodeblock(config))
-  // app.component('BaleadaProseDetails', Details)
-  // app.component('BaleadaProseHeading', Heading)
-  // app.component('BaleadaProseList', List)
-  // app.component('BaleadaProseMedia', Media)
-  // app.component('BaleadaProseSection', Section)
-  app.component('BaleadaProseSection', createSection(config))
-  // app.component('BaleadaProseTable', Table)
+  const components = options.components || defaultOptions.components
+
+  for (const createComponent of components) {
+    const component = createComponent(config)
+    app.component(component.name, component)
+  }
 }
