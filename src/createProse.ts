@@ -1,4 +1,4 @@
-import type { DefineComponent, Plugin } from 'vue'
+import type { Plugin } from 'vue'
 import { createPinia } from 'pinia'
 import { config } from './state'
 import type { Config } from './state'
@@ -11,6 +11,7 @@ import type { CreateAside } from './components/createAside'
 import type { CreateBlockquote } from './components/createBlockquote'
 import type { CreateCodeblock } from './components/createCodeblock'
 import type { CreateDetails } from './components/createDetails'
+import type { CreateHeading } from './components/createHeading'
 import type { CreateSection } from './components/createSection'
 
 export type CreateComponent = 
@@ -18,6 +19,7 @@ export type CreateComponent =
   | CreateBlockquote
   | CreateCodeblock
   | CreateDetails
+  | CreateHeading
   | CreateSection
 
 export type PluginOptions = {
