@@ -1,6 +1,5 @@
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { PropType } from 'vue'
-// @ts-ignore
 import { toClassList } from '../extracted'
 import { useStore } from '../composition'
 import type { Config } from '../state'
@@ -9,7 +8,7 @@ export type CreateMedia = typeof createMedia
 
 export const createMedia = (config: Config) => defineComponent({
   name: config.componentNames.media,
-  setup (props, { slots }) {
+  setup (props) {
     const store = useStore()
 
     // Reset article-provided state
