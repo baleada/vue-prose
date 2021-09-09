@@ -3,7 +3,6 @@ import type { Ref, ComputedRef } from 'vue'
 import { bind, on, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { MatchData } from 'fast-fuzzy'
-import { loopedIdPrefix } from '../state'
 
 export type List = {
   root: {
@@ -50,7 +49,7 @@ export function useList (
   const items = Array(totalItems)
     .fill(undefined)
     .map((_, index) => {
-      const id = `${loopedIdPrefix}-${index}`,
+      const id = `baleada-prose-looped-${index}`,
             el = ref<HTMLElement>(null),
             setEl: List['items'][0]['ref'] = newEl => (el.value = newEl),
             textContent = computed(() => el.value?.textContent || ''),

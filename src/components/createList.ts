@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { PropType } from 'vue'
 import { toClassList } from '../extracted'
 import { useList } from '../composition'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateList = typeof createList
 

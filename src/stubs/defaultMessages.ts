@@ -1,4 +1,4 @@
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export const defaultMessages: Config['messages'] = {
   table: {

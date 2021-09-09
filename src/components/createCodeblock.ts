@@ -4,7 +4,7 @@ import { useCopyable } from '@baleada/vue-composition'
 import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
 import { toTextContent } from '../extracted'
 import { toClassList } from '../extracted'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateCodeblock = typeof createCodeblock
 

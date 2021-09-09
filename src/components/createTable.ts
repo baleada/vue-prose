@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue'
 import { toClassList } from '../extracted'
 import { useTable } from '../composition'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateTable = typeof createTable
 

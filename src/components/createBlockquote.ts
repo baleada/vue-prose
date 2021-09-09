@@ -3,7 +3,7 @@ import { ref, onMounted, defineComponent, h } from 'vue'
 import { SimpleTwitter } from '@baleada/vue-simple-icons/lite'
 import { toTweetIntent, toTextContent, toClassList } from '../extracted'
 import { useStore } from '../composition'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateBlockquote = typeof createBlockquote
 

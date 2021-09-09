@@ -1,7 +1,7 @@
 import type { Plugin } from 'vue'
 import { createPinia } from 'pinia'
-import { config } from './state'
-import type { Config } from './state'
+import { config } from './config'
+import type { Config } from './config'
 import {
   defaultComponentNames,
   defaultMessages,
@@ -28,13 +28,13 @@ export type CreateComponent =
   | CreateSection
   | CreateTable
 
-export type PluginOptions = {
+export type Options = {
   createsPinia?: boolean,
   components?: CreateComponent[],
-} & Config
+} & Omit<Config, 'componentNames'>
 
-const defaultOptions: PluginOptions = {
-  componentNames: defaultComponentNames,
+const defaultOptions: Options = {
+  // componentNames: defaultComponentNames,
   components: [],
   getFullPath: () => window.location.pathname,
   propDefaults: defaultPropDefaults,
@@ -42,7 +42,7 @@ const defaultOptions: PluginOptions = {
   getScrollableContainer: () => document.body,
 }
 
-export const createProse: (options?: PluginOptions) => Plugin = (options = {}) => app => {
+export const createProse: (options?: Options) => Plugin = (options = {}) => app => {
   if (options.createsPinia) {
     app.use(createPinia())
   }
@@ -63,14 +63,19 @@ export const createProse: (options?: PluginOptions) => Plugin = (options = {}) =
       continue
     }
 
-    if (property === 'componentNames') {
-      config[property] = {
-        ...defaultOptions[property],
-        ...(options?.[property] || {})
-      }
+    // It's possible to allow component name customization here,
+    // but it introduces unnecessary footguns for Markdown-it Prose Container,
+    // which would have to be separately configured with the same set
+    // of component names.
+    //
+    // if (property === 'componentNames') {
+    //   config[property] = {
+    //     ...defaultOptions[property],
+    //     ...(options?.[property] || {})
+    //   }
 
-      continue
-    }
+    //   continue
+    // }
 
     config[property] = options?.[property] || defaultOptions[property]
   }

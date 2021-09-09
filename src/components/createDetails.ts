@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 // @ts-ignore
 import { HeroiconsChevronRight } from '@baleada/vue-heroicons'
 import { toClassList } from '../extracted'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateDetails = typeof createDetails
 

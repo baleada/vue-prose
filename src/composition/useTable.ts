@@ -3,7 +3,6 @@ import type { Ref, ComputedRef } from 'vue'
 import { bind, on, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { MatchData } from 'fast-fuzzy'
-import { loopedIdPrefix } from '../state'
 
 export type Table = {
   root: {
@@ -87,7 +86,7 @@ export function useTable (
   const   { 0: headerRowGroup } = toMetadata<'header', 'rowGroup'>({
           length: 1,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
+            const id = `baleada-prose-looped-${index}`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['header']['rowGroup']['ref'] = newEl => (el.value = newEl),
                   headerRowGroup: Table['header']['rowGroup'] = { id, el, ref: setEl }
@@ -103,7 +102,7 @@ export function useTable (
         { 0: headerRow } = toMetadata<'header', 'row'>({
           length: 1,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
+            const id = `baleada-prose-looped-${index}`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['header']['row']['ref'] = newEl => (el.value = newEl),
                   headerRow: Table['header']['row'] = { id, el, ref: setEl }
@@ -119,7 +118,7 @@ export function useTable (
         headerCells = toMetadata<'header', 'cells'>({
           length: totalColumns,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
+            const id = `baleada-prose-looped-${index}`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['header']['cells'][0]['ref'] = newEl => (el.value = newEl),
                   headerCell: Table['header']['cells'][0] = { id, el, ref: setEl }
@@ -138,7 +137,7 @@ export function useTable (
   const { 0: bodyRowGroup } = toMetadata<'body', 'rowGroup'>({
           length: 1,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-1`,
+            const id = `baleada-prose-looped-1`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['body']['rowGroup']['ref'] = newEl => (el.value = newEl),
                   bodyRowGroup: Table['body']['rowGroup'] = { id, el, ref: setEl }
@@ -154,7 +153,7 @@ export function useTable (
         bodyRows = toMetadata<'body', 'rows'>({
           length: totalBodyRows,
           fromIndexToMetadatum: index => {
-            const id = `${loopedIdPrefix}-${index}`,
+            const id = `baleada-prose-looped-${index}`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['body']['rows'][0]['ref'] = newEl => (el.value = newEl),
                   textContent = computed(() => el.value.textContent),
@@ -178,7 +177,7 @@ export function useTable (
           length: totalBodyRows * totalColumns,
           fromIndexToMetadatum: index => {
             const indexInRow = index % totalColumns,
-                  id = `${loopedIdPrefix}-${indexInRow}`,
+                  id = `baleada-prose-looped-${indexInRow}`,
                   el = ref<HTMLElement>(null),
                   setEl: Table['body']['cellsByRow'][0][0]['ref'] = newEl => (el.value = newEl),
                   bodyCell: Table['body']['cellsByRow'][0][0] = { id, el, ref: setEl }

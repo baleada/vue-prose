@@ -2,7 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { PropType } from 'vue'
 import { toClassList } from '../extracted'
 import { useStore } from '../composition'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateMedia = typeof createMedia
 

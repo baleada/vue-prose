@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, watch, watchEffect } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
-import { config } from '../state'
+import { config } from '../config'
 import { scrollToHeading } from '../extracted'
 import { useRoute } from 'vue-router'
 

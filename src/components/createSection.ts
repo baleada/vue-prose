@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import { toClassList } from '../extracted'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateSection = typeof createSection
 

@@ -6,7 +6,7 @@ import { HeroiconsLink } from '@baleada/vue-heroicons'
 import { toTextContent } from '../extracted'
 import { useStore } from '../composition'
 import { toClassList } from '../extracted'
-import type { Config } from '../state'
+import type { Config } from '../config'
 
 export type CreateHeading = typeof createHeading
 
