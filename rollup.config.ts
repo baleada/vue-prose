@@ -21,7 +21,7 @@ const external = [
         .analyzer()
         .configure(),
       dts = new configureable.Rollup()
-        .input('src/index.ts')
+        .input('types/index.d.ts')
         .external(external)
         .output({ file: 'lib/index.d.ts', format: 'esm' })
         .dts()
