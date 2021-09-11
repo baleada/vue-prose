@@ -49,7 +49,7 @@ export function useList (
   const items = Array(totalItems)
     .fill(undefined)
     .map((_, index) => {
-      const id = `baleada-prose-looped-${index}`,
+      const id = `looped-${index}`,
             el = ref<HTMLElement>(null),
             setEl: List['items'][0]['ref'] = newEl => (el.value = newEl),
             textContent = computed(() => el.value?.textContent || ''),
