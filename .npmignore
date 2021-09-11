@@ -3,7 +3,4 @@
 
 # Except these files
 !lib/**/*.js
-!propsInterfaces/**/*.js
-!propsInterfaces/**/*.cjs
-!loopedIdPrefix/**/*.js
-!loopedIdPrefix/**/*.cjs
+!lib/**/*.d.ts
