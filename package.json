@@ -43,14 +43,14 @@
     "esbuild": "^0.12.25",
     "esbuild-register": "^3.0.0",
     "rollup": "^2.56.3",
-    "typescript": "^4.3.5",
+    "typescript": "^4.4.3",
     "uvu": "^0.5.1",
     "vite": "^2.5.3",
     "vue-router": "^4.0.11"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "@baleada/logic": "^0.20.8",
+    "@baleada/logic": "^0.20.9",
     "@baleada/vue-composition": "^0.10.4",
     "@baleada/vue-features": "^0.9.0",
     "@baleada/vue-heroicons": "^0.1.2",
