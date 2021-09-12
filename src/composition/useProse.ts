@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, watch, watchEffect, nextTick } from 'vue'
+import { ref, computed, onMounted, watch, watchEffect } from 'vue'
 import type { Ref } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -24,10 +24,7 @@ export function useEffects ({ scrollableContainer }: { scrollableContainer?: Ref
 
     onMounted(() => {
       scrollEffect()
-      watch(
-        fullPath,
-        () => nextTick(scrollEffect),
-      )
+      watch(fullPath, scrollEffect, { flush: 'post' })
     })
   }
 }
