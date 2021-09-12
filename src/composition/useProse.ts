@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, watch, watchEffect } from 'vue'
+import { ref, computed, onMounted, watch, watchEffect, nextTick } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
 import { config } from '../config'
 import { scrollToHeading } from '../extracted'
@@ -22,7 +22,10 @@ export function useEffects () {
 
   onMounted(() => {
     scrollEffect()
-    watch(fullPath, scrollEffect, { flush: 'post' })
+    watch(
+      fullPath,
+      () => nextTick(scrollEffect),
+    )
   })
 }
 
