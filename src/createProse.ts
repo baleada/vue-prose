@@ -77,6 +77,8 @@ export const createProse: (options?: Options) => Plugin = (options = {}) => app 
     //   continue
     // }
 
+    config.componentNames = defaultComponentNames
+
     config[property] = options?.[property] || defaultOptions[property]
   }
 
