@@ -1,10 +1,11 @@
 import { ref, computed, onMounted, watch, watchEffect, nextTick } from 'vue'
+import type { Ref } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
 import { config } from '../config'
 import { scrollToHeading } from '../extracted'
 import { useRoute } from 'vue-router'
 
-export function useEffects () {
+export function useEffects ({ scrollableContainer }: { scrollableContainer?: Ref<HTMLElement> } = {}) {
   const store = useStore()
 
   // useRoute can only be called inside a `setup` function,
@@ -17,16 +18,18 @@ export function useEffects () {
     watchEffect(() => store.setFullPath(route.fullPath))
   }
 
-  const { fullPath, scrollableContainer } = storeToRefs(store),
-        scrollEffect = () => scrollToHeading({ fullPath, scrollableContainer })
+  if (scrollableContainer) {
+    const { fullPath } = storeToRefs(store),
+    scrollEffect = () => scrollToHeading({ fullPath, scrollableContainer })
 
-  onMounted(() => {
-    scrollEffect()
-    watch(
-      fullPath,
-      () => nextTick(scrollEffect),
-    )
-  })
+    onMounted(() => {
+      scrollEffect()
+      watch(
+        fullPath,
+        () => nextTick(scrollEffect),
+      )
+    })
+  }
 }
 
 export type Article = {
@@ -49,7 +52,6 @@ export const useStore = defineStore('Baleada Prose', () => {
         fullPath = config.getFullPath === 'vue-router'
           ? computed(() => vueRouterFullPath.value)
           : computed(config.getFullPath),
-        scrollableContainer = computed(config.getScrollableContainer),
         article = ref<Article>({
           headings: [],
           media: [],
@@ -57,7 +59,6 @@ export const useStore = defineStore('Baleada Prose', () => {
 
   return {
     fullPath,
-    scrollableContainer,
     article,
     setFullPath: setVueRouterFullPath,
   }

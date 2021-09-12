@@ -34,7 +34,6 @@ export type Config = {
   componentNames?: {
     [component in 'aside' | 'blockquote' | 'codeblock' | 'details' | 'table' | 'heading' | 'list' | 'media' | 'section']?: string
   },
-  getScrollableContainer?: () => HTMLElement,
 }
 
 // This empty object gets filled up by the plugin, then

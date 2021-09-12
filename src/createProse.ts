@@ -39,7 +39,6 @@ const defaultOptions: Options = {
   getFullPath: () => window.location.pathname,
   propDefaults: defaultPropDefaults,
   messages: defaultMessages,
-  getScrollableContainer: () => document.body,
 }
 
 export const createProse: (options?: Options) => Plugin = (options = {}) => app => {
