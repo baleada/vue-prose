@@ -1,9 +1,9 @@
 import { ref, computed, onMounted, watch, watchEffect, nextTick } from 'vue'
 import type { Ref } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
 import { config } from '../config'
 import { scrollToHeading } from '../extracted'
-import { useRoute } from 'vue-router'
 
 export function useEffects ({ scrollableContainer }: { scrollableContainer?: Ref<HTMLElement> } = {}) {
   const store = useStore()

@@ -2,6 +2,7 @@ import { configureable } from '@baleada/prepare'
 
 const external = [
         'vue',
+        'vue-router',
         'pinia',
         '@baleada/logic',
         '@baleada/vue-composition',
