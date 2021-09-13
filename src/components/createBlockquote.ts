@@ -57,7 +57,7 @@ export const createBlockquote = (config: Config) => defineComponent({
             h(
               'a',
               {
-                href: intent,
+                href: intent.value,
                 target: '_blank',
                 rel: 'noopener noreferrer',
                 'aria-label': 'Tweet blockquote',
