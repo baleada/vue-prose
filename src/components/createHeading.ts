@@ -27,7 +27,7 @@ export const createHeading = (config: Config) => defineComponent({
 
     // Clear stored headings
     if (props.isFirst) {
-      store.article.headings = []
+      store.headings = []
     }
 
     // Get slug for various features
@@ -36,7 +36,7 @@ export const createHeading = (config: Config) => defineComponent({
           slug = toSlug(text)
 
     // Register heading in store
-    store.article.headings = [...store.article.headings, { level: props.level, slug, text }]
+    store.headings = [...store.headings, { level: props.level, slug, text }]
 
     // Set up copy link feature
     const copyable = useCopyable('')

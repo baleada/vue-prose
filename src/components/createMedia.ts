@@ -24,7 +24,7 @@ export const createMedia = (config: Config) => defineComponent({
 
     // Reset article-provided state
     if (props.isFirst) {
-      store.article.media = []
+      store.media = []
     }
 
     // Compute tag
@@ -44,8 +44,8 @@ export const createMedia = (config: Config) => defineComponent({
     })()
 
     // Register media in context
-    store.article.media = [
-      ...store.article.media,
+    store.media = [
+      ...store.media,
       {
         type: props.type,
         tag: tag,

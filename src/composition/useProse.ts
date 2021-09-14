@@ -3,9 +3,9 @@ import type { Ref } from 'vue'
 import { acceptHMRUpdate, defineStore, storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { useListenable } from '@baleada/vue-composition'
+import type { ListenEffect, ListenOptions } from '@baleada/logic'
 import { config } from '../config'
 import { scrollToHeading } from '../extracted'
-import type { ListenEffect, ListenOptions } from '@baleada/logic'
 
 export type UseEffectsOptions = {
   scrollableContainer?: Ref<HTMLElement>,
@@ -77,34 +77,28 @@ export function useEffects (options: UseEffectsOptions = {}) {
   }
 }
 
-export type Article = {
-  headings: {
-    level: number,
-    slug: string,
-    text: string,
-  }[],
-  media: {
-    type: 'image' | 'img' | 'audio' | 'video' | 'embed' | 'iframe',
-    tag: 'img' | 'audio' | 'video' | 'iframe',
-    src: string,
-    ariaLabel: string,
-  }[]
-}
-
 export const useStore = defineStore('Baleada Prose', () => {
   const vueRouterFullPath = ref('vue-router'),
         setVueRouterFullPath = (fullPath: string) => vueRouterFullPath.value = fullPath,
         fullPath = config.getFullPath === 'vue-router'
           ? computed(() => vueRouterFullPath.value)
           : computed(config.getFullPath),
-        article = ref<Article>({
-          headings: [],
-          media: [],
-        })
+        headings = ref<{
+          level: number,
+          slug: string,
+          text: string,
+        }[]>([]),
+        media = ref<{
+          type: 'image' | 'img' | 'audio' | 'video' | 'embed' | 'iframe',
+          tag: 'img' | 'audio' | 'video' | 'iframe',
+          src: string,
+          ariaLabel: string,
+        }[]>([])
 
   return {
     fullPath,
-    article,
+    headings,
+    media,
     setFullPath: setVueRouterFullPath,
   }
 })
