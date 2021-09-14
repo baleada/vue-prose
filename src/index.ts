@@ -16,7 +16,7 @@ export {
   useStore,
   useEffects,
 
-  // Components
+  // Higher order components
   createAside,
   createBlockquote,
   createCodeblock,
@@ -27,6 +27,18 @@ export {
   createSection,
   createTable,
 }
+
+// Make the higher order components look like normal components
+// for people who want to treeshake
+export const BaleadaProseAside = createAside
+export const BaleadaProseBlockquote = createBlockquote
+export const BaleadaProseCodeblock = createCodeblock
+export const BaleadaProseDetails = createDetails
+export const BaleadaProseHeading = createHeading
+export const BaleadaProseList = createList
+export const BaleadaProseMedia = createMedia
+export const BaleadaProseSection = createSection
+export const BaleadaProseTable = createTable
 
 // Exported for ease of configuring all
 export const components = [
