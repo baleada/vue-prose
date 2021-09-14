@@ -28,12 +28,12 @@ export type CreateComponent =
   | CreateSection
   | CreateTable
 
-export type Options = {
+export type CreateProseOptions = {
   createsPinia?: boolean,
   components?: CreateComponent[],
 } & Omit<Config, 'componentNames'>
 
-const defaultOptions: Options = {
+const defaultOptions: CreateProseOptions = {
   // componentNames: defaultComponentNames,
   components: [],
   getFullPath: () => window.location.pathname,
@@ -41,7 +41,7 @@ const defaultOptions: Options = {
   messages: defaultMessages,
 }
 
-export const createProse: (options?: Options) => Plugin = (options = {}) => app => {
+export const createProse: (options?: CreateProseOptions) => Plugin = (options = {}) => app => {
   if (options.createsPinia) {
     app.use(createPinia())
   }

@@ -8,7 +8,9 @@ import { createMedia } from './components/createMedia'
 import { createSection } from './components/createSection'
 import { createTable } from './components/createTable'
 import { createProse } from './createProse'
+import type { CreateProseOptions } from './createProse'
 import { useStore, useEffects } from './composition'
+import type { UseEffectsOptions } from './composition'
 
 export {
   // Setup
@@ -52,3 +54,8 @@ export const components = [
   createSection,
   createTable,
 ]
+
+export type {
+  CreateProseOptions,
+  UseEffectsOptions,
+}

@@ -7,22 +7,24 @@ import { config } from '../config'
 import { scrollToHeading } from '../extracted'
 import type { ListenEffect, ListenOptions } from '@baleada/logic'
 
+export type UseEffectsOptions = {
+  scrollableContainer?: Ref<HTMLElement>,
+  scrollIntoView?: {
+    behavior?: ScrollBehavior | 'preferred',
+    block?: ScrollLogicalPosition,
+    inline?: ScrollLogicalPosition,
+  },
+}
+
+const defaultOptions: UseEffectsOptions = {
+  scrollIntoView: { behavior: 'preferred', block: 'start' },
+}
 
 // TODO: scrollIntoView reactivity to react to prefers-reduced-motion query.
 // Option to have Listenable handle that for you.
-export function useEffects (
-  { scrollableContainer, scrollIntoView }: {
-    scrollableContainer?: Ref<HTMLElement>,
-    scrollIntoView?: {
-      behavior?: ScrollBehavior | 'preferred',
-      block?: ScrollLogicalPosition,
-      inline?: ScrollLogicalPosition,
-    },
-  } = {
-    scrollIntoView: { behavior: 'preferred', block: 'start' },
-  }
-) {
-  const store = useStore()
+export function useEffects (options: UseEffectsOptions = {}) {
+  const store = useStore(),
+        { scrollableContainer, scrollIntoView } = { ...defaultOptions, ...options }
 
   // useRoute can only be called inside a `setup` function,
   // which is where `useEffects` gets called.
