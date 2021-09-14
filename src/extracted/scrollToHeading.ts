@@ -1,22 +1,12 @@
 import type { Ref } from 'vue'
 
-type Options = {
-  scrollIntoView?: ScrollIntoViewOptions
-}
-
-const defaultOptions: Options = {
-  scrollIntoView: { behavior: 'auto', block: 'start' },
-}
-
 export function scrollToHeading (
-  { fullPath, scrollableContainer }: {
+  { fullPath, scrollableContainer, scrollIntoView }: {
     fullPath: Ref<string>,
-    scrollableContainer: Ref<HTMLElement>
-  },
-  options: Options = {}
+    scrollableContainer: Ref<HTMLElement>,
+    scrollIntoView: Ref<ScrollIntoViewOptions>
+  }
 ) {
-  const { scrollIntoView } = { ...defaultOptions, ...options }
-
   if (!anchoredRE.test(fullPath.value)) {
     scrollableContainer.value.scrollTop = 0
     return
@@ -26,7 +16,7 @@ export function scrollToHeading (
         anchor = document.getElementById(`${slug}`),
         heading = anchor?.parentNode as HTMLElement
 
-  if (heading) heading.scrollIntoView(scrollIntoView)
+  if (heading) heading.scrollIntoView(scrollIntoView.value)
 }
 
 const anchoredRE = /#.+$/
