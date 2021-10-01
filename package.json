@@ -51,7 +51,7 @@
     "@babel/runtime": "^7.12.5",
     "@baleada/logic": "^0.20.11",
     "@baleada/vue-composition": "^0.10.4",
-    "@baleada/vue-features": "^0.9.0",
+    "@baleada/vue-features": "^0.10.0",
     "@baleada/vue-heroicons": "^0.1.2",
     "@baleada/vue-simple-icons": "^0.1.0",
     "pinia": "^2.0.0-rc.7",
