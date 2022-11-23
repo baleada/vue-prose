@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
-import { bind, on, show } from '@baleada/vue-features'
+import { bind, on, model, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { MatchData } from 'fast-fuzzy'
 
@@ -43,7 +43,7 @@ export function useList (
   const rootEl = ref<HTMLElement>(null),
         queryInputEl = ref<HTMLInputElement>(null),
         searchIsCaseSensitiveCheckboxEl = ref<HTMLInputElement>(null)
-  bind({ element: rootEl, values: { role: 'list' }})
+  bind(rootEl, { role: 'list' })
 
   // Set up list item metadata
   const items = Array(totalItems)
@@ -56,15 +56,12 @@ export function useList (
             searchResult = computed(() => (searchable.value.results as MatchData<string>[]).find(({ item }) => item === textContent.value)),
             item: List['items'][0] = { id, ref: setEl, textContent, searchResult }
 
-      bind({
-        element: el,
-        values: { role: 'listitem' }
-      })
+      bind(el, { role: 'listitem' })
 
-      show({
-        element: el,
-        condition: computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
-      })
+      show(
+        el,
+        computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
+      )
 
       return item
     })
@@ -86,35 +83,32 @@ export function useList (
   // Manage query case sensitivity
   const ensuredSearchIsCaseSensitive = ref(searchIsCaseSensitive)
   if (readerCanChangeSearchCaseSensitivity) {
-    bind({
-      element: searchIsCaseSensitiveCheckboxEl,
-      values: { checked: computed(() => ensuredSearchIsCaseSensitive.value ? 'true' : '') }
-    })
-    on({
-      element: searchIsCaseSensitiveCheckboxEl,
-      effects: {
-        change (event) {
-          ensuredSearchIsCaseSensitive.value = (event.target as HTMLInputElement).checked
-        }
+    model(
+      searchIsCaseSensitiveCheckboxEl,
+      ensuredSearchIsCaseSensitive,
+      {
+        key: 'checked',
+        event: 'change',
+        toValue: event => (event.target as HTMLInputElement).checked,
       }
-    })
+    )
   }
   
   // Manage query
   const query = ref('')
   if (readerCanSearch) {
-    bind({
-      element: queryInputEl,
-      values: { value: query }
-    })
-    on({
-      element: queryInputEl,
-      effects: {
+    bind(
+      queryInputEl,
+      { value: query }
+    )
+    on(
+      queryInputEl,
+      {
         input (event) {
           query.value = (event.target as HTMLInputElement).value
         }
       }
-    })
+    )
   }
 
   watch(

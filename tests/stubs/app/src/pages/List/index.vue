@@ -5,13 +5,13 @@
     :readerCanSearch="true"
     :readerCanChangeSearchCaseSensitivity="true"
   >
-    <template #prose-looped-0="{ ref }">
+    <template #looped-0="{ ref }">
       <li :ref="ref">list item</li>
     </template>
-    <template #prose-looped-1="{ ref }">
+    <template #looped-1="{ ref }">
       <li :ref="ref">also list item</li>
     </template>
-    <template #prose-looped-2="{ ref }">
+    <template #looped-2="{ ref }">
       <li :ref="ref">yay</li>
     </template>
   </BaleadaProseList>

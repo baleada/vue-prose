@@ -1,7 +1,6 @@
 import { ref, onMounted, defineComponent, h } from 'vue'
-// @ts-ignore
-import { SimpleTwitter } from '@baleada/vue-simple-icons/lite'
-import { toTweetIntent, toTextContent, toClassList } from '../extracted'
+import { render as twitter } from '../../node_modules/simple-icons/icons/twitter.svg'
+import { toTweetIntent, toTextContent, toClassList, toIconComponent } from '../extracted'
 import { useStore } from '../composition'
 import type { Config } from '../config'
 
@@ -63,7 +62,7 @@ export const createBlockquote = (config: Config) => defineComponent({
                 'aria-label': 'Tweet blockquote',
               },
               [
-                h(SimpleTwitter)
+                h(Twitter)
               ]
             )
           ]
@@ -92,3 +91,5 @@ export const createBlockquote = (config: Config) => defineComponent({
     },
   }
 })
+
+const Twitter = toIconComponent(twitter)

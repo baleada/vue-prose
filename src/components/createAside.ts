@@ -1,7 +1,9 @@
 import { defineComponent, h } from 'vue'
-// @ts-ignore
-import { HeroiconsInformationCircle, HeroiconsExclamation, HeroiconsLightningBolt, HeroiconsSparkles } from '@baleada/vue-heroicons'
-import { toClassList } from '../extracted'
+import { render as octiconsInfo24 } from '../../node_modules/@primer/octicons/build/svg/info-24.svg'
+import { render as octiconsAlertFill24 } from '../../node_modules/@primer/octicons/build/svg/alert-fill-24.svg'
+import { render as octiconsZap24 } from '../../node_modules/@primer/octicons/build/svg/zap-24.svg'
+import { render as octiconsRocket24 } from '../../node_modules/@primer/octicons/build/svg/rocket-24.svg'
+import { toClassList, toIconComponent } from '../extracted'
 import type { Config } from '../config'
 
 export type CreateAside = typeof createAside
@@ -19,13 +21,13 @@ export const createAside = (config: Config) => defineComponent({
     const Icon = (() => {
       switch (props.type) {
         case 'info':
-          return HeroiconsInformationCircle
+          return OcticonsInfo24
         case 'warning':
-          return HeroiconsExclamation
+          return OcticonsAlertFill24
         case 'danger':
-          return HeroiconsLightningBolt
+          return OcticonsZap24
         case 'success':
-          return HeroiconsSparkles
+          return OcticonsRocket24
       }
     })()
 
@@ -55,3 +57,8 @@ export const createAside = (config: Config) => defineComponent({
     },
   },
 })
+
+const OcticonsInfo24 = toIconComponent(octiconsInfo24)
+const OcticonsAlertFill24 = toIconComponent(octiconsAlertFill24)
+const OcticonsZap24 = toIconComponent(octiconsZap24)
+const OcticonsRocket24 = toIconComponent(octiconsRocket24)

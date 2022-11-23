@@ -1,4 +1,5 @@
-import { configureable } from '@baleada/prepare'
+import { configureable, Testable } from '@baleada/prepare'
+import { toIconRenderFunction } from './source-transforms/toIconRenderFunction'
 
 const external = [
         'vue',
@@ -7,13 +8,15 @@ const external = [
         '@baleada/logic',
         '@baleada/vue-composition',
         '@baleada/vue-features',
-        '@baleada/vue-heroicons',
-        /@baleada\/vue-simple-icons/,
       ],
       shared = new configureable.Rollup()
         .external(external)
         .input('src/index.ts')
         .resolve()
+        .sourceTransform({
+          test: param => new Testable().include(/(@primer\/octicons|simple-icons|src\/icons)/).test(param),
+          transform: toIconRenderFunction,
+        })
         .vue()
         .esbuild(),
       esm = shared

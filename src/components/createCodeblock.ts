@@ -1,8 +1,7 @@
 import { defineComponent, h, ref } from 'vue'
 import { useCopyable } from '@baleada/vue-composition'
-// @ts-ignore
-import { HeroiconsClipboardCopy } from '@baleada/vue-heroicons'
-import { toTextContent } from '../extracted'
+import { render as octiconsCopy24 } from '../../node_modules/@primer/octicons/build/svg/copy-24.svg'
+import { toIconComponent, toTextContent } from '../extracted'
 import { toClassList } from '../extracted'
 import type { Config } from '../config'
 
@@ -93,7 +92,7 @@ export const createCodeblock = (config: Config) => defineComponent({
                 onClick: clickEffect,
               },
               [
-                h(HeroiconsClipboardCopy),
+                h(OcticonsCopy24),
               ]
             )]
             : []
@@ -124,3 +123,5 @@ export const createCodeblock = (config: Config) => defineComponent({
     },
   }
 })
+
+const OcticonsCopy24 = toIconComponent(octiconsCopy24)

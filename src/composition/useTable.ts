@@ -1,6 +1,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
-import { bind, on, show } from '@baleada/vue-features'
+import { bind, on, model, show } from '@baleada/vue-features'
 import { useSearchable } from '@baleada/vue-composition'
 import { MatchData } from 'fast-fuzzy'
 
@@ -79,7 +79,7 @@ export function useTable (
   const rootEl = ref<HTMLElement>(null),
         queryInputEl = ref<HTMLInputElement>(null),
         searchIsCaseSensitiveCheckboxEl = ref<HTMLInputElement>(null)
-  bind({ element: rootEl, values: { role: 'table', ariaLabel, }})
+  bind(rootEl, { role: 'table', ariaLabel, })
 
 
   // Set up table header
@@ -91,10 +91,7 @@ export function useTable (
                   setEl: Table['header']['rowGroup']['ref'] = newEl => (el.value = newEl),
                   headerRowGroup: Table['header']['rowGroup'] = { id, el, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'rowgroup' }
-            })
+            bind(el, { role: 'rowgroup' })
 
             return headerRowGroup
           }
@@ -107,10 +104,7 @@ export function useTable (
                   setEl: Table['header']['row']['ref'] = newEl => (el.value = newEl),
                   headerRow: Table['header']['row'] = { id, el, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'row', ariaRowindex: 1 }
-            })
+            bind(el, { role: 'row', ariaRowindex: 1 })
 
             return headerRow
           }
@@ -123,10 +117,7 @@ export function useTable (
                   setEl: Table['header']['cells'][0]['ref'] = newEl => (el.value = newEl),
                   headerCell: Table['header']['cells'][0] = { id, el, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'columnheader' }
-            })
+            bind(el, { role: 'columnheader' })
 
             return headerCell
           }
@@ -142,10 +133,7 @@ export function useTable (
                   setEl: Table['body']['rowGroup']['ref'] = newEl => (el.value = newEl),
                   bodyRowGroup: Table['body']['rowGroup'] = { id, el, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'rowgroup' }
-            })
+            bind(el, { role: 'rowgroup' })
 
             return bodyRowGroup
           }
@@ -160,15 +148,15 @@ export function useTable (
                   searchResult = computed(() => (searchable.value.results as MatchData<string>[]).find(({ item }) => item === textContent.value) || null),
                   bodyRow: Table['body']['rows'][0] = { id, el, textContent, searchResult, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'row', ariaRowindex: index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
-            })
+            bind(
+              el,
+              { role: 'row', ariaRowindex: index + 2 } // row indices start at 1, and the first row is the header row. Therefore, +2.
+            )
 
-            show({
-              element: el,
-              condition: computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
-            })
+            show(
+              el,
+              computed(() => query.value === '' || searchResult.value?.score >= minimumSearchScore)
+            )
 
             return bodyRow
           }
@@ -182,10 +170,10 @@ export function useTable (
                   setEl: Table['body']['cellsByRow'][0][0]['ref'] = newEl => (el.value = newEl),
                   bodyCell: Table['body']['cellsByRow'][0][0] = { id, el, ref: setEl }
 
-            bind({
-              element: el,
-              values: { role: 'cell' }
-            })
+            bind(
+              el,
+              { role: 'cell' }
+            )
 
             return bodyCell
           }
@@ -213,36 +201,33 @@ export function useTable (
   // Manage query case sensitivity
   const ensuredSearchIsCaseSensitive = ref(searchIsCaseSensitive)
   if (readerCanChangeSearchCaseSensitivity) {
-    bind({
-      element: searchIsCaseSensitiveCheckboxEl,
-      values: { checked: computed(() => ensuredSearchIsCaseSensitive.value ? 'true' : '') }
-    })
-    on({
-      element: searchIsCaseSensitiveCheckboxEl,
-      effects: {
-        change (event) {
-          ensuredSearchIsCaseSensitive.value = (event.target as HTMLInputElement).checked
-        }
+    model(
+      searchIsCaseSensitiveCheckboxEl,
+      ensuredSearchIsCaseSensitive,
+      {
+        key: 'checked',
+        event: 'change',
+        toValue: event => (event.target as HTMLInputElement).checked,
       }
-    })
+    )
   }
   
   
   // Manage query
   const query = ref('')
   if (readerCanSearch) {
-    bind({
-      element: queryInputEl,
-      values: { value: query }
-    })
-    on({
-      element: queryInputEl,
-      effects: {
+    bind(
+      queryInputEl,
+      { value: query }
+    )
+    on(
+      queryInputEl,
+      {
         input (event) {
           query.value = (event.target as HTMLInputElement).value
         }
       }
-    })
+    )
   }
 
   watch(

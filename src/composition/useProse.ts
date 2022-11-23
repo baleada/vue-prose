@@ -102,7 +102,3 @@ export const useStore = defineStore('Baleada Prose', () => {
     setFullPath: setVueRouterFullPath,
   }
 })
-
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useStore, import.meta.hot))
-}

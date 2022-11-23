@@ -1,9 +1,8 @@
-import { defineComponent, h, computed, onMounted } from 'vue'
+import { defineComponent, h, onMounted } from 'vue'
 import { useCopyable } from '@baleada/vue-composition'
 import { createSlug } from '@baleada/logic'
-// @ts-ignore
-import { HeroiconsLink } from '@baleada/vue-heroicons'
-import { toTextContent } from '../extracted'
+import { render as octiconsLink24 } from '../../node_modules/@primer/octicons/build/svg/link-24.svg' 
+import { toIconComponent, toTextContent } from '../extracted'
 import { useStore } from '../composition'
 import { toClassList } from '../extracted'
 import type { Config } from '../config'
@@ -73,7 +72,7 @@ export const createHeading = (config: Config) => defineComponent({
                 onClick: clickEffect,
               },
               [
-                h(HeroiconsLink),
+                h(OcticonsLink24),
               ]
             )]
             : []
@@ -100,3 +99,5 @@ export const createHeading = (config: Config) => defineComponent({
 })
 
 const toSlug = createSlug()
+
+const OcticonsLink24 = toIconComponent(octiconsLink24)

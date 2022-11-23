@@ -1,7 +1,6 @@
 import { defineComponent, h } from 'vue'
-// @ts-ignore
-import { HeroiconsChevronRight } from '@baleada/vue-heroicons'
-import { toClassList } from '../extracted'
+import { render as octiconsChevronRight24 } from '../../node_modules/@primer/octicons/build/svg/chevron-right-24.svg'
+import { toClassList, toIconComponent } from '../extracted'
 import type { Config } from '../config'
 
 export type CreateDetails = typeof createDetails
@@ -26,7 +25,7 @@ export const createDetails = (config: Config) => defineComponent({
         h(
           'summary',
           [
-            h(HeroiconsChevronRight),
+            h(OcticonsChevronRight24),
             h(
               'span',
               [
@@ -55,3 +54,5 @@ export const createDetails = (config: Config) => defineComponent({
     }
   }
 })
+
+const OcticonsChevronRight24 = toIconComponent(octiconsChevronRight24)
