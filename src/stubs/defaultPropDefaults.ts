@@ -45,6 +45,7 @@ export const defaultPropDefaults: {
   },
   media: {
     classes: '',
+    showsImageLabel: false,
   },
   section: {
     classes: '',

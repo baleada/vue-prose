@@ -1,5 +1,6 @@
 import { defineComponent, h } from 'vue'
 import type { PropType } from 'vue'
+import { useElementApi, useLabel } from '@baleada/vue-features'
 import { toClassList } from '../extracted'
 import { useStore } from '../composition'
 import type { Config } from '../config'
@@ -7,7 +8,8 @@ import type { Config } from '../config'
 export type CreateMedia = typeof createMedia
 
 export type MediaOptional = {
-  classes?: string
+  classes?: string,
+  showsImageLabel?: boolean,
 }
 
 export type MediaProps = MediaOptional & {
@@ -64,6 +66,10 @@ export const createMedia = (config: Config) => defineComponent({
     // lazy load
     // set src to a placeholder
 
+    // LABEL
+    const media = useElementApi()
+    const label = useLabel(media.element)
+
     return () => h(
       'section',
       {
@@ -80,9 +86,29 @@ export const createMedia = (config: Config) => defineComponent({
               tag,
               {
                 src: props.src,
-                'aria-label': props.ariaLabel,
+                ref: media.ref,
+                ...(() => {
+                  if (props.showsImageLabel && tag === 'img') {
+                    return {}
+                  }
+
+                  return {
+                    'aria-label': props.ariaLabel,
+                  }
+                })()
               },
-            )
+            ),
+            ...(() => {
+              if (props.showsImageLabel && tag === 'img') {
+                return [h(
+                  'p',
+                  { ref: label.root.ref },
+                  props.ariaLabel
+                )]
+              }
+
+              return []
+            })()
           ]
         )
       ]
@@ -104,6 +130,9 @@ export const createMedia = (config: Config) => defineComponent({
     ariaLabel: {
       type: String,
       required: true,
+    },
+    showsImageLabel: {
+      default: config.propDefaults.media.showsImageLabel,
     },
     classes: {
       default: config.propDefaults.media.classes,
