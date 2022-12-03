@@ -68,7 +68,7 @@ export const createHeading = (config: Config) => defineComponent({
             ? [h(
               'button',
               {
-                name: 'Copy link to heading',
+                'aria-label': 'Copy link to heading',
                 onClick: clickEffect,
               },
               [

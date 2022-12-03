@@ -37,7 +37,10 @@ export const createAside = (config: Config) => defineComponent({
         class: toClassList('baleada-prose-aside', `baleada-prose-aside-${props.type}`, props.classes),
       },
       [
-        ...(Icon ? [h(Icon)] : []),
+        h(
+          'div',
+          ...(Icon ? [h(Icon)] : []),
+        ),
         h(
           'section',
           {

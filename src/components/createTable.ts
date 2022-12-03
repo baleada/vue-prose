@@ -51,7 +51,7 @@ export const createTable = (config: Config) => defineComponent({
                   {
                     ref: table.queryInput.ref,
                     placeholder: messages.searchPlaceholder,
-                    name: 'Search by query',
+                    'aria-label': 'Search by query',
                     type: 'text',
                   }
                 )
@@ -69,7 +69,7 @@ export const createTable = (config: Config) => defineComponent({
                   {
                     ref: table.searchIsCaseSensitiveCheckbox.ref,
                     placeholder: messages.searchPlaceholder,
-                    name: 'Change search case sensitivity',
+                    'aria-label': 'Change search case sensitivity',
                     type: 'checkbox',
                   }
                 ),

@@ -50,7 +50,7 @@ export const createList = (config: Config) => defineComponent({
                   {
                     ref: list.queryInput.ref,
                     placeholder: messages.searchPlaceholder,
-                    name: 'Search by query',
+                    'aria-label': 'Search by query',
                     type: 'text',
                   }
                 )
@@ -68,7 +68,7 @@ export const createList = (config: Config) => defineComponent({
                   {
                     ref: list.searchIsCaseSensitiveCheckbox.ref,
                     placeholder: messages.searchPlaceholder,
-                    name: 'Change search case sensitivity',
+                    'aria-label': 'Change search case sensitivity',
                     type: 'checkbox',
                   }
                 ),

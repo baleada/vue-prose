@@ -85,30 +85,26 @@ export const createMedia = (config: Config) => defineComponent({
             h(
               tag,
               {
+                loading: 'lazy',
                 src: props.src,
                 ref: media.ref,
-                ...(() => {
-                  if (props.showsImageLabel && tag === 'img') {
-                    return {}
-                  }
-
-                  return {
-                    'aria-label': props.ariaLabel,
-                  }
-                })()
+                ...(
+                  props.showsImageLabel && tag === 'img'
+                    ? {}
+                    : {
+                      'aria-label': props.ariaLabel,
+                    }
+                ),
               },
             ),
-            ...(() => {
-              if (props.showsImageLabel && tag === 'img') {
-                return [h(
+            ...(props.showsImageLabel && tag === 'img'
+              ? [h(
                   'p',
                   { ref: label.root.ref },
                   props.ariaLabel
                 )]
-              }
-
-              return []
-            })()
+              : []
+            )
           ]
         )
       ]

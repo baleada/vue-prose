@@ -88,7 +88,7 @@ export const createCodeblock = (config: Config) => defineComponent({
             ? [h(
               'button',
               {
-                name: 'Copy code',
+                'aria-label': 'Copy code',
                 onClick: clickEffect,
               },
               [
