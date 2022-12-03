@@ -32,7 +32,6 @@ export const createList = (config: Config) => defineComponent({
               readerCanChangeSearchCaseSensitivity: props.readerCanChangeSearchCaseSensitivity,
             }
           )
-          console.log(list)
     
     return () => h(
       'section',
